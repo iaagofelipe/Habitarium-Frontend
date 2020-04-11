@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import main.java.entity.Lessor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,6 +44,7 @@ public class PrimaryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Lessor lessor = new Lessor();
         setTextFields();
     }
 
