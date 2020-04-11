@@ -4,10 +4,7 @@ package org.example;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -40,7 +37,7 @@ public class PrimaryController implements Initializable {
                 e.printStackTrace();
             }
         } else {
-            warning.setText("Usuário ou senha incorreto.");
+            alertLogin();
         }
     }
 
@@ -74,6 +71,14 @@ public class PrimaryController implements Initializable {
                 }
             }
         });
+    }
+
+    public void alertLogin(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Usuário ou senha inválida",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Erro ao logar");
+        alert.show();
     }
 }
 
