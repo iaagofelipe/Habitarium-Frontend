@@ -7,10 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import main.java.dao.LessorDAO;
-import main.java.dao.PropertyDAO;
-import main.java.entity.Lessor;
-import main.java.entity.Property;
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,9 +43,6 @@ public class PrimaryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        PropertyDAO propertyDAO = new PropertyDAO();
-        Property property = propertyDAO.findById(1L);
-        System.out.println(property.getNeighbour());
         setTextFields();
     }
 
