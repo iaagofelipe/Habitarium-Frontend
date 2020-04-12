@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Habitarium-Gitflow-Maven-1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../Habitarium-Gitflow/Habitarium-Gitflow-Maven/target/Habitarium-Gitflow-Maven-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
