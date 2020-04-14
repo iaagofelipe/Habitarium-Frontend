@@ -50,24 +50,20 @@ public class PrimaryController implements Initializable {
         passwordField.setFocusTraversable(false);
         txtFieldUsuario.requestFocus();
 
-        txtFieldUsuario.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    passwordField.requestFocus();
-                }
+        txtFieldUsuario.setOnKeyReleased(keyEvent -> {
+            KeyCode code = keyEvent.getCode();
+            if (code == KeyCode.ENTER || code == KeyCode.TAB) {
+                passwordField.requestFocus();
             }
         });
 
-        passwordField.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    if (txtFieldUsuario.getText().equals("")) {
-                        txtFieldUsuario.requestFocus();
-                    } else {
-                        switchToMain();
-                    }
+        passwordField.setOnKeyReleased(keyEvent -> {
+            KeyCode code = keyEvent.getCode();
+            if (code == KeyCode.ENTER || code == KeyCode.TAB) {
+                if (txtFieldUsuario.getText().equals("")) {
+                    txtFieldUsuario.requestFocus();
+                } else {
+                    switchToMain();
                 }
             }
         });
