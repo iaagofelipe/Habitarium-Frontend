@@ -12,34 +12,48 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class SecondaryController {
+public class MainScreenController {
 
     @FXML
     private Button registerPropertyBtn;
 
     @FXML
-    private Button rentRegister;
+    private Button registerRentBtn;
 
     @FXML
     public void registerProperty() {
-        System.out.println("Aquiiiii");
-        registerPropertyBtn.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                Parent root;
-                try {
-//                    root = FXMLLoader.load(getClass().getClassLoader().getResource("primary.fxml"), );
-                    FXMLLoader fxmlLoader = new FXMLLoader(SecondaryController.class.getResource("primary.fxml"));
-                    root = fxmlLoader.load();
-                    Stage stage = new Stage();
-                    stage.setTitle("Registro de Propriedade");
-                    stage.setScene(new Scene(root, 450, 450));
-                    stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        registerPropertyBtn.setOnAction(event -> {
+            Parent root;
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainScreenController.class.getResource(
+                        "registerPropertyScreen.fxml"));
+                root = fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Registro de Propriedade");
+                stage.setScene(new Scene(root, 450, 450));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }
 
 
+    @FXML
+    public void registerRent() {
+        registerRentBtn.setOnAction(event -> {
+            Parent root;
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainScreenController.class.getResource(
+                        "registerRentScreen.fxml"));
+                root = fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Registro de Aluguel");
+                stage.setScene(new Scene(root, 450, 450));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }

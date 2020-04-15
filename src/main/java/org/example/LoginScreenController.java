@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PrimaryController implements Initializable {
+public class LoginScreenController implements Initializable {
 
     @FXML
     public PasswordField passwordField;
