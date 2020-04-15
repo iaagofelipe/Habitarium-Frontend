@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="756.0" style="-fx-background-color: a52210;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="756.0" style="-fx-background-color: a52210;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.SecondaryController">
    <children>
       <Pane layoutX="25.0" layoutY="11.0" prefHeight="299.0" prefWidth="322.0" style="-fx-background-color: black;">
          <children>
@@ -33,7 +33,7 @@
               </columns>
             </TableView>
          </children></Pane>
-      <Button id=".button" fx:id="propertyRegister" layoutX="77.0" layoutY="388.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: ce2812; -fx-background-radius: 1em; -fx-border-color: a4200e; -fx-border-radius: 1em;" text="CADASTRAR PROPRIEDADE" textFill="WHITE">
+      <Button id=".button" fx:id="registerPropertyBtn" layoutX="77.0" layoutY="388.0" mnemonicParsing="false" onAction="#registerProperty" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: ce2812; -fx-background-radius: 1em; -fx-border-color: a4200e; -fx-border-radius: 1em;" text="CADASTRAR PROPRIEDADE" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
