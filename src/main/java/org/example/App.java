@@ -19,10 +19,10 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("loginScreen"));
         stage.setScene(scene);
-//        stage.setResizable(false);
+        stage.setResizable(false);
         stage.show();
     }
-
+// stage.setScene(new Scene(root, 450, 450));
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }

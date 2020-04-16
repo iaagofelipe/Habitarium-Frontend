@@ -3,10 +3,14 @@ package org.example;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,8 +35,17 @@ public class LoginScreenController implements Initializable {
         String user = "iago";
         String pass = "12345";
         if (txtFieldUsuario.getText().equals(user) && passwordField.getText().equals(pass)) {
+            Parent root;
             try {
-                App.setRoot("mainScreen");
+                Stage stageLogin = (Stage) login.getScene().getWindow();
+                stageLogin.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(MainScreenController.class.getResource(
+                        "mainScreen.fxml"));
+                root = fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Registro de Propriedade");
+                stage.setScene(new Scene(root));
+                stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
