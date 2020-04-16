@@ -32,7 +32,7 @@ public class LoginScreenController implements Initializable {
         String pass = "12345";
         if (txtFieldUsuario.getText().equals(user) && passwordField.getText().equals(pass)) {
             try {
-                App.setRoot("secondary");
+                App.setRoot("mainScreen");
             } catch (IOException e) {
                 e.printStackTrace();
             }
