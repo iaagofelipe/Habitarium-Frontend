@@ -1,5 +1,6 @@
-package com.habitarium;
+package com.habitarium.controller;
 
+import com.habitarium.utils.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -25,7 +26,7 @@ public class MainScreenController {
     @FXML
     public void registerProperty() {
         try {
-            ScreenUtils.switchScreen("registerPropertyScreen.fxml", "Registro de Propriedade");
+            ScreenUtils.switchScreen("registerPropertyScreen", "Registro de Propriedade");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,7 +35,7 @@ public class MainScreenController {
     @FXML
     public void registerRent() {
         try {
-            ScreenUtils.switchScreen("registerRentScreen.fxml", "Registro de Aluguel");
+            ScreenUtils.switchScreen("registerRentScreen", "Registro de Aluguel");
         } catch (IOException e) {
             e.printStackTrace();
         }

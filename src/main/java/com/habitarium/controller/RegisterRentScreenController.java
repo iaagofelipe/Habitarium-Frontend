@@ -1,4 +1,4 @@
-package com.habitarium;
+package com.habitarium.controller;
 
 public class RegisterRentScreenController {
 }

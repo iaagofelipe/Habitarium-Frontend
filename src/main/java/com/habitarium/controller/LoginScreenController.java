@@ -1,11 +1,10 @@
-package com.habitarium;
+package com.habitarium.controller;
 
 
+import com.habitarium.utils.ScreenUtils;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -37,13 +36,7 @@ public class LoginScreenController implements Initializable {
             try {
                 Stage stageLogin = (Stage) login.getScene().getWindow();
                 stageLogin.close();
-                FXMLLoader fxmlLoader = new FXMLLoader(MainScreenController.class.getResource(
-                        "mainScreen.fxml"));
-                root = fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setTitle("Registro de Propriedade");
-                stage.setScene(new Scene(root));
-                stage.show();
+                ScreenUtils.switchScreen("mainScreen", "Registro de Propriedade");
             } catch (IOException e) {
                 e.printStackTrace();
             }
