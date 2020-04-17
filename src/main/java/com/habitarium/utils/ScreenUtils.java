@@ -1,5 +1,6 @@
-package org.example;
+package com.habitarium;
 
+import com.habitarium.controller.MainScreenController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
