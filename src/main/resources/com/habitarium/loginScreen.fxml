@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="533.0" style="-fx-background-color: a52210; -fx-padding: 1em;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LoginScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="533.0" style="-fx-background-color: a52210; -fx-padding: 1em;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.habitarium.controller.LoginScreenController">
    <children>
       <Label alignment="CENTER" layoutX="135.0" layoutY="66.0" prefHeight="36.0" prefWidth="142.0" text="Usuário:" textFill="WHITE">
          <font>

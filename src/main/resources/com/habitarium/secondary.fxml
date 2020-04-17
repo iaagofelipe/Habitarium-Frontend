@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="756.0" style="-fx-background-color: a52210;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.SecondaryController">
+   <children>
+      <Pane layoutX="25.0" layoutY="11.0" prefHeight="299.0" prefWidth="322.0" style="-fx-background-color: black;">
+         <children>
+            <TableView fixedCellSize="-5.0" prefHeight="299.0" prefWidth="322.0" style="-fx-background-color: eaeae6; -fx-border-color: 681d12; -fx-border-width: .5em;">
+              <columns>
+                <TableColumn prefWidth="321.00001525878906" text="DEVEDORES" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children></Pane>
+      <Pane layoutX="406.0" layoutY="11.0" prefHeight="299.0" prefWidth="322.0" style="-fx-background-color: black;">
+         <children>
+            <TableView prefHeight="299.0" prefWidth="330.0" style="-fx-background-color: eaeae6; -fx-border-color: 681d12; -fx-border-width: .5em;">
+              <columns>
+                <TableColumn prefWidth="123.0" text="PROPRIEDADES" />
+                <TableColumn prefWidth="92.0" text="ALUGUEIS" />
+                  <TableColumn prefWidth="113.0" text="INQUILINOS" />
+              </columns>
+            </TableView>
+         </children></Pane>
+      <Button id=".button" fx:id="registerPropertyBtn" layoutX="77.0" layoutY="388.0" mnemonicParsing="false" onAction="#registerProperty" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: ce2812; -fx-background-radius: 1em; -fx-border-color: a4200e; -fx-border-radius: 1em;" text="CADASTRAR PROPRIEDADE" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/property_icon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="registerRentBtn" layoutX="458.0" layoutY="388.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="219.0" style="-fx-background-color: ce2812; -fx-background-radius: 1em; -fx-border-color: a4200e; -fx-border-radius: 1em;" text="CADASTRAR ALUGUEL" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/rent_icon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+   </children>
+</AnchorPane>
