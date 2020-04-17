@@ -1,4 +1,4 @@
-
+.idea/
 .idea/workspace.xml
 
 target/maven-archiver/pom.properties
@@ -13,3 +13,5 @@ target/classes/org/example/PrimaryController$2.class
 
 target/classes/org/example/PrimaryController$1.class
 target/
+.attach_*
+habitariumFront.iml

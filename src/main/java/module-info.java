@@ -1,6 +1,6 @@
 import javafx.fxml.Initializable;
 
-module org.example {
+module com.habitarium {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
@@ -11,6 +11,8 @@ module org.example {
 
     uses Initializable;
 
-    opens org.example to javafx.fxml;
-    exports org.example;
+    opens com.habitarium to javafx.fxml;
+    opens com.habitarium.controller to javafx.fxml;
+    opens com.habitarium.utils to javafx.fxml;
+    exports com.habitarium;
 }

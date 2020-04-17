@@ -1,18 +1,19 @@
-package org.example;
+package com.habitarium.controller;
 
 
-import javafx.event.EventHandler;
+import com.habitarium.utils.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PrimaryController implements Initializable {
+public class LoginScreenController implements Initializable {
 
     @FXML
     public PasswordField passwordField;
@@ -31,8 +32,11 @@ public class PrimaryController implements Initializable {
         String user = "iago";
         String pass = "12345";
         if (txtFieldUsuario.getText().equals(user) && passwordField.getText().equals(pass)) {
+            Parent root;
             try {
-                App.setRoot("secondary");
+                Stage stageLogin = (Stage) login.getScene().getWindow();
+                stageLogin.close();
+                ScreenUtils.switchScreen("mainScreen", "Registro de Propriedade");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -50,24 +54,20 @@ public class PrimaryController implements Initializable {
         passwordField.setFocusTraversable(false);
         txtFieldUsuario.requestFocus();
 
-        txtFieldUsuario.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    passwordField.requestFocus();
-                }
+        txtFieldUsuario.setOnKeyReleased(keyEvent -> {
+            KeyCode code = keyEvent.getCode();
+            if (code == KeyCode.ENTER || code == KeyCode.TAB) {
+                passwordField.requestFocus();
             }
         });
 
-        passwordField.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    if (txtFieldUsuario.getText().equals("")) {
-                        txtFieldUsuario.requestFocus();
-                    } else {
-                        switchToMain();
-                    }
+        passwordField.setOnKeyReleased(keyEvent -> {
+            KeyCode code = keyEvent.getCode();
+            if (code == KeyCode.ENTER || code == KeyCode.TAB) {
+                if (txtFieldUsuario.getText().equals("")) {
+                    txtFieldUsuario.requestFocus();
+                } else {
+                    switchToMain();
                 }
             }
         });
