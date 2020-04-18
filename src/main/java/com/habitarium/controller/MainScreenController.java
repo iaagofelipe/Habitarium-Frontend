@@ -8,9 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import main.java.controller.RentController;
+import main.java.dao.RentDAO;
+import main.java.entity.Rent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
@@ -54,6 +58,7 @@ public class MainScreenController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setTableView();
+        loadRentDebtorsInTableView();
     }
 
     public void setTableView() {
@@ -68,6 +73,13 @@ public class MainScreenController implements Initializable {
 
     public void addRowtabViewDebtors(String name, int day, Long id){
         debtorsTableViewObservableList.add(new DebtorsTableView(name, day, id));
+    }
+
+    public void loadRentDebtorsInTableView(){
+        List<Rent> rentList = RentController.checkIfYouPaid();
+        for (Rent rent : rentList){
+            addRowtabViewDebtors(rent.getLessor().getName(), rent.getPayDay(), rent.getId());
+        }
     }
 
     public void searchProperty() {
