@@ -51,6 +51,25 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setTableView();
+    }
+
+    public void setTableView() {
+        tabColName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        tabColDate.setCellValueFactory(cellData -> cellData.getValue().dayProperty());
+        tabViewDebtors.setItems(getPersonData());
+    }
+
+    public ObservableList<DebtorsTableView> getPersonData() {
+        return debtorsTableViewObservableList;
+    }
+
+    public void addRowtabViewDebtors(String name, int day, Long id){
+        debtorsTableViewObservableList.add(new DebtorsTableView(name, day, id));
+    }
+
     public void searchProperty() {
     }
 
@@ -58,20 +77,6 @@ public class MainScreenController implements Initializable {
     }
 
     public void searchLessor() {
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        setTableView();
-    }
-
-    public ObservableList<DebtorsTableView> getPersonData() {
-        return debtorsTableViewObservableList;
-    }
-
-    public void setTableView() {
-        tabColName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        tabColDate.setCellValueFactory(cellData -> cellData.getValue().dayProperty());
     }
 
 }
