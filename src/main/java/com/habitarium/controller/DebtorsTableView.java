@@ -1,16 +1,19 @@
 package com.habitarium.controller;
 
-import javafx.beans.property.*;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class DebtorsTableView {
 
     private final StringProperty name;
-    private final IntegerProperty day;
+    private final StringProperty date;
     private final LongProperty idRent;
 
-    public DebtorsTableView(String name, int day, Long idRent) {
+    public DebtorsTableView(String name, String date, Long idRent) {
         this.name = new SimpleStringProperty(name);
-        this.day = new SimpleIntegerProperty(day);
+        this.date = new SimpleStringProperty(date);
         this.idRent = new SimpleLongProperty(idRent);
     }
 
@@ -26,16 +29,16 @@ public class DebtorsTableView {
         this.name.set(name);
     }
 
-    public int getDay() {
-        return day.get();
+    public String getDate() {
+        return date.get();
     }
 
-    public IntegerProperty dayProperty() {
-        return day;
+    public StringProperty dateProperty() {
+        return date;
     }
 
-    public void setDay(int day) {
-        this.day.set(day);
+    public void setDate(String date) {
+        this.date.set(date);
     }
 
     public long getIdRent() {
