@@ -36,10 +36,11 @@
          </graphic></Button>
       <HBox layoutX="14.0" layoutY="14.0" prefHeight="342.0" prefWidth="720.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
          <children>
-            <TableView fixedCellSize="-5.0" prefHeight="342.0" prefWidth="360.0" style="-fx-background-color: eaeae6; -fx-border-color: 681d12; -fx-border-width: .5em;">
+            <TableView fx:id="tabViewDebtors" fixedCellSize="-5.0" prefHeight="342.0" prefWidth="360.0" style="-fx-background-color: eaeae6; -fx-border-color: 681d12; -fx-border-width: .5em;">
               <columns>
-                <TableColumn prefWidth="321.00001525878906" text="DEVEDORES" />
-              </columns>
+                <TableColumn fx:id="tabColName" prefWidth="321.00001525878906" text="Nome" />
+                 <TableColumn fx:id="tabColDate" prefWidth="321.00001525878906" text="Data" minWidth="100" maxWidth="100"/>
+               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
