@@ -6,6 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import main.java.dao.PropertyDAO;
+import main.java.entity.Property;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,31 +21,42 @@ public class RegisterPropertyScreenController implements Initializable {
     @FXML
     private TextField txtNumber;
     @FXML
-    private TextField txtNeighbourneighbour;
+    private TextField txtNeighbour;
     @FXML
     private TextField txtCity;
     @FXML
     private TextField txtCondo;
     @FXML
-    private TextField txtApartmentapartment;
+    private TextField txtApartment;
     @FXML
-    private TextField txtBlockCondoblockCondo;
+    private TextField txtBlockCondo;
     @FXML
     private Button btnSave;
+    Property property;
 
     @FXML
     void save() {
         if (checkPadding()) {
-            System.out.println("true");
+            property = new Property();
+            property.setBlockCondo(txtBlockCondo.getText().trim());
+            property.setCity(txtCity.getText().trim());
+            property.setCondo(txtCondo.getText().trim());
+            property.setNeighbour(txtNeighbour.getText().trim());
+            property.setPropertyNumber(txtNumber.getText().trim());
+            property.setStreet(txtStreet.getText().trim());
+            property.setApartment(txtApartment.getText().trim());
+            PropertyDAO propertyDAO = new PropertyDAO();
+            property = propertyDAO.save(property);
+            saveSucess();
         } else {
-            alertLogin();
+            alertPadding();
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setChooseTypeProperty();
-        setTextField();
+        disableextField();
     }
 
     public void setChooseTypeProperty() {
@@ -55,36 +68,48 @@ public class RegisterPropertyScreenController implements Initializable {
             public void changed(ObservableValue ov, Number value, Number new_value) {
                 if (new_value.intValue() == 0) {
                     txtCity.setDisable(false);
-                    txtNeighbourneighbour.setDisable(false);
+                    txtNeighbour.setDisable(false);
                     txtNumber.setDisable(false);
                     txtStreet.setDisable(false);
-                    txtApartmentapartment.setDisable(false);
+                    txtApartment.setDisable(false);
                     txtCondo.setDisable(false);
-                    txtBlockCondoblockCondo.setDisable(false);
+                    txtBlockCondo.setDisable(false);
                 } else if (new_value.intValue() == 1) {
-                    txtApartmentapartment.setDisable(true);
+                    txtApartment.setDisable(true);
                     txtCondo.setDisable(true);
-                    txtBlockCondoblockCondo.setDisable(true);
+                    txtBlockCondo.setDisable(true);
                     txtCity.setDisable(false);
-                    txtNeighbourneighbour.setDisable(false);
+                    txtNeighbour.setDisable(false);
                     txtNumber.setDisable(false);
                     txtStreet.setDisable(false);
+                    txtCondo.setText("");
+                    txtBlockCondo.setText("");
+                    txtApartment.setText("");
+                } else if (new_value.intValue() == 2) {
+                    txtCity.setDisable(false);
+                    txtNeighbour.setDisable(false);
+                    txtNumber.setDisable(false);
+                    txtStreet.setDisable(false);
+                    txtApartment.setDisable(true);
+                    txtCondo.setDisable(false);
+                    txtBlockCondo.setDisable(false);
+                    txtApartment.setText("");
                 }
             }
         });
     }
 
     public boolean checkPadding() {
-        boolean isApartment = !txtApartmentapartment.getText().trim().equals("") && !txtCondo.getText().trim().equals("")
-                && !txtBlockCondoblockCondo.getText().trim().equals("") && !txtCity.getText().trim().equals("")
-                && !txtNeighbourneighbour.getText().trim().equals("") && !txtNumber.getText().trim().equals("")
+        boolean isApartment = !txtApartment.getText().trim().equals("") && !txtCondo.getText().trim().equals("")
+                && !txtBlockCondo.getText().trim().equals("") && !txtCity.getText().trim().equals("")
+                && !txtNeighbour.getText().trim().equals("") && !txtNumber.getText().trim().equals("")
                 && !txtStreet.getText().trim().equals("") && chooseTypeProperty.getSelectionModel().getSelectedIndex() == 0;
         boolean isHouse = !txtCity.getText().trim().equals("")
-                && !txtNeighbourneighbour.getText().trim().equals("") && !txtNumber.getText().trim().equals("")
+                && !txtNeighbour.getText().trim().equals("") && !txtNumber.getText().trim().equals("")
                 && !txtStreet.getText().trim().equals("") && chooseTypeProperty.getSelectionModel().getSelectedIndex() == 1;
         boolean isCondo = !txtCondo.getText().trim().equals("")
-                && !txtBlockCondoblockCondo.getText().trim().equals("") && !txtCity.getText().trim().equals("")
-                && !txtNeighbourneighbour.getText().trim().equals("") && !txtNumber.getText().trim().equals("")
+                && !txtBlockCondo.getText().trim().equals("") && !txtCity.getText().trim().equals("")
+                && !txtNeighbour.getText().trim().equals("") && !txtNumber.getText().trim().equals("")
                 && !txtStreet.getText().trim().equals("") && chooseTypeProperty.getSelectionModel().getSelectedIndex() == 2;
 
         if (isApartment || isHouse || isCondo) {
@@ -95,21 +120,29 @@ public class RegisterPropertyScreenController implements Initializable {
         }
     }
 
-    public void setTextField() {
-        txtApartmentapartment.setDisable(true);
+    public void disableextField() {
+        txtApartment.setDisable(true);
         txtCondo.setDisable(true);
-        txtBlockCondoblockCondo.setDisable(true);
+        txtBlockCondo.setDisable(true);
         txtCity.setDisable(true);
-        txtNeighbourneighbour.setDisable(true);
+        txtNeighbour.setDisable(true);
         txtNumber.setDisable(true);
         txtStreet.setDisable(true);
     }
 
-    public void alertLogin() {
+    public void alertPadding() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Há campos em branco",
                 ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("Erro ao preencher");
+        alert.show();
+    }
+
+    public void saveSucess() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Id da propriedade = " + property.getId(),
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Salvo com sucesso");
         alert.show();
     }
 }
