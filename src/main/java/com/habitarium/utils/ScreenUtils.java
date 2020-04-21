@@ -20,6 +20,7 @@ public class ScreenUtils {
         Stage stage = new Stage();
         stage.setTitle(title);
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.show();
     }
 }
