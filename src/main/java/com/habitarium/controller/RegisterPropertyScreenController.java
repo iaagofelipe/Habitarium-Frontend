@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import main.java.dao.PropertyDAO;
 import main.java.entity.Property;
 
@@ -48,6 +49,8 @@ public class RegisterPropertyScreenController implements Initializable {
             PropertyDAO propertyDAO = new PropertyDAO();
             property = propertyDAO.save(property);
             saveSucess();
+            Stage stage = (Stage) btnSave.getScene().getWindow();
+            stage.close();
         } else {
             alertPadding();
         }
@@ -66,6 +69,7 @@ public class RegisterPropertyScreenController implements Initializable {
 
         chooseTypeProperty.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue ov, Number value, Number new_value) {
+                System.out.println("ALTERADO");
                 if (new_value.intValue() == 0) {
                     txtCity.setDisable(false);
                     txtNeighbour.setDisable(false);
@@ -139,10 +143,10 @@ public class RegisterPropertyScreenController implements Initializable {
     }
 
     public void saveSucess() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Id da propriedade = " + property.getId(),
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "",
                 ButtonType.OK);
         alert.setTitle("");
-        alert.setHeaderText("Salvo com sucesso");
+        alert.setHeaderText("Propriedade salva com sucesso!");
         alert.show();
     }
 }
