@@ -1,5 +1,7 @@
 package com.habitarium.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -7,11 +9,12 @@ import javafx.stage.Stage;
 import main.java.dao.LessorDAO;
 import main.java.dao.RentDAO;
 import main.java.entity.Lessor;
-import main.java.entity.Property;
 import main.java.entity.Rent;
 import main.java.enuns.Gender;
 
 import java.net.URL;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class RegisterRentScreenController implements Initializable {
@@ -40,10 +43,10 @@ public class RegisterRentScreenController implements Initializable {
     private ComboBox<String> chooseProperty;
 
     @FXML
-    private TextField txtValorAluguel;
+    private TextField txtRentValue;
 
     @FXML
-    private Spinner<Integer> ChoosePayDay;
+    private Spinner<Integer> choosePayDay;
 
     @FXML
     private DatePicker chooseEntranceDate;
@@ -61,25 +64,40 @@ public class RegisterRentScreenController implements Initializable {
 
     @FXML
     void save() {
-        if (checkTxtPadding()) {
-            rent = new Rent();
-            lessor = new Lessor();
-            lessor.setName(txtName.getText().trim());
-            lessor.setCpf(txtCpf.getText().trim());
-            lessor.setRg(txtRg.getText().trim());
-            lessor.setTelOne(txtTel1.getText().trim());
-            lessor.setTelTwo((txtTel2.getText().trim()));
-            LessorDAO lessorDAO = new LessorDAO();
-            lessor = lessorDAO.save(lessor);
+        rent = new Rent();
+        lessor = new Lessor();
+        if (checkTxtPadding() && checkDateEnumPadding()) {
+            if (!isRgValid(txtRg.getText().trim())) {
+                alertRgInvalid();
+            } else if (!isCpfValid(txtCpf.getText().trim())) {
+               alertCpfInvalid();
+            } else {
+                lessor.setName(txtName.getText().trim());
+                lessor.setCpf(txtCpf.getText().trim());
+                lessor.setRg(txtRg.getText().trim());
+                lessor.setTelOne(txtTel1.getText().trim());
+                lessor.setTelTwo((txtTel2.getText().trim()));
+                LessorDAO lessorDAO = new LessorDAO();
+                lessor = lessorDAO.save(lessor);
 
-            //Isso ainda é necessário implementar as datas, que não consegui
-            rent.setValue(Float.parseFloat(txtValorAluguel.getText().trim()));
-            RentDAO rentDAO = new RentDAO();
-            rent = rentDAO.save(rent);
+                rent.setValue(Float.parseFloat(txtRentValue.getText().trim()));
+                Date entranceDate = Date.from(chooseEntranceDate.getValue()
+                        .atStartOfDay(ZoneId.systemDefault()).toInstant());
+                Date exitDate = Date.from(chooseExitDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                Date readjustmentDate = Date.from(chooseReadjustment.getValue()
+                        .atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-            saveSucess();
-            Stage stage = (Stage) rentBtnSave.getScene().getWindow();
-            stage.close();
+                rent.setEntranceDate(entranceDate);
+                rent.setExitDate(exitDate);
+                rent.setReadjustmentDate(readjustmentDate);
+                rent.setPayDay(choosePayDay.getValue());
+                RentDAO rentDAO = new RentDAO();
+                rent = rentDAO.save(rent);
+
+                saveSucess();
+                Stage stage = (Stage) rentBtnSave.getScene().getWindow();
+                stage.close();
+            }
         } else {
             alertPadding();
         }
@@ -88,27 +106,37 @@ public class RegisterRentScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("passei por aqui");
         setSpinner();
+        setComboBox();
     }
-    void setSpinner(){
-        Spinner<Integer> spinner = new Spinner<>();
+
+    private void setSpinner(){
         int initialValue = 5;
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, initialValue);
-        spinner.setValueFactory(valueFactory);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31,
+                initialValue);
+        choosePayDay.setValueFactory(valueFactory);
+    }
+
+    private void setComboBox() {
+        ObservableList<Gender> list = FXCollections.observableArrayList(Gender.MALE, Gender.FEMALE, Gender.OTHERS);
+        chooseGender.setItems(FXCollections.observableList(list));
     }
 
     public boolean checkTxtPadding() {
         boolean registerLessor = !txtName.getText().trim().equals("") && !txtCpf.getText().trim().equals("")
                 && !txtRg.getText().trim().equals("") && !txtTel1.getText().trim().equals("")
                 && !txtTel2.getText().trim().equals("");
-        boolean registerRent = !txtValorAluguel.getText().trim().equals("");
-        return registerLessor;
+        boolean registerRent = !txtRentValue.getText().trim().equals("");
+        return registerLessor && registerRent;
     }
 
-//    public boolean checkDate_EnumPadding() {
-//        boolean date_and_enum = chooseBornDate.get
-//    }
+    public boolean checkDateEnumPadding() {
+        if (chooseBornDate.getValue() != null && chooseEntranceDate.getValue() != null &&
+                chooseExitDate.getValue() != null && chooseReadjustment.getValue() != null &&
+                chooseGender.getSelectionModel().getSelectedIndex() != -1)
+            return true;
+        return false;
+    }
 
     private void alertPadding() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Há campos em branco",
@@ -117,11 +145,36 @@ public class RegisterRentScreenController implements Initializable {
         alert.setHeaderText("Erro ao preencher");
         alert.show();
     }
+
+    private void alertCpfInvalid() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Formato do CPF inválido",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Erro de CPF");
+        alert.show();
+    }
+
+    private void alertRgInvalid() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Formato do RG inválido",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Erro de RG");
+        alert.show();
+    }
+
     public void saveSucess() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "",
                 ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("salvo com sucesso!");
         alert.show();
+    }
+
+    private boolean isCpfValid(String cpf) {
+        return cpf.matches("/^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$/");
+    }
+
+    private boolean isRgValid(String rg) {
+        return rg.matches("[0-9](\\.[0-9]{3}){2}-[0-9]");
     }
 }
