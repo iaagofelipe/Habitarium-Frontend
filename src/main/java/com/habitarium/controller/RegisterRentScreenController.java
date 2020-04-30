@@ -14,6 +14,7 @@ import main.java.enuns.Gender;
 
 import java.net.URL;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -112,8 +113,8 @@ public class RegisterRentScreenController implements Initializable {
 
     private void setSpinner(){
         int initialValue = 5;
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31,
-                initialValue);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.
+                IntegerSpinnerValueFactory(1, lastDayCurrentMonth(), initialValue);
         choosePayDay.setValueFactory(valueFactory);
     }
 
@@ -168,6 +169,12 @@ public class RegisterRentScreenController implements Initializable {
         alert.setTitle("");
         alert.setHeaderText("salvo com sucesso!");
         alert.show();
+    }
+
+    public int lastDayCurrentMonth(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
     private boolean isCpfValid(String cpf) {
