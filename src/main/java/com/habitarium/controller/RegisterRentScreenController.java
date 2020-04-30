@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import main.java.dao.LessorDAO;
 import main.java.dao.RentDAO;
 import main.java.entity.Lessor;
 import main.java.entity.Rent;
@@ -19,47 +18,36 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class RegisterRentScreenController implements Initializable {
+
     @FXML
     private TextField txtName;
-
     @FXML
-    private DatePicker chooseBornDate;
-
+    private DatePicker datePBorn;
     @FXML
     private TextField txtCpf;
-
     @FXML
     private TextField txtRg;
-
     @FXML
     private TextField txtTel1;
-
     @FXML
     private TextField txtTel2;
-
     @FXML
-    private ComboBox<Gender> chooseGender;
-
+    private ComboBox<Gender> cbGender;
     @FXML
-    private ComboBox<String> chooseProperty;
-
+    private ComboBox<String> cbProperty;
     @FXML
     private TextField txtRentValue;
-
     @FXML
-    private Spinner<Integer> choosePayDay;
-
+    private Spinner<Integer> spPayDay;
     @FXML
-    private DatePicker chooseEntranceDate;
-
+    private DatePicker datePEntrance;
     @FXML
-    private DatePicker chooseExitDate;
-
+    private DatePicker datePExit;
     @FXML
-    private DatePicker chooseReadjustment;
-
+    private DatePicker datePReadjustment;
     @FXML
-    private Button rentBtnSave;
+    private Button btnSave;
+
     Rent rent;
     Lessor lessor;
 
@@ -68,41 +56,42 @@ public class RegisterRentScreenController implements Initializable {
         rent = new Rent();
         lessor = new Lessor();
         if (checkTxtPadding() && checkDateEnumPadding()) {
-            if (!isRgValid(txtRg.getText().trim())) {
+            if (false) {
                 alertRgInvalid();
-            } else if (!isCpfValid(txtCpf.getText().trim())) {
-               alertCpfInvalid();
+            } else if (false) {
+                alertCpfInvalid();
             } else {
                 lessor.setName(txtName.getText().trim());
                 lessor.setCpf(txtCpf.getText().trim());
                 lessor.setRg(txtRg.getText().trim());
                 lessor.setTelOne(txtTel1.getText().trim());
                 lessor.setTelTwo((txtTel2.getText().trim()));
-                LessorDAO lessorDAO = new LessorDAO();
-                lessor = lessorDAO.save(lessor);
+                lessor.setGender(cbGender.getValue());
+
+                Date entranceDate = Date.from(datePEntrance.getValue()
+                        .atStartOfDay(ZoneId.systemDefault()).toInstant());
+                Date exitDate = Date.from(datePExit.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                Date readjustmentDate = Date.from(datePReadjustment.getValue()
+                        .atStartOfDay(ZoneId.systemDefault()).toInstant());
 
                 rent.setValue(Float.parseFloat(txtRentValue.getText().trim()));
-                Date entranceDate = Date.from(chooseEntranceDate.getValue()
-                        .atStartOfDay(ZoneId.systemDefault()).toInstant());
-                Date exitDate = Date.from(chooseExitDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-                Date readjustmentDate = Date.from(chooseReadjustment.getValue()
-                        .atStartOfDay(ZoneId.systemDefault()).toInstant());
-
                 rent.setEntranceDate(entranceDate);
                 rent.setExitDate(exitDate);
                 rent.setReadjustmentDate(readjustmentDate);
-                rent.setPayDay(choosePayDay.getValue());
+                rent.setPayDay(spPayDay.getValue());
+                lessor.setRent(rent);
+                rent.setLessor(lessor);
+
                 RentDAO rentDAO = new RentDAO();
                 rent = rentDAO.save(rent);
 
                 saveSucess();
-                Stage stage = (Stage) rentBtnSave.getScene().getWindow();
+                Stage stage = (Stage) btnSave.getScene().getWindow();
                 stage.close();
             }
         } else {
             alertPadding();
         }
-
     }
 
     @Override
@@ -111,16 +100,16 @@ public class RegisterRentScreenController implements Initializable {
         setComboBox();
     }
 
-    private void setSpinner(){
+    private void setSpinner() {
         int initialValue = 5;
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.
                 IntegerSpinnerValueFactory(1, lastDayCurrentMonth(), initialValue);
-        choosePayDay.setValueFactory(valueFactory);
+        spPayDay.setValueFactory(valueFactory);
     }
 
     private void setComboBox() {
         ObservableList<Gender> list = FXCollections.observableArrayList(Gender.MALE, Gender.FEMALE, Gender.OTHERS);
-        chooseGender.setItems(FXCollections.observableList(list));
+        cbGender.setItems(FXCollections.observableList(list));
     }
 
     public boolean checkTxtPadding() {
@@ -132,24 +121,24 @@ public class RegisterRentScreenController implements Initializable {
     }
 
     public boolean checkDateEnumPadding() {
-        if (chooseBornDate.getValue() != null && chooseEntranceDate.getValue() != null &&
-                chooseExitDate.getValue() != null && chooseReadjustment.getValue() != null &&
-                chooseGender.getSelectionModel().getSelectedIndex() != -1)
+        if (datePBorn.getValue() != null && datePEntrance.getValue() != null &&
+                datePExit.getValue() != null && datePReadjustment.getValue() != null &&
+                cbGender.getSelectionModel().getSelectedIndex() != -1) {
             return true;
-        return false;
+        } else {
+            return false;
+        }
     }
 
     private void alertPadding() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Há campos em branco",
-                ButtonType.OK);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Há campos em branco", ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("Erro ao preencher");
         alert.show();
     }
 
     private void alertCpfInvalid() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Formato do CPF inválido",
-                ButtonType.OK);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Formato do CPF inválido", ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("Erro de CPF");
         alert.show();
@@ -171,7 +160,7 @@ public class RegisterRentScreenController implements Initializable {
         alert.show();
     }
 
-    public int lastDayCurrentMonth(){
+    public int lastDayCurrentMonth() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);

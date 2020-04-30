@@ -100,7 +100,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <DatePicker fx:id="chooseBornDate" cache="true" cacheHint="QUALITY" depthTest="ENABLE" editable="false" layoutX="10.0" layoutY="150.0" prefHeight="0.0" prefWidth="180.0" promptText="__/__/____" showWeekNumbers="true" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                  <DatePicker fx:id="datePBorn" cache="true" cacheHint="QUALITY" depthTest="ENABLE" editable="false" layoutX="10.0" layoutY="150.0" prefHeight="0.0" prefWidth="180.0" promptText="__/__/____" showWeekNumbers="true" style="-fx-background-color: white; -fx-background-radius: 5px;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -125,7 +125,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <ComboBox fx:id="chooseGender" layoutX="10.0" layoutY="405.0" prefHeight="0.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                  <ComboBox fx:id="cbGender" layoutX="10.0" layoutY="405.0" prefHeight="0.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -142,7 +142,7 @@
                         <Font name="Arial Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="chooseProperty" layoutX="10.0" layoutY="83.0" prefHeight="0.0" prefWidth="310.0" promptText="Selecione a Propriedade" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                  <ComboBox fx:id="cbProperty" layoutX="10.0" layoutY="83.0" prefHeight="0.0" prefWidth="310.0" promptText="Selecione a Propriedade" style="-fx-background-color: white; -fx-background-radius: 5px;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -192,27 +192,27 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <Spinner fx:id="choosePayDay" layoutX="188.0" layoutY="149.0" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                  <Spinner fx:id="spPayDay" layoutX="188.0" layoutY="149.0" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Spinner>
-                  <DatePicker fx:id="chooseEntranceDate" layoutX="10.0" layoutY="213.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                  <DatePicker fx:id="datePEntrance" layoutX="10.0" layoutY="213.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" style="-fx-background-color: white; -fx-background-radius: 5px;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </DatePicker>
-                  <DatePicker fx:id="chooseExitDate" layoutX="188.0" layoutY="213.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                  <DatePicker fx:id="datePExit" layoutX="188.0" layoutY="213.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" style="-fx-background-color: white; -fx-background-radius: 5px;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </DatePicker>
-                  <DatePicker fx:id="chooseReadjustment" layoutX="10.0" layoutY="277.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                  <DatePicker fx:id="datePReadjustment" layoutX="10.0" layoutY="277.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" style="-fx-background-color: white; -fx-background-radius: 5px;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </DatePicker>
-                  <Button fx:id="rentBtnSave" layoutX="94.0" layoutY="375.0" mnemonicParsing="false" onAction="#save" prefHeight="60.0" prefWidth="143.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;" text="Salvar" textFill="WHITE">
+                  <Button fx:id="btnSave" layoutX="94.0" layoutY="375.0" mnemonicParsing="false" onAction="#save" prefHeight="60.0" prefWidth="143.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;" text="Salvar" textFill="WHITE">
                      <padding>
                         <Insets bottom="10.0" />
                      </padding>
