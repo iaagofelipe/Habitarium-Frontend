@@ -17,4 +17,10 @@ public class DateUtil {
 
         return dateStr;
     }
+
+    public static int lastDayCurrentMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
 }
