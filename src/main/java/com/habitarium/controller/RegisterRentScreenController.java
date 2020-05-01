@@ -14,6 +14,7 @@ import main.java.entity.Lessor;
 import main.java.entity.Rent;
 import main.java.enuns.Gender;
 
+import java.awt.event.KeyAdapter;
 import java.net.URL;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -54,10 +55,10 @@ public class RegisterRentScreenController implements Initializable {
     Rent rent;
     Lessor lessor;
     private final String PATTERN_MATCHES_NUMBERS = "[0-9]";
-    private final String PATTERN_MATCHES_CPF = "[0-9.-]";
+    private final String PATTERN_MATCHES_CPF = "[0-9]";
     private final int TEL_LENGTH = 11;
     private final int RG_LENGTH = 9;
-    private final int CPF_LENGTH = 11;
+    private final int CPF_LENGTH = 14;
 
     @FXML
     void save() {
@@ -206,6 +207,12 @@ public class RegisterRentScreenController implements Initializable {
         txtCpf.textProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue.length() > CPF_LENGTH) {
                 txtCpf.setText(oldValue);
+            }
+            if ((newValue.length() == 3 && oldValue.length() <= 3) || (newValue.length() == 7 && oldValue.length() <= 7)) {
+                txtCpf.setText(oldValue + ".");
+            }
+            if (newValue.length() == 11 && oldValue.length() <= 11) {
+                txtCpf.setText(oldValue + "-");
             }
         });
     }
