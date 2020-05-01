@@ -2,9 +2,12 @@ package com.habitarium.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.dao.RentDAO;
 import main.java.entity.Lessor;
@@ -50,6 +53,11 @@ public class RegisterRentScreenController implements Initializable {
 
     Rent rent;
     Lessor lessor;
+    private final String PATTERN_MATCHES_NUMBERS = "[0-9]";
+    private final String PATTERN_MATCHES_CPF = "[0-9.-]";
+    private final int TEL_LENGTH = 11;
+    private final int RG_LENGTH = 9;
+    private final int CPF_LENGTH = 11;
 
     @FXML
     void save() {
@@ -96,6 +104,9 @@ public class RegisterRentScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setPhoneTextInput();
+        setRGTextInput();
+        setCPFTextInput();
         setSpinner();
         setComboBox();
     }
@@ -166,11 +177,45 @@ public class RegisterRentScreenController implements Initializable {
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
-    private boolean isCpfValid(String cpf) {
-        return cpf.matches("/^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$/");
+    private void setPhoneTextInput() {
+        txtTel1.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_NUMBERS));
+        txtTel1.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > TEL_LENGTH) {
+                txtTel1.setText(oldValue);
+            }
+        });
+        txtTel2.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_NUMBERS));
+        txtTel2.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > TEL_LENGTH) {
+                txtTel2.setText(oldValue);
+            }
+        });
     }
 
-    private boolean isRgValid(String rg) {
-        return rg.matches("[0-9](\\.[0-9]{3}){2}-[0-9]");
+    private void setRGTextInput() {
+        txtRg.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_NUMBERS));
+        txtRg.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > RG_LENGTH) {
+                txtRg.setText(oldValue);
+            }
+        });
+    }
+
+    private void setCPFTextInput() {
+        txtCpf.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_CPF));
+        txtCpf.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > CPF_LENGTH) {
+                txtCpf.setText(oldValue);
+            }
+        });
+    }
+
+    public static EventHandler<KeyEvent> getPatternValidation(String pattern) {
+        return e -> {
+            String typed = e.getCharacter();
+            if (!typed.matches(pattern)) {
+                e.consume();
+            }
+        };
     }
 }
