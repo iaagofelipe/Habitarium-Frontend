@@ -110,7 +110,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <TextField fx:id="txtRg" layoutX="10.0" layoutY="277.0" prefHeight="26.0" prefWidth="180.0" promptText="_________-__" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-border-color: #8c1b0d; -fx-border-radius: 5px;">
+                  <TextField fx:id="txtRg" layoutX="10.0" layoutY="277.0" prefHeight="26.0" prefWidth="180.0" promptText="_________-_" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-border-color: #8c1b0d; -fx-border-radius: 5px;">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
