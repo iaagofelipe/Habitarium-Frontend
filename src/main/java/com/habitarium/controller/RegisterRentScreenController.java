@@ -52,6 +52,8 @@ public class RegisterRentScreenController implements Initializable {
 
     private final String PATTERN_MATCHES_NUMBERS = "[0-9]";
     private final String PATTERN_MATCHES_CPF = "[0-9]";
+    private final String PATTERN_MATCHES_RENT_VALUE = "[0-9.]";
+    private final int RENT_VALUE_LENGTH = 10;
     private final int TEL_LENGTH = 11;
     private final int RG_LENGTH = 12;
     private final int CPF_LENGTH = 14;
@@ -106,6 +108,7 @@ public class RegisterRentScreenController implements Initializable {
         setCPFTextInput();
         setSpinner();
         setComboBox();
+        setTxtRentValue();
     }
 
     private void setSpinner() {
@@ -129,13 +132,9 @@ public class RegisterRentScreenController implements Initializable {
     }
 
     public boolean checkDateEnumPadding() {
-        if (datePBorn.getValue() != null && datePEntrance.getValue() != null &&
+        return (datePBorn.getValue() != null && datePEntrance.getValue() != null &&
                 datePExit.getValue() != null && datePReadjustment.getValue() != null &&
-                cbGender.getSelectionModel().getSelectedIndex() != -1) {
-            return true;
-        } else {
-            return false;
-        }
+                cbGender.getSelectionModel().getSelectedIndex() != -1);
     }
 
     private void alertPadding() {
@@ -207,6 +206,15 @@ public class RegisterRentScreenController implements Initializable {
             }
             if (newValue.length() == 11 && oldValue.length() <= 11) {
                 txtCpf.setText(oldValue + "-");
+            }
+        });
+    }
+
+    private void setTxtRentValue() {
+        txtRentValue.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_RENT_VALUE));
+        txtRentValue.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > RENT_VALUE_LENGTH) {
+                txtRentValue.setText(oldValue);
             }
         });
     }
