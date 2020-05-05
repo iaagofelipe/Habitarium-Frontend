@@ -52,7 +52,7 @@ public class RegisterRentScreenController implements Initializable {
 
     private final String PATTERN_MATCHES_NUMBERS = "[0-9]";
     private final String PATTERN_MATCHES_CPF = "[0-9]";
-    private final String PATTERN_MATCHES_RENT_VALUE = "[0-9.]";
+    private final String PATTERN_MATCHES_RENT_VALUE = "[0-9,]";
     private final int RENT_VALUE_LENGTH = 10;
     private final int TEL_LENGTH = 11;
     private final int RG_LENGTH = 12;
@@ -81,7 +81,9 @@ public class RegisterRentScreenController implements Initializable {
                 Date readjustmentDate = Date.from(datePReadjustment.getValue()
                         .atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-                rent.setValue(Float.parseFloat(txtRentValue.getText().trim()));
+                String txtRentValue_replacement = txtRentValue.getText().trim().replaceAll(",", ".");
+
+                rent.setValue(Float.parseFloat(txtRentValue_replacement));
                 rent.setEntranceDate(entranceDate);
                 rent.setExitDate(exitDate);
                 rent.setReadjustmentDate(readjustmentDate);
