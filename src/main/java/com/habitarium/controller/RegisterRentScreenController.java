@@ -51,6 +51,7 @@ public class RegisterRentScreenController implements Initializable {
     private Button btnSave;
 
     private final String PATTERN_MATCHES_NUMBERS = "[0-9]";
+    private final String PATTERN_MATCHES_RG = "[0-9]";
     private final String PATTERN_MATCHES_CPF = "[0-9]";
     private final String PATTERN_MATCHES_RENT_VALUE = "[0-9,]";
     private final int RENT_VALUE_LENGTH = 10;
@@ -58,23 +59,29 @@ public class RegisterRentScreenController implements Initializable {
     private final int RG_LENGTH = 12;
     private final int CPF_LENGTH = 14;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setPhoneTextInput();
+        setRGTextInput();
+        setCPFTextInput();
+        setSpinner();
+        setComboBox();
+        setTxtRentValue();
+    }
+
     @FXML
     void save() {
         Rent rent = new Rent();
         Lessor lessor = new Lessor();
-        if (checkTxtPadding() && checkDateEnumPadding()) {
-            if (false) {
-                alertRgInvalid();
-            } else if (false) {
-                alertCpfInvalid();
-            } else {
-                lessor.setName(txtName.getText().trim());
-                lessor.setCpf(txtCpf.getText().trim());
-                lessor.setRg(txtRg.getText().trim());
-                lessor.setTelOne(txtTel1.getText().trim());
-                lessor.setTelTwo((txtTel2.getText().trim()));
-                lessor.setGender(cbGender.getValue());
+        if (checkTxtPadding() && checkGenderPadding()) {
+            lessor.setName(txtName.getText().trim());
+            lessor.setCpf(txtCpf.getText().trim());
+            lessor.setRg(txtRg.getText().trim());
+            lessor.setTelOne(txtTel1.getText().trim());
+            lessor.setTelTwo((txtTel2.getText().trim()));
+            lessor.setGender(cbGender.getValue());
 
+            try {
                 Date entranceDate = Date.from(datePEntrance.getValue()
                         .atStartOfDay(ZoneId.systemDefault()).toInstant());
                 Date exitDate = Date.from(datePExit.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -82,7 +89,6 @@ public class RegisterRentScreenController implements Initializable {
                         .atStartOfDay(ZoneId.systemDefault()).toInstant());
 
                 String txtRentValue_replacement = txtRentValue.getText().trim().replaceAll(",", ".");
-
                 rent.setValue(Float.parseFloat(txtRentValue_replacement));
                 rent.setEntranceDate(entranceDate);
                 rent.setExitDate(exitDate);
@@ -97,20 +103,13 @@ public class RegisterRentScreenController implements Initializable {
                 saveSucess();
                 Stage stage = (Stage) btnSave.getScene().getWindow();
                 stage.close();
+
+            } catch (java.lang.NullPointerException e) {
+                alertDateInvalid();
             }
         } else {
             alertPadding();
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setPhoneTextInput();
-        setRGTextInput();
-        setCPFTextInput();
-        setSpinner();
-        setComboBox();
-        setTxtRentValue();
     }
 
     private void setSpinner() {
@@ -133,10 +132,8 @@ public class RegisterRentScreenController implements Initializable {
         return registerLessor && registerRent;
     }
 
-    public boolean checkDateEnumPadding() {
-        return (datePBorn.getValue() != null && datePEntrance.getValue() != null &&
-                datePExit.getValue() != null && datePReadjustment.getValue() != null &&
-                cbGender.getSelectionModel().getSelectedIndex() != -1);
+    public boolean checkGenderPadding() {
+        return cbGender.getSelectionModel().getSelectedIndex() != -1;
     }
 
     private void alertPadding() {
@@ -158,6 +155,15 @@ public class RegisterRentScreenController implements Initializable {
                 ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("Erro de RG");
+        alert.show();
+    }
+
+    private void alertDateInvalid() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                "Há campos em branco ou preenchidos de forma incorreta",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Erro de data");
         alert.show();
     }
 
@@ -185,7 +191,7 @@ public class RegisterRentScreenController implements Initializable {
     }
 
     private void setRGTextInput() {
-        txtRg.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_NUMBERS));
+        txtRg.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_RG));
         txtRg.textProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue.length() > RG_LENGTH) {
                 txtRg.setText(oldValue);
