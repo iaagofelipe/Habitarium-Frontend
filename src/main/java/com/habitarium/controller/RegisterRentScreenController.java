@@ -87,6 +87,8 @@ public class RegisterRentScreenController implements Initializable {
                 Date exitDate = Date.from(datePExit.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
                 Date readjustmentDate = Date.from(datePReadjustment.getValue()
                         .atStartOfDay(ZoneId.systemDefault()).toInstant());
+                Date BornDate = Date.from(datePBorn.getValue()
+                        .atStartOfDay(ZoneId.systemDefault()).toInstant());
 
                 String txtRentValue_replacement = txtRentValue.getText().trim().replaceAll(",", ".");
                 rent.setValue(Float.parseFloat(txtRentValue_replacement));
