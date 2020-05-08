@@ -103,7 +103,15 @@ public class RegisterRentScreenController implements Initializable {
                 rent.setLessor(lessor);
 
                 RentDAO rentDAO = new RentDAO();
+
+                Long propertyId = cbProperty.getSelectionModel().getSelectedItem().getId();
+                PropertyDAO propertyDAO = new PropertyDAO();
+                Property property = propertyDAO.findById(propertyId);
+                System.out.println(propertyId);
+                property.setRent(rent);
+                rent.setProperty(property);
                 rentDAO.save(rent);
+                propertyDAO.update(property);
 
                 saveSucess();
                 Stage stage = (Stage) btnSave.getScene().getWindow();
@@ -234,5 +242,7 @@ public class RegisterRentScreenController implements Initializable {
             cbProperty.setItems(freeProperties);
         }
     }
+
+
 }
 
