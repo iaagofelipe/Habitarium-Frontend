@@ -18,9 +18,7 @@ import main.java.enuns.Gender;
 
 import java.net.URL;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegisterRentScreenController implements Initializable {
@@ -40,7 +38,7 @@ public class RegisterRentScreenController implements Initializable {
     @FXML
     private ComboBox<Gender> cbGender;
     @FXML
-    private ComboBox<String> cbProperty;
+    private ComboBox<Property> cbProperty;
     @FXML
     private TextField txtRentValue;
     @FXML
@@ -71,7 +69,7 @@ public class RegisterRentScreenController implements Initializable {
         setSpinner();
         setComboBox();
         setTxtRentValue();
-        getListFreeProperties();
+        setCbPropertyNotRented();
     }
 
     @FXML
@@ -147,21 +145,6 @@ public class RegisterRentScreenController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Há campos em branco", ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("Erro ao preencher");
-        alert.show();
-    }
-
-    private void alertCpfInvalid() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Formato do CPF inválido", ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro de CPF");
-        alert.show();
-    }
-
-    private void alertRgInvalid() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Formato do RG inválido",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro de RG");
         alert.show();
     }
 
@@ -243,16 +226,13 @@ public class RegisterRentScreenController implements Initializable {
         };
     }
 
-    private void getListFreeProperties() {
+    private void setCbPropertyNotRented() {
+
         PropertyDAO propertyDAO = new PropertyDAO();
-        List<Property> freeProperties = propertyDAO.getPropertyNotRented();
-        if (freeProperties != null && !freeProperties.isEmpty()) {
-            for (Property property : freeProperties) {
-                System.out.println(property);
-            }
+        ObservableList<Property> freeProperties = FXCollections.observableArrayList(propertyDAO.getPropertyNotRented());
+        if (!freeProperties.isEmpty()) {
+            cbProperty.setItems(freeProperties);
         }
     }
-
-    
 }
 
