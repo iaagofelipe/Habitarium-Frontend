@@ -8,6 +8,7 @@ module com.habitarium {
     requires com.fasterxml.classmate;
     requires java.xml.bind;
     requires Habitarium.Gitflow.Maven;
+    requires java.desktop;
 
     uses Initializable;
 

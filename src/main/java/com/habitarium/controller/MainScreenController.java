@@ -58,7 +58,7 @@ public class MainScreenController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setTableView();
-        loadRentDebtorsInTableView();
+//        loadRentDebtorsInTableView();
     }
 
     public void setTableView() {
@@ -76,11 +76,11 @@ public class MainScreenController implements Initializable {
     }
 
     public void loadRentDebtorsInTableView(){
-        List<Rent> rentList = RentController.checkIfYouPaid();
-        for (Rent rent : rentList){
-            String date = DateUtil.datePaid(rent.getAmountPaidMonth(), rent.getEntranceDate(), rent.getPayDay());
-            addRowtabViewDebtors(rent.getLessor().getName(), date, rent.getId());
-        }
+//        List<Rent> rentList = RentController.checkIfYouPaid();
+//        for (Rent rent : rentList){
+//            String date = DateUtil.datePaid(rent.getAmountPaidMonth(), rent.getEntranceDate(), rent.getPayDay());
+//            addRowtabViewDebtors(rent.getLessor().getName(), date, rent.getId());
+//        }
     }
 
     public void searchProperty() {
