@@ -9,14 +9,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import main.java.dao.PropertyDAO;
 import main.java.dao.RentDAO;
 import main.java.entity.Lessor;
+import main.java.entity.Property;
 import main.java.entity.Rent;
 import main.java.enuns.Gender;
 
 import java.net.URL;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegisterRentScreenController implements Initializable {
@@ -67,6 +71,7 @@ public class RegisterRentScreenController implements Initializable {
         setSpinner();
         setComboBox();
         setTxtRentValue();
+        getListFreeProperties();
     }
 
     @FXML
@@ -237,4 +242,17 @@ public class RegisterRentScreenController implements Initializable {
             }
         };
     }
+
+    private void getListFreeProperties() {
+        PropertyDAO propertyDAO = new PropertyDAO();
+        List<Property> freeProperties = propertyDAO.getPropertyNotRented();
+        if (freeProperties != null && !freeProperties.isEmpty()) {
+            for (Property property : freeProperties) {
+                System.out.println(property);
+            }
+        }
+    }
+
+    
 }
+
