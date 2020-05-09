@@ -78,7 +78,7 @@ public class RegisterRentScreenController implements Initializable {
     void save() {
         Rent rent = new Rent();
         Lessor lessor = new Lessor();
-        if (checkTxtPadding() && checkGenderPadding()) {
+        if (checkTxtPadding() && checkGenderPadding() && !cbProperty.getSelectionModel().isEmpty()) {
             lessor.setName(txtName.getText().trim());
             lessor.setCpf(txtCpf.getText().trim());
             lessor.setRg(txtRg.getText().trim());
