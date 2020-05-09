@@ -17,6 +17,8 @@ import main.java.entity.Rent;
 import main.java.enuns.Gender;
 
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -85,13 +87,12 @@ public class RegisterRentScreenController implements Initializable {
             lessor.setGender(cbGender.getValue());
 
             try {
-                Date entranceDate = Date.from(datePEntrance.getValue()
-                        .atStartOfDay(ZoneId.systemDefault()).toInstant());
-                Date exitDate = Date.from(datePExit.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-                Date readjustmentDate = Date.from(datePReadjustment.getValue()
-                        .atStartOfDay(ZoneId.systemDefault()).toInstant());
-                Date BornDate = Date.from(datePBorn.getValue()
-                        .atStartOfDay(ZoneId.systemDefault()).toInstant());
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+                Date entranceDate = formato.parse(datePEntrance.getEditor().getText());
+                Date exitDate = formato.parse(datePExit.getEditor().getText());
+                Date readjustmentDate = formato.parse(datePReadjustment.getEditor().getText());
+                Date BornDate = formato.parse(datePBorn.getEditor().getText());
 
                 String txtRentValue_replacement = txtRentValue.getText().trim().replaceAll(",", ".");
                 rent.setValue(Float.parseFloat(txtRentValue_replacement));
@@ -117,8 +118,9 @@ public class RegisterRentScreenController implements Initializable {
                 Stage stage = (Stage) btnSave.getScene().getWindow();
                 stage.close();
 
-            } catch (java.lang.NullPointerException e) {
+            } catch (ParseException e) {
                 alertDateInvalid();
+                e.printStackTrace();
             }
         } else {
             alertPadding();
