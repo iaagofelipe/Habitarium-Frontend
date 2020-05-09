@@ -107,10 +107,8 @@ public class RegisterRentScreenController implements Initializable {
 
                 RentDAO rentDAO = new RentDAO();
 
-                Long propertyId = cbProperty.getSelectionModel().getSelectedItem().getId();
+                Property property = cbProperty.getSelectionModel().getSelectedItem();
                 PropertyDAO propertyDAO = new PropertyDAO();
-                Property property = propertyDAO.findById(propertyId);
-                System.out.println(propertyId);
                 property.setRent(rent);
                 rent.setProperty(property);
                 rentDAO.save(rent);
