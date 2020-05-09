@@ -92,7 +92,9 @@ public class RegisterRentScreenController implements Initializable {
                 Date entranceDate = formato.parse(datePEntrance.getEditor().getText());
                 Date exitDate = formato.parse(datePExit.getEditor().getText());
                 Date readjustmentDate = formato.parse(datePReadjustment.getEditor().getText());
-                Date BornDate = formato.parse(datePBorn.getEditor().getText());
+                Date bornDate = formato.parse(datePBorn.getEditor().getText());
+
+                lessor.setBornDate(bornDate);
 
                 String txtRentValue_replacement = txtRentValue.getText().trim().replaceAll(",", ".");
                 rent.setValue(Float.parseFloat(txtRentValue_replacement));
