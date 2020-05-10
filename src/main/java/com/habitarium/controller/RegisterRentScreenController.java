@@ -153,13 +153,6 @@ public class RegisterRentScreenController implements Initializable {
         return cbGender.getSelectionModel().getSelectedIndex() != -1;
     }
 
-    private void alertPadding() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Há campos em branco", ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro ao preencher");
-        alert.show();
-    }
-
     private void setPhoneTextInput() {
         txtTel1.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_NUMBERS));
         txtTel1.textProperty().addListener((ov, oldValue, newValue) -> {
@@ -230,12 +223,28 @@ public class RegisterRentScreenController implements Initializable {
         };
     }
 
+    private void alertPadding() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Há campos em branco", ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Erro ao preencher");
+        alert.show();
+    }
+
     private void alertDateInvalid() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                "Há campos em branco ou preenchidos de forma incorreta",
+                "Data inválida",
                 ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("Erro de data");
+        alert.show();
+    }
+
+    private void alertPropertyNotSelected() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                "Nenhuma propriedade selecionada",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Erro: Propriedade vazia");
         alert.show();
     }
 
