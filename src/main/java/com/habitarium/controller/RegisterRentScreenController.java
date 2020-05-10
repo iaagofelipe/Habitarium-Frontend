@@ -19,7 +19,6 @@ import main.java.enuns.Gender;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -60,7 +59,7 @@ public class RegisterRentScreenController implements Initializable {
     private final String PATTERN_MATCHES_RENT_VALUE = "[0-9,]";
     private final int RENT_VALUE_LENGTH = 10;
     private final int TEL_LENGTH = 11;
-    private final int RG_LENGTH = 12;
+    private final int RG_LENGTH = 13;
     private final int CPF_LENGTH = 14;
 
     @Override
@@ -158,23 +157,6 @@ public class RegisterRentScreenController implements Initializable {
         alert.show();
     }
 
-    private void alertDateInvalid() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                "Há campos em branco ou preenchidos de forma incorreta",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro de data");
-        alert.show();
-    }
-
-    public void saveSucess() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("salvo com sucesso!");
-        alert.show();
-    }
-
     private void setPhoneTextInput() {
         txtTel1.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_NUMBERS));
         txtTel1.textProperty().addListener((ov, oldValue, newValue) -> {
@@ -195,9 +177,6 @@ public class RegisterRentScreenController implements Initializable {
         txtRg.textProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue.length() > RG_LENGTH) {
                 txtRg.setText(oldValue);
-            }
-            if (newValue.length() == 10 && oldValue.length() <= 10) {
-                txtRg.setText(oldValue + "-");
             }
         });
     }
@@ -227,6 +206,18 @@ public class RegisterRentScreenController implements Initializable {
         });
     }
 
+    private void setCbPropertyNotRented() {
+        try {
+            PropertyDAO propertyDAO = new PropertyDAO();
+            ObservableList<Property> freeProperties = FXCollections.observableArrayList(propertyDAO.getPropertyNotRented());
+            if (!freeProperties.isEmpty()) {
+                cbProperty.setItems(freeProperties);
+            }
+        } catch (ExceptionInInitializerError e) {
+            System.out.println(e.getException());
+        }
+    }
+
     public static EventHandler<KeyEvent> getPatternValidation(String pattern) {
         return e -> {
             String typed = e.getCharacter();
@@ -236,16 +227,21 @@ public class RegisterRentScreenController implements Initializable {
         };
     }
 
-    private void setCbPropertyNotRented() {
-        try{
-            PropertyDAO propertyDAO = new PropertyDAO();
-            ObservableList<Property> freeProperties = FXCollections.observableArrayList(propertyDAO.getPropertyNotRented());
-            if (!freeProperties.isEmpty()) {
-                cbProperty.setItems(freeProperties);
-            }
-        } catch (ExceptionInInitializerError e){
-            System.out.println(e.getException());
-        }
+    private void alertDateInvalid() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                "Há campos em branco ou preenchidos de forma incorreta",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Erro de data");
+        alert.show();
+    }
+
+    public void saveSucess() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("salvo com sucesso!");
+        alert.show();
     }
 }
 
