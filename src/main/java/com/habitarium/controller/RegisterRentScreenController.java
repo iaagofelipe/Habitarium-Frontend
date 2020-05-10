@@ -74,10 +74,11 @@ public class RegisterRentScreenController implements Initializable {
     }
 
     @FXML
-    void save() {
+    private void save() {
         Rent rent = new Rent();
         Lessor lessor = new Lessor();
-        if (checkTxtPadding() && checkGenderPadding() && !cbProperty.getSelectionModel().isEmpty()) {
+        boolean isPropertyEmpty = cbProperty.getSelectionModel().isEmpty();
+        if (checkTxtPadding() && checkGenderPadding() && !isPropertyEmpty) {
             lessor.setName(txtName.getText().trim());
             lessor.setCpf(txtCpf.getText().trim());
             lessor.setRg(txtRg.getText().trim());
@@ -121,6 +122,8 @@ public class RegisterRentScreenController implements Initializable {
                 alertDateInvalid();
                 e.printStackTrace();
             }
+        } else if (isPropertyEmpty) {
+            alertPropertyNotSelected();
         } else {
             alertPadding();
         }
