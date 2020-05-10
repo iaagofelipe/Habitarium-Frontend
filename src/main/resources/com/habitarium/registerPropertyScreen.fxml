@@ -50,18 +50,12 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtStreet" layoutX="21.0" layoutY="55.0" prefHeight="25.0" prefWidth="298.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
-               <padding>
-                  <Insets right="15.0" />
-               </padding>
+            <TextField fx:id="txtStreet" layoutX="21.0" layoutY="55.0" prefHeight="25.0" prefWidth="292.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <TextField fx:id="txtNumber" layoutX="338.0" layoutY="55.0" prefHeight="25.0" prefWidth="40.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
-               <padding>
-                  <Insets left="15.0" />
-               </padding>
+            <TextField fx:id="txtNumber" layoutX="322.0" layoutY="55.0" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
