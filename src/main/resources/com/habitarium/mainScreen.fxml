@@ -105,7 +105,7 @@
                   </Button>
                </children>
             </VBox>
-            <ListView prefHeight="342.0" prefWidth="360.0" style="-fx-background-color: white; -fx-background-radius: 1em; -fx-border-color: a4200e; -fx-border-radius: 1em;" />
+            <ListView fx:id="lvDebtors" prefHeight="342.0" prefWidth="360.0" style="-fx-background-color: white; -fx-background-radius: 1em; -fx-border-color: a4200e; -fx-border-radius: 1em;" />
          </children>
       </HBox>
    </children>

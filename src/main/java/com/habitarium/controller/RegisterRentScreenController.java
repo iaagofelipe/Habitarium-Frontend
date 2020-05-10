@@ -237,14 +237,15 @@ public class RegisterRentScreenController implements Initializable {
     }
 
     private void setCbPropertyNotRented() {
-
-        PropertyDAO propertyDAO = new PropertyDAO();
-        ObservableList<Property> freeProperties = FXCollections.observableArrayList(propertyDAO.getPropertyNotRented());
-        if (!freeProperties.isEmpty()) {
-            cbProperty.setItems(freeProperties);
+        try{
+            PropertyDAO propertyDAO = new PropertyDAO();
+            ObservableList<Property> freeProperties = FXCollections.observableArrayList(propertyDAO.getPropertyNotRented());
+            if (!freeProperties.isEmpty()) {
+                cbProperty.setItems(freeProperties);
+            }
+        } catch (ExceptionInInitializerError e){
+            System.out.println(e.getException());
         }
     }
-
-
 }
 
