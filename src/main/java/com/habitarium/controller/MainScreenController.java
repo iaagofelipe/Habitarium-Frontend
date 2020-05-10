@@ -55,6 +55,7 @@ public class MainScreenController implements Initializable {
         }
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setTableView();
@@ -83,13 +84,31 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    @FXML
     public void searchProperty() {
+        try {
+            ScreenUtils.switchScreen("searchProperty", "Procura de Propriedades");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    @FXML
     public void searchRent() {
+        try {
+            ScreenUtils.switchScreen("searchRent", "Procura de Aluguéis");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    @FXML
     public void searchLessor() {
+        try {
+            ScreenUtils.switchScreen("searchLessor", "Procura de Inquilinos");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
