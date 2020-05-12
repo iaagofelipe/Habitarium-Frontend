@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="768.0" style="-fx-background-color: a52210;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.habitarium.controller.MainScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="768.0" style="-fx-background-color: a52210;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.habitarium.controller.screen.MainScreenController">
    <children>
       <Button id=".button" fx:id="registerPropertyBtn" layoutX="77.0" layoutY="388.0" mnemonicParsing="false" onAction="#registerProperty" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: ce2812; -fx-background-radius: 1em; -fx-border-color: a4200e; -fx-border-radius: 1em;" text="CADASTRAR PROPRIEDADE" textFill="WHITE" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="388.0">
          <cursor>

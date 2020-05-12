@@ -1,4 +1,4 @@
-package com.habitarium.controller;
+package com.habitarium.controller.screen;
 
 import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
