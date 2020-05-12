@@ -34,7 +34,7 @@
                </cursor></Button>
             <ImageView fitHeight="23.0" fitWidth="38.0" layoutX="410.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../icons/searchingtool_120779.png" />
+                  <Image url="@../../../../icons/searchingtool_120779.png" />
                </image>
             </ImageView>
          </children>

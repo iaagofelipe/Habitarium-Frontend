@@ -1,4 +1,4 @@
-package com.habitarium.utils;
+package com.habitarium.utils.screen;
 
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;

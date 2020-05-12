@@ -1,31 +1,28 @@
-package com.habitarium.utils;
+package com.habitarium.utils.screen;
 
 import com.habitarium.App;
-import com.habitarium.controller.edit.EditPropertyController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.java.entity.Property;
 
 import java.io.IOException;
 import java.net.URL;
 
-public class OpenEditPropertyScreen implements OpenScreens{
-    @Override
-    public void loadScreen(String screen, String title, Object object) throws IOException {
-        Property property = (Property) object;
-        FXMLLoader fxmlLoader;
+public class ScreenUtils {
+
+    private static ScreenUtils screenUtilsIstance;
+    private ScreenUtils() {
+    }
+
+    public static void switchScreen(String screen, String title) throws IOException {
         URL url = App.class.getResource(screen + ".fxml");
         if (url == null) {
             throw new IOException("File \"" + screen + ".fxml\" doesn't exists.");
         } else{
-            fxmlLoader = new FXMLLoader(url);
-            FXMLLoader loader = fxmlLoader;
-            Parent root = loader.load();
-            EditPropertyController editPropertyController = loader.getController();
-            editPropertyController.initializeScreen(property);
+            FXMLLoader fxmlLoader = new FXMLLoader(url);
+            Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(new Scene(root));
@@ -33,5 +30,12 @@ public class OpenEditPropertyScreen implements OpenScreens{
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         }
+    }
+
+    public static synchronized ScreenUtils getInstance() {
+        if (screenUtilsIstance == null) {
+            screenUtilsIstance = new ScreenUtils();
+        }
+        return screenUtilsIstance;
     }
 }

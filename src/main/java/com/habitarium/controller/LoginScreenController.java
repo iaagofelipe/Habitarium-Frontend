@@ -1,7 +1,7 @@
 package com.habitarium.controller;
 
 
-import com.habitarium.utils.ScreenUtils;
+import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;

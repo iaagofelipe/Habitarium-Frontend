@@ -1,7 +1,7 @@
 package com.habitarium.controller.search;
 
-import com.habitarium.utils.OpenEditPropertyScreen;
-import com.habitarium.utils.OpenScreens;
+import com.habitarium.utils.screen.OpenEditPropertyScreen;
+import com.habitarium.utils.screen.OpenScreens;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
