@@ -32,6 +32,17 @@ public class ScreenUtils {
         }
     }
 
+    public static FXMLLoader loaderObject(String screen) throws IOException {
+        URL url = App.class.getResource(screen + ".fxml");
+        FXMLLoader fxmlLoader;
+        if (url == null) {
+            throw new IOException("File \"" + screen + ".fxml\" doesn't exists.");
+        } else{
+            fxmlLoader = new FXMLLoader(url);
+        }
+        return fxmlLoader;
+    }
+
     public static synchronized ScreenUtils getInstance() {
         if (screenUtilsIstance == null) {
             screenUtilsIstance = new ScreenUtils();
