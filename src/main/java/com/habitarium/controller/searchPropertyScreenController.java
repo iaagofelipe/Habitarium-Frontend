@@ -1,18 +1,14 @@
 package com.habitarium.controller;
 
-import com.habitarium.utils.ScreenUtils;
+import com.habitarium.utils.OpenEditPropertyScreen;
+import com.habitarium.utils.OpenScreens;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import main.java.dao.PropertyDAO;
 import main.java.entity.Property;
 
@@ -22,21 +18,20 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class searchPropertyScreenController implements Initializable {
+
     @FXML
     private TextField tfSearch;
-
     @FXML
     private Button btnSearch;
-
     @FXML
     private ListView<Property> listViewPane;
-
     private ObservableList<Property> propertyObservableList;
-
+    private OpenScreens openScreens;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setListViewPane();
+        openScreens = new OpenEditPropertyScreen();
     }
 
     private void setListViewPane() {
@@ -52,7 +47,7 @@ public class searchPropertyScreenController implements Initializable {
     private void eventOpenEditProperties() {
         Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
         try {
-            ScreenUtils.loaderEditProperty("editProperty", selectedItemProperty);
+            openScreens.loadScreen("editProperty", "Editor de propriedade", selectedItemProperty);
         } catch (IOException e) {
             e.printStackTrace();
         }

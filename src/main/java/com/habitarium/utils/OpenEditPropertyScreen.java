@@ -12,19 +12,20 @@ import main.java.entity.Property;
 import java.io.IOException;
 import java.net.URL;
 
-public class ScreenUtils {
-
-    private static ScreenUtils screenUtilsIstance;
-    private ScreenUtils() {
-    }
-
-    public static void switchScreen(String screen, String title) throws IOException {
+public class OpenEditPropertyScreen implements OpenScreens{
+    @Override
+    public void loadScreen(String screen, String title, Object object) throws IOException {
+        Property property = (Property) object;
+        FXMLLoader fxmlLoader;
         URL url = App.class.getResource(screen + ".fxml");
         if (url == null) {
             throw new IOException("File \"" + screen + ".fxml\" doesn't exists.");
         } else{
-            FXMLLoader fxmlLoader = new FXMLLoader(url);
-            Parent root = fxmlLoader.load();
+            fxmlLoader = new FXMLLoader(url);
+            FXMLLoader loader = fxmlLoader;
+            Parent root = loader.load();
+            EditPropertyController editPropertyController = loader.getController();
+            editPropertyController.initializeScreen(property);
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(new Scene(root));
@@ -32,12 +33,5 @@ public class ScreenUtils {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         }
-    }
-
-    public static synchronized ScreenUtils getInstance() {
-        if (screenUtilsIstance == null) {
-            screenUtilsIstance = new ScreenUtils();
-        }
-        return screenUtilsIstance;
     }
 }
