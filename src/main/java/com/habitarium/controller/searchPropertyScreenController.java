@@ -50,18 +50,9 @@ public class searchPropertyScreenController implements Initializable {
 
     @FXML
     private void eventOpenEditProperties() {
-        Property selectedItem = listViewPane.getSelectionModel().getSelectedItem();
+        Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
         try {
-            FXMLLoader loader = ScreenUtils.loaderObject("editProperty");
-            Parent root = loader.load();
-            EditPropertyController editPropertyController = loader.getController();
-            editPropertyController.initializeScreen(selectedItem);
-            Stage stage = new Stage();
-            stage.setTitle("Visualizar Propriedade");
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
+            ScreenUtils.loaderEditProperty("editProperty", selectedItemProperty);
         } catch (IOException e) {
             e.printStackTrace();
         }
