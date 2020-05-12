@@ -22,7 +22,7 @@ public class App extends Application {
         stage.setResizable(false);
         stage.show();
     }
-// stage.setScene(new Scene(root, 450, 450));
+
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }

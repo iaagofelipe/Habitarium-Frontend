@@ -1,4 +1,4 @@
-package com.habitarium.controller;
+package com.habitarium.controller.edit;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

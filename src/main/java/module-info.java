@@ -14,6 +14,9 @@ module com.habitarium {
 
     opens com.habitarium to javafx.fxml;
     opens com.habitarium.controller to javafx.fxml;
+    opens com.habitarium.controller.search to javafx.fxml;
+    opens com.habitarium.controller.register to javafx.fxml;
+    opens com.habitarium.controller.edit to javafx.fxml;
     opens com.habitarium.utils to javafx.fxml;
     exports com.habitarium;
 }

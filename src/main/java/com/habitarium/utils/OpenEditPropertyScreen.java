@@ -1,7 +1,7 @@
 package com.habitarium.utils;
 
 import com.habitarium.App;
-import com.habitarium.controller.EditPropertyController;
+import com.habitarium.controller.edit.EditPropertyController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

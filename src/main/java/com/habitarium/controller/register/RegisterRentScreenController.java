@@ -1,4 +1,4 @@
-package com.habitarium.controller;
+package com.habitarium.controller.register;
 
 import com.habitarium.utils.DateUtil;
 import javafx.collections.FXCollections;

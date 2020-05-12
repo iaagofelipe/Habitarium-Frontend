@@ -1,4 +1,4 @@
-package com.habitarium.controller;
+package com.habitarium.controller.search;
 
 import com.habitarium.utils.OpenEditPropertyScreen;
 import com.habitarium.utils.OpenScreens;
