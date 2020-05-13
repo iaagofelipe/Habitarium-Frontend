@@ -15,6 +15,7 @@ import main.java.entity.Property;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,13 +34,19 @@ public class searchPropertyScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setListViewPane();
         openScreens = new OpenEditPropertyScreen();
-        test();
     }
 
-    public void test(){
+    public List<Property> searchListProperty(String searchStr){
         PropertyDAO propertyDAO = new PropertyDAO();
-        Property propertyLocal = FuzzySearch.getPropertySearch(propertyDAO.getList(), "Novo");
-        System.out.println(propertyLocal.getNeighbour());
+        List<Property> properties = propertyDAO.getList();
+        List<Property> propertiesReturn = new ArrayList<>();
+        for (Property property : properties){
+            String propertyToLower = property.getNeighbour().toLowerCase();
+            if(propertyToLower.contains(searchStr.toLowerCase())){
+                propertiesReturn.add(property);
+            }
+        }
+        return propertiesReturn;
     }
 
     private void setListViewPane() {
