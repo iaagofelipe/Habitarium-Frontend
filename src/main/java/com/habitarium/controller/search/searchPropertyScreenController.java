@@ -67,4 +67,10 @@ public class searchPropertyScreenController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void onActionBtnSearch() {
+        propertyObservableList = FXCollections.observableList(searchListProperty(tfSearch.getText()));
+        listViewPane.setItems(propertyObservableList);
+    }
 }
