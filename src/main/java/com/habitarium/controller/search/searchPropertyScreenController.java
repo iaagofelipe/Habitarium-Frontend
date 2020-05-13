@@ -41,7 +41,7 @@ public class searchPropertyScreenController implements Initializable {
         List<Property> properties = propertyDAO.getList();
         List<Property> propertiesReturn = new ArrayList<>();
         for (Property property : properties){
-            String propertyToLower = property.getNeighbour().toLowerCase();
+            String propertyToLower = property.toString().toLowerCase();
             if(propertyToLower.contains(searchStr.toLowerCase())){
                 propertiesReturn.add(property);
             }
