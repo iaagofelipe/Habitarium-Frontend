@@ -2,6 +2,7 @@ package com.habitarium.controller.search;
 
 import com.habitarium.utils.screen.OpenEditPropertyScreen;
 import com.habitarium.utils.screen.OpenScreens;
+import com.habitarium.utils.search.FuzzySearch;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,6 +33,13 @@ public class searchPropertyScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setListViewPane();
         openScreens = new OpenEditPropertyScreen();
+        test();
+    }
+
+    public void test(){
+        PropertyDAO propertyDAO = new PropertyDAO();
+        Property propertyLocal = FuzzySearch.getPropertySearch(propertyDAO.getList(), "Novo");
+        System.out.println(propertyLocal.getNeighbour());
     }
 
     private void setListViewPane() {
@@ -47,7 +55,7 @@ public class searchPropertyScreenController implements Initializable {
     private void eventOpenEditProperties() {
         Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
         try {
-            openScreens.loadScreen("editProperty", "Editor de propriedade", selectedItemProperty);
+            openScreens.loadScreen("screen/edit/editProperty", "Editor de propriedade", selectedItemProperty);
         } catch (IOException e) {
             e.printStackTrace();
         }
