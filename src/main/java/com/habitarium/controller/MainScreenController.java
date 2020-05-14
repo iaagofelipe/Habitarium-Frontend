@@ -67,14 +67,4 @@ public class MainScreenController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    @FXML
-    public void searchLessor() {
-        try {
-            ScreenUtils.switchScreen("searchLessor", "Procura de Inquilinos");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
