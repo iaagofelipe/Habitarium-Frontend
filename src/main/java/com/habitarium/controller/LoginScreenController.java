@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
+    @FXML
+    private Label tfForgotMyPass;
 
     @FXML
     public PasswordField passwordField;

@@ -24,7 +24,15 @@
       </Label>
       <Pane layoutX="53.0" layoutY="25.0" prefHeight="323.0" prefWidth="200.0" style="-fx-background-color: #8c1b0d; -fx-background-radius: 15px;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <TextField fx:id="txtFieldUsuario" layoutX="20.0" layoutY="113.0" prefHeight="25.0" prefWidth="220.0" style="-fx-border-color: black; -fx-border-radius: .09cm; -fx-background-color: f6eedf;">
+            <Label fx:id="tfForgotMyPass" layoutX="20.0" layoutY="211.0" prefHeight="10.0" prefWidth="100.0" text="Esqueci minha senha" textFill="WHITE">
+               <font>
+                  <Font name="Arial Italic" size="10.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+            <TextField fx:id="txtFieldUsuario" layoutX="20.0" layoutY="109.0" prefHeight="25.0" prefWidth="220.0" style="-fx-border-color: black; -fx-border-radius: .09cm; -fx-background-color: f6eedf;">
                <font>
                   <Font size="20.0" />
                </font>
@@ -35,7 +43,7 @@
                   <Insets bottom="1.0" top="1.0" />
                </padding>
             </TextField>
-            <PasswordField fx:id="passwordField" layoutX="20.0" layoutY="179.0" prefHeight="25.0" prefWidth="220.0" style="-fx-border-color: black; -fx-border-radius: .09cm; -fx-background-color: f6eedf;">
+            <PasswordField fx:id="passwordField" layoutX="20.0" layoutY="178.0" prefHeight="25.0" prefWidth="220.0" style="-fx-border-color: black; -fx-border-radius: .09cm; -fx-background-color: f6eedf;">
                <font>
                   <Font size="20.0" />
                </font>
@@ -46,19 +54,19 @@
                   <Insets bottom="1.0" top="1.0" />
                </padding>
             </PasswordField>
-            <Label alignment="CENTER" layoutX="20.0" layoutY="77.0" prefHeight="36.0" prefWidth="76.0" text="Usuário:" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="20.0" layoutY="77.0" prefHeight="30.0" prefWidth="60.0" text="Usuário:" textFill="WHITE">
                <font>
-                  <Font name="Arial" size="20.0" />
+                  <Font name="Arial" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="20.0" layoutY="147.0" prefHeight="36.0" prefWidth="76.0" text="Senha:" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="20.0" layoutY="148.0" prefHeight="30.0" prefWidth="50.0" text="Senha:" textFill="WHITE">
                <font>
-                  <Font name="Arial" size="20.0" />
+                  <Font name="Arial" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="login" alignment="CENTER" layoutX="32.0" layoutY="262.0" mnemonicParsing="false" onAction="#switchToMain" prefHeight="44.0" prefWidth="195.0" style="-fx-border-width: 1.2px; -fx-background-radius: 1em; -fx-background-color: ce2812; -fx-border-radius: 1em;" text="Login" textFill="WHITE">
+            <Button fx:id="login" alignment="CENTER" layoutX="35.0" layoutY="261.0" mnemonicParsing="false" onAction="#switchToMain" prefHeight="40.0" prefWidth="190.0" style="-fx-border-width: 1.2px; -fx-background-radius: 1em; -fx-background-color: ce2812; -fx-border-radius: 1em;" text="Login" textFill="WHITE">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Arial" size="16.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
