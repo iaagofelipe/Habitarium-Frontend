@@ -1,6 +1,6 @@
-package com.habitarium.controller;
+package com.habitarium.controller.screen;
 
-import com.habitarium.utils.ScreenUtils;
+import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -29,7 +29,7 @@ public class MainScreenController implements Initializable {
     @FXML
     public void registerProperty() {
         try {
-            ScreenUtils.switchScreen("registerPropertyScreen", "Registro de Propriedade");
+            ScreenUtils.switchScreen("screen/register/registerPropertyScreen", "Registro de Propriedade");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,7 +38,7 @@ public class MainScreenController implements Initializable {
     @FXML
     public void registerRent() {
         try {
-            ScreenUtils.switchScreen("registerRentScreen", "Registro de Aluguel");
+            ScreenUtils.switchScreen("screen/register/registerRentScreen", "Registro de Aluguel");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,7 +53,7 @@ public class MainScreenController implements Initializable {
     @FXML
     public void searchProperty() {
         try {
-            ScreenUtils.switchScreen("searchProperty", "Procura de Propriedades");
+            ScreenUtils.switchScreen("screen/search/searchProperty", "Procura de Propriedades");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,9 +62,19 @@ public class MainScreenController implements Initializable {
     @FXML
     public void searchRent() {
         try {
-            ScreenUtils.switchScreen("searchRent", "Procura de Aluguéis");
+            ScreenUtils.switchScreen("screen/search/searchRent", "Procura de Aluguéis");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void searchLessor() {
+        try {
+            ScreenUtils.switchScreen("screen/search/searchLessor", "Procura de Inquilinos");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

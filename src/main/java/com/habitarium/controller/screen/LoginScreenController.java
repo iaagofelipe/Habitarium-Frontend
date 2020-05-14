@@ -1,7 +1,7 @@
-package com.habitarium.controller;
+package com.habitarium.controller.screen;
 
 
-import com.habitarium.utils.ScreenUtils;
+import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -38,7 +38,7 @@ public class LoginScreenController implements Initializable {
             try {
                 Stage stageLogin = (Stage) login.getScene().getWindow();
                 stageLogin.close();
-                ScreenUtils.switchScreen("mainScreen", "Registro de Propriedade");
+                ScreenUtils.switchScreen("screen/mainScreen", "Registro de Propriedade");
             } catch (IOException e) {
                 e.printStackTrace();
             }

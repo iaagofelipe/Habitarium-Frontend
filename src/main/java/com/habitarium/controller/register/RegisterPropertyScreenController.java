@@ -1,4 +1,4 @@
-package com.habitarium.controller;
+package com.habitarium.controller.register;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

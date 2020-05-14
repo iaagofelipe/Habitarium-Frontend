@@ -1,4 +1,4 @@
-package com.habitarium.utils;
+package com.habitarium.utils.date;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

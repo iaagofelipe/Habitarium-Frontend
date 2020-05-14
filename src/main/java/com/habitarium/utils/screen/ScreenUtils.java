@@ -1,4 +1,4 @@
-package com.habitarium.utils;
+package com.habitarium.utils.screen;
 
 import com.habitarium.App;
 import javafx.fxml.FXMLLoader;

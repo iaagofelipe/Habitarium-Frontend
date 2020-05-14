@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: a52210;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.habitarium.controller.searchRentScreenController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: a52210;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.habitarium.controller.search.searchRentScreenController">
     <children>
         <Pane layoutX="12.0" layoutY="14.0" prefHeight="115.0" prefWidth="580.0" style="-fx-background-color: #8c1b0d; -fx-background-radius: 15px;" AnchorPane.bottomAnchor="275.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
@@ -34,7 +34,7 @@
                     </cursor></Button>
                 <ImageView fx:id="btnSearch" fitHeight="22.0" fitWidth="47.0" layoutX="417.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../icons/searchingtool_120779.png" />
+                        <Image url="@../../../../icons/searchingtool_120779.png" />
                     </image>
                 </ImageView>
             </children>

@@ -1,4 +1,4 @@
-package com.habitarium.controller;
+package com.habitarium.controller.search;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;

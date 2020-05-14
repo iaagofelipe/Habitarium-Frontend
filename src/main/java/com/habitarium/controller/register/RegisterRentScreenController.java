@@ -1,6 +1,6 @@
-package com.habitarium.controller;
+package com.habitarium.controller.register;
 
-import com.habitarium.utils.DateUtil;
+import com.habitarium.utils.date.DateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
