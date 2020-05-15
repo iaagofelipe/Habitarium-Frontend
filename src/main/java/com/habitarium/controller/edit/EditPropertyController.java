@@ -45,12 +45,17 @@ public class EditPropertyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
-//    public void initializeScreen(Property property) {
-//        txtLabel.setText(property.getStreet());
-//    }
+    public void initializeScreen(Property property) {
+        tfStreet.setText(property.getStreet());
+        tfNumber.setText((property.getPropertyNumber()));
+        tfNeighbour.setText(property.getNeighbour());
+        tfCity.setText((property.getCity()));
+        tfCondo.setText(property.getCondo());
+        tfApartment.setText(property.getApartment());
+        tfBlockCondo.setText(property.getBlockCondo());
+    }
 
 
 }
