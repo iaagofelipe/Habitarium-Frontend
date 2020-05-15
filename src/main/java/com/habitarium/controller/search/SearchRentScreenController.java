@@ -5,7 +5,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-public class searchRentScreenController {
+public class SearchRentScreenController {
     @FXML
     private TextField tfSearch;
 
