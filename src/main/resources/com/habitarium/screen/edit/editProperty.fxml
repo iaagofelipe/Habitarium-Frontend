@@ -134,7 +134,7 @@
          </ImageView>
       </graphic>
    </Button>
-   <Button fx:id="btnDelete" layoutX="70.0" layoutY="430.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;" text="Excluir" textFill="WHITE" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="245.0" AnchorPane.topAnchor="430.0">
+   <Button fx:id="btnDelete" layoutX="70.0" layoutY="430.0" mnemonicParsing="false" onAction="#delete" prefHeight="45.0" prefWidth="120.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;" text="Excluir" textFill="WHITE" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="245.0" AnchorPane.topAnchor="430.0">
       <font>
          <Font name="Arial Bold" size="14.0" />
       </font>

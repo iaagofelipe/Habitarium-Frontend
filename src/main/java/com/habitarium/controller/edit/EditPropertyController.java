@@ -11,9 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class EditPropertyController implements Initializable {
-//    @FXML
-//    private Label txtLabel;
+public class EditPropertyController  {
 
 @FXML
     private TextField tfStreet;
@@ -42,12 +40,11 @@ public class EditPropertyController implements Initializable {
     @FXML
     private Button btnDelete;
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
+    Property property = new Property();
+    PropertyDAO propertyDAO = new PropertyDAO();
 
     public void initializeScreen(Property property) {
+        this.property = property;
         tfStreet.setText(property.getStreet());
         tfNumber.setText((property.getPropertyNumber()));
         tfNeighbour.setText(property.getNeighbour());
@@ -55,12 +52,13 @@ public class EditPropertyController implements Initializable {
         tfCondo.setText(property.getCondo());
         tfApartment.setText(property.getApartment());
         tfBlockCondo.setText(property.getBlockCondo());
+
+        initDisabled();
     }
 
     @FXML
-    void save() {
+    private void save() {
         if (checkPadding()) {
-            Property property = new Property();
             property.setBlockCondo(tfBlockCondo.getText().trim());
             property.setCity(tfCity.getText().trim());
             property.setCondo(tfCondo.getText().trim());
@@ -68,7 +66,7 @@ public class EditPropertyController implements Initializable {
             property.setPropertyNumber(tfNumber.getText().trim());
             property.setStreet(tfStreet.getText().trim());
             property.setApartment(tfApartment.getText().trim());
-            PropertyDAO propertyDAO = new PropertyDAO();
+
             propertyDAO.update(property);
             saveSucess();
             Stage stage = (Stage) btnSave.getScene().getWindow();
@@ -76,6 +74,21 @@ public class EditPropertyController implements Initializable {
         } else {
             alertPadding();
         }
+    }
+
+    @FXML
+    private void delete() {
+        propertyDAO.delete(property.getId());
+        deleteSucess();
+        Stage stage = (Stage) btnDelete.getScene().getWindow();
+        stage.close();
+    }
+
+
+    private void initDisabled() {
+        tfApartment.setDisable(property.getApartment().equals(""));
+        tfCondo.setDisable(property.getCondo().equals(""));
+        tfBlockCondo.setDisable(property.getBlockCondo().equals(""));
     }
 
     public boolean checkPadding() {
@@ -107,10 +120,18 @@ public class EditPropertyController implements Initializable {
     }
 
     private void saveSucess() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "",
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
                 ButtonType.OK);
         alert.setTitle("");
-        alert.setHeaderText("Propriedade editada com sucesso!");
+        alert.setHeaderText("Propriedade Atualizada!");
+        alert.show();
+    }
+
+    private void deleteSucess() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Propriedade Deletada!");
         alert.show();
     }
 }
