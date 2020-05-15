@@ -116,7 +116,7 @@
             </cursor></TextField>
       </children>
    </Pane>
-   <Button fx:id="btnSave" layoutX="267.0" layoutY="430.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;" text="Salvar" textFill="WHITE" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="430.0">
+   <Button fx:id="btnSave" layoutX="267.0" layoutY="430.0" mnemonicParsing="false" onAction="#save" prefHeight="45.0" prefWidth="120.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;" text="Salvar" textFill="WHITE" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="430.0">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
