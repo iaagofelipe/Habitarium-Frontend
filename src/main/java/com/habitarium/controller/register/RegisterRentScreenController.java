@@ -231,7 +231,7 @@ public class RegisterRentScreenController implements Initializable {
     }
 
     private void alertDateInvalid() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,
+        Alert alert = new Alert(Alert.AlertType.ERROR,
                 "Data inválida",
                 ButtonType.OK);
         alert.setTitle("");
@@ -240,7 +240,7 @@ public class RegisterRentScreenController implements Initializable {
     }
 
     private void alertPropertyNotSelected() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,
+        Alert alert = new Alert(Alert.AlertType.ERROR,
                 "Nenhuma propriedade selecionada",
                 ButtonType.OK);
         alert.setTitle("");
@@ -249,7 +249,7 @@ public class RegisterRentScreenController implements Initializable {
     }
 
     public void saveSucess() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "",
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
                 ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("salvo com sucesso!");
