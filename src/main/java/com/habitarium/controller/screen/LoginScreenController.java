@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
+    @FXML
+    private Label tfForgotMyPass;
 
     @FXML
     public PasswordField passwordField;
@@ -24,8 +26,6 @@ public class LoginScreenController implements Initializable {
     @FXML
     public Button login;
 
-    @FXML
-    public Label warning;
 
     @FXML
     public void switchToMain() {
@@ -74,11 +74,12 @@ public class LoginScreenController implements Initializable {
     }
 
     public void alertLogin(){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Usuário ou senha inválida",
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Usuário ou senha inválido",
                 ButtonType.OK);
         alert.setTitle("");
-        alert.setHeaderText("Erro ao logar");
+        alert.setHeaderText("Erro na tentativa de login");
         alert.show();
+
     }
 }
 

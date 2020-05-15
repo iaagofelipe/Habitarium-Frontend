@@ -135,7 +135,7 @@ public class RegisterPropertyScreenController implements Initializable {
     }
 
     public void alertPadding() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Há campos em branco",
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Há campos em branco",
                 ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("Erro ao preencher");
@@ -143,7 +143,7 @@ public class RegisterPropertyScreenController implements Initializable {
     }
 
     public void saveSucess() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "",
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
                 ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("Propriedade salva com sucesso!");
