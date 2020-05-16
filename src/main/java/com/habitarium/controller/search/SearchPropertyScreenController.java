@@ -63,6 +63,8 @@ public class SearchPropertyScreenController implements Initializable {
     private void eventOpenEditProperties() {
         Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
         try {
+            Stage stage = (Stage) listViewPane.getScene().getWindow();
+            stage.close();
             openScreens.loadScreen("screen/edit/editProperty", "Editor de propriedade", selectedItemProperty);
         } catch (IOException e) {
             e.printStackTrace();

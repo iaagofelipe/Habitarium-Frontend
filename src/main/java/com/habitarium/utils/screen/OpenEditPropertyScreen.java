@@ -2,17 +2,20 @@ package com.habitarium.utils.screen;
 
 import com.habitarium.App;
 import com.habitarium.controller.edit.EditPropertyController;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import main.java.entity.Property;
 
 import java.io.IOException;
 import java.net.URL;
 
 public class OpenEditPropertyScreen implements OpenScreens {
+    private OpenScreens openPropertyScreens;
     @Override
     public void loadScreen(String screen, String title, Object object) throws IOException {
         Property property = (Property) object;
@@ -32,6 +35,17 @@ public class OpenEditPropertyScreen implements OpenScreens {
             stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
+            stage.setOnHidden(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent we) {
+                    stage.close();
+                    openPropertyScreens = new OpenSearchPropertyScreen();
+                    try {
+                        openPropertyScreens.loadScreen("screen/search/searchProperty", "Procura de Propriedades", null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 }
