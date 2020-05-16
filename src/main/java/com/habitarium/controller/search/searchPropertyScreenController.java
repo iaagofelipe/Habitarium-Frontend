@@ -29,6 +29,7 @@ public class searchPropertyScreenController implements Initializable {
     private ListView<Property> listViewPane;
     private ObservableList<Property> propertyObservableList;
     private OpenScreens openScreens;
+    int selectedIndex;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,6 +62,7 @@ public class searchPropertyScreenController implements Initializable {
     @FXML
     private void eventOpenEditProperties() {
         Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
+        selectedIndex = listViewPane.getSelectionModel().getSelectedIndex();
         try {
             openScreens.loadScreen("screen/edit/editProperty", "Editor de propriedade", selectedItemProperty);
         } catch (IOException e) {
@@ -72,5 +74,12 @@ public class searchPropertyScreenController implements Initializable {
     private void onActionBtnSearch() {
         propertyObservableList = FXCollections.observableList(searchListProperty(tfSearch.getText()));
         listViewPane.setItems(propertyObservableList);
+    }
+
+    public void updateListView(Property property) {
+        System.out.println("selectedIndex: " + selectedIndex);
+        System.out.println(property.getBlockCondo() + ", " + property.getNeighbour() + ", " + property.getPropertyNumber());
+        propertyObservableList.remove(selectedIndex);
+        propertyObservableList.add(selectedIndex,property);
     }
 }

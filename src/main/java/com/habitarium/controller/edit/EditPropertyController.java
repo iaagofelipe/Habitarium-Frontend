@@ -1,19 +1,27 @@
 package com.habitarium.controller.edit;
 
+import com.habitarium.utils.screen.OpenScreens;
+import com.habitarium.utils.screen.UpdateSearchPropertyScreen;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import main.java.dao.PropertyDAO;
 import main.java.entity.Property;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class EditPropertyController  {
+public class EditPropertyController implements Initializable {
 
-@FXML
+    @FXML
     private TextField tfStreet;
 
     @FXML
@@ -40,8 +48,17 @@ public class EditPropertyController  {
     @FXML
     private Button btnDelete;
 
-    Property property = new Property();
-    PropertyDAO propertyDAO = new PropertyDAO();
+    private Window window;
+
+    private Property property = new Property();
+    private final PropertyDAO propertyDAO = new PropertyDAO();
+    OpenScreens update;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        update = new UpdateSearchPropertyScreen();
+    }
 
     public void initializeScreen(Property property) {
         this.property = property;
@@ -69,7 +86,16 @@ public class EditPropertyController  {
 
             propertyDAO.update(property);
             saveSucess();
+            System.out.println("save success");
             Stage stage = (Stage) btnSave.getScene().getWindow();
+            stage.setOnHiding(event -> {
+                System.out.println("Closing...");
+                try {
+                    update.loadScreen("screen/search/searchProperty", "", property);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
             stage.close();
         } else {
             alertPadding();
