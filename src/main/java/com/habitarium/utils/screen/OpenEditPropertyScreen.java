@@ -35,17 +35,6 @@ public class OpenEditPropertyScreen implements OpenScreens {
             stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
-            stage.setOnHidden(new EventHandler<WindowEvent>() {
-                public void handle(WindowEvent we) {
-                    stage.close();
-                    openPropertyScreens = new OpenSearchPropertyScreen();
-                    try {
-                        openPropertyScreens.loadScreen("screen/search/searchProperty", "Procura de Propriedades", null);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
         }
     }
 }

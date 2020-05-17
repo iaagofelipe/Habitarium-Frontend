@@ -50,7 +50,7 @@ public class SearchPropertyScreenController implements Initializable {
         return propertiesReturn;
     }
 
-    private void setListViewPane() {
+    public void setListViewPane() {
         PropertyDAO propertyDAO = new PropertyDAO();
         List<Property> propertyList = propertyDAO.getList();
         if (!propertyList.isEmpty()) {
@@ -63,8 +63,6 @@ public class SearchPropertyScreenController implements Initializable {
     private void eventOpenEditProperties() {
         Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
         try {
-            Stage stage = (Stage) listViewPane.getScene().getWindow();
-            stage.close();
             openScreens.loadScreen("screen/edit/editProperty", "Editor de propriedade", selectedItemProperty);
         } catch (IOException e) {
             e.printStackTrace();
