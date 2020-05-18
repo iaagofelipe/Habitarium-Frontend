@@ -40,8 +40,8 @@ public class EditPropertyController  {
     @FXML
     private Button btnDelete;
 
-    Property property = new Property();
-    PropertyDAO propertyDAO = new PropertyDAO();
+    private Property property;
+    private final PropertyDAO propertyDAO = new PropertyDAO();
 
     public void initializeScreen(Property property) {
         this.property = property;
@@ -78,12 +78,15 @@ public class EditPropertyController  {
 
     @FXML
     private void delete() {
-        propertyDAO.delete(property.getId());
-        deleteSucess();
-        Stage stage = (Stage) btnDelete.getScene().getWindow();
-        stage.close();
+        if (property.getRent() == null) {
+            propertyDAO.delete(property.getId());
+            deleteSucess();
+            Stage stage = (Stage) btnDelete.getScene().getWindow();
+            stage.close();
+        } else {
+            alertCantBeDeleted();
+        }
     }
-
 
     private void initDisabled() {
         tfApartment.setDisable(property.getApartment().equals(""));
@@ -116,6 +119,14 @@ public class EditPropertyController  {
                 ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("Erro ao preencher");
+        alert.show();
+    }
+
+    private void alertCantBeDeleted() {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Propriedade alugada",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Propriedade não pode ser deletada!");
         alert.show();
     }
 
