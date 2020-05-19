@@ -30,7 +30,6 @@ public class SearchPropertyScreenController implements Initializable {
     private ListView<Property> listViewPane;
     private ObservableList<Property> propertyObservableList;
     private OpenScreens openScreens;
-    public boolean isEditScreenWasCalled = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,13 +61,11 @@ public class SearchPropertyScreenController implements Initializable {
 
     @FXML
     private void eventOpenEditProperties() {
-        if (listViewPane.getSelectionModel().getSelectedIndex() != -1) {
-            Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
-            try {
-                openScreens.loadScreen("screen/edit/editProperty", "Editor de propriedade", selectedItemProperty);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
+        try {
+            openScreens.loadScreen("screen/edit/editProperty", "Editor de propriedade", selectedItemProperty);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
