@@ -1,42 +1,34 @@
 package com.habitarium.controller.edit;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.java.dao.PropertyDAO;
 import main.java.entity.Property;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
+public class EditPropertyController {
 
-public class EditPropertyController  {
-
-@FXML
+    @FXML
     private TextField tfStreet;
-
     @FXML
     private TextField tfNumber;
-
     @FXML
     private TextField tfNeighbour;
-
     @FXML
     private TextField tfCity;
-
     @FXML
     private TextField tfCondo;
-
     @FXML
     private TextField tfApartment;
-
     @FXML
     private TextField tfBlockCondo;
-
     @FXML
     private Button btnSave;
-
     @FXML
     private Button btnDelete;
 
@@ -52,7 +44,6 @@ public class EditPropertyController  {
         tfCondo.setText(property.getCondo());
         tfApartment.setText(property.getApartment());
         tfBlockCondo.setText(property.getBlockCondo());
-
         initDisabled();
     }
 
@@ -68,7 +59,7 @@ public class EditPropertyController  {
             property.setApartment(tfApartment.getText().trim());
 
             propertyDAO.update(property);
-            saveSucess();
+            Platform.runLater(() -> saveSucess());
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
         } else {

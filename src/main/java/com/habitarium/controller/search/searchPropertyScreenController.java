@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import main.java.dao.PropertyDAO;
 import main.java.entity.Property;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class searchPropertyScreenController implements Initializable {
+public class SearchPropertyScreenController implements Initializable {
 
     @FXML
     private TextField tfSearch;
@@ -29,6 +30,7 @@ public class searchPropertyScreenController implements Initializable {
     private ListView<Property> listViewPane;
     private ObservableList<Property> propertyObservableList;
     private OpenScreens openScreens;
+    public boolean isEditScreenWasCalled = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,7 +51,7 @@ public class searchPropertyScreenController implements Initializable {
         return propertiesReturn;
     }
 
-    private void setListViewPane() {
+    public void setListViewPane() {
         PropertyDAO propertyDAO = new PropertyDAO();
         List<Property> propertyList = propertyDAO.getList();
         if (!propertyList.isEmpty()) {
