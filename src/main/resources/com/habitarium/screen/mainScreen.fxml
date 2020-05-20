@@ -83,5 +83,10 @@
             <ListView fx:id="lvDebtors" prefHeight="342.0" prefWidth="360.0" style="-fx-background-color: white; -fx-background-radius: 1em; -fx-border-color: a4200e; -fx-border-radius: 1em;" />
          </children>
       </HBox>
+      <Button fx:id="btnInfo" layoutX="729.0" layoutY="463.0" mnemonicParsing="false" onAction="#setBtnInfo" style="-fx-background-color: ce2812; -fx-background-radius: 50%; -fx-border-color: a4200e; -fx-border-radius: 50%;" text="?" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
