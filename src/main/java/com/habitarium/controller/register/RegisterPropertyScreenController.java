@@ -69,7 +69,6 @@ public class RegisterPropertyScreenController implements Initializable {
 
         chooseTypeProperty.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue ov, Number value, Number new_value) {
-                System.out.println("ALTERADO");
                 if (new_value.intValue() == 0) {
                     txtCity.setDisable(false);
                     txtNeighbour.setDisable(false);
@@ -116,12 +115,7 @@ public class RegisterPropertyScreenController implements Initializable {
                 && !txtNeighbour.getText().trim().equals("") && !txtNumber.getText().trim().equals("")
                 && !txtStreet.getText().trim().equals("") && chooseTypeProperty.getSelectionModel().getSelectedIndex() == 2;
 
-        if (isApartment || isHouse || isCondo) {
-            System.out.println(chooseTypeProperty.getSelectionModel().getSelectedIndex());
-            return true;
-        } else {
-            return false;
-        }
+        return isApartment || isHouse || isCondo;
     }
 
     public void disableextField() {
