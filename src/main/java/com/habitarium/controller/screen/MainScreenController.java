@@ -27,6 +27,8 @@ public class MainScreenController implements Initializable {
     private Button searcPropertyBtn;
     @FXML
     private ListView<Rent> lvDebtors;
+    @FXML
+    private Button btnInfo;
 
     private OpenScreens openPropertyScreens;
 
@@ -48,6 +50,14 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    @FXML
+    public void setBtnInfo() {
+        try {
+            ScreenUtils.switchScreen("screen/utils/developInfo", "Informações dos Desenvolvedores");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
