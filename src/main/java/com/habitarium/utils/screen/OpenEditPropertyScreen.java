@@ -25,9 +25,8 @@ public class OpenEditPropertyScreen implements OpenScreens {
             throw new IOException("File \"" + screen + ".fxml\" doesn't exists.");
         } else {
             fxmlLoader = new FXMLLoader(url);
-            FXMLLoader loader = fxmlLoader;
-            Parent root = loader.load();
-            EditPropertyController editPropertyController = loader.getController();
+            Parent root = fxmlLoader.load();
+            EditPropertyController editPropertyController = fxmlLoader.getController();
             editPropertyController.initializeScreen(property);
             Stage stage = new Stage();
             stage.setTitle(title);

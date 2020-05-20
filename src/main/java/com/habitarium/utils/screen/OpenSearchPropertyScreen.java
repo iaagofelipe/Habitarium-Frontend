@@ -1,7 +1,6 @@
 package com.habitarium.utils.screen;
 
 import com.habitarium.App;
-import com.habitarium.controller.edit.EditPropertyController;
 import com.habitarium.controller.search.SearchPropertyScreenController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,20 +12,18 @@ import main.java.entity.Property;
 import java.io.IOException;
 import java.net.URL;
 
-public class OpenSearchPropertyScreen implements OpenScreens{
+public class OpenSearchPropertyScreen implements OpenScreens {
 
     @Override
     public void loadScreen(String screen, String title, Object object) throws IOException {
-        Property property = (Property) object;
         FXMLLoader fxmlLoader;
         URL url = App.class.getResource(screen + ".fxml");
         if (url == null) {
             throw new IOException("File \"" + screen + ".fxml\" doesn't exists.");
         } else {
             fxmlLoader = new FXMLLoader(url);
-            FXMLLoader loader = fxmlLoader;
-            Parent root = loader.load();
-            SearchPropertyScreenController searchPropertyScreenController = loader.getController();
+            Parent root = fxmlLoader.load();
+            SearchPropertyScreenController searchPropertyScreenController = fxmlLoader.getController();
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(new Scene(root));
@@ -34,7 +31,10 @@ public class OpenSearchPropertyScreen implements OpenScreens{
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
             stage.focusedProperty().addListener((observable, oldNode, newNode) -> {
-                searchPropertyScreenController.setListViewPane();
+                if (searchPropertyScreenController.isEditScreenWasCalled()) {
+                    searchPropertyScreenController.setListViewPane();
+                    searchPropertyScreenController.setEditScreenWasCalled(false);
+                }
             });
         }
     }
