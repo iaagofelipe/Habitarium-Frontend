@@ -2,7 +2,6 @@ package com.habitarium.controller.search;
 
 import com.habitarium.utils.screen.OpenEditPropertyScreen;
 import com.habitarium.utils.screen.OpenScreens;
-import com.habitarium.utils.search.FuzzySearch;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,15 +9,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import main.java.dao.PropertyDAO;
 import main.java.entity.Property;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class SearchPropertyScreenController implements Initializable {
 
@@ -29,6 +29,7 @@ public class SearchPropertyScreenController implements Initializable {
     @FXML
     private ListView<Property> listViewPane;
     private ObservableList<Property> propertyObservableList;
+    private ObservableList<Property> searchResult;
     private OpenScreens openScreens;
     private boolean isEditScreenWasCalled = false;
 
@@ -36,19 +37,30 @@ public class SearchPropertyScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setListViewPane();
         openScreens = new OpenEditPropertyScreen();
+        searchProperty();
     }
 
-    public List<Property> searchListProperty(String searchStr){
-        PropertyDAO propertyDAO = new PropertyDAO();
-        List<Property> properties = propertyDAO.getList();
-        List<Property> propertiesReturn = new ArrayList<>();
-        for (Property property : properties){
-            String propertyToLower = property.toString().toLowerCase();
-            if(propertyToLower.contains(searchStr.toLowerCase())){
-                propertiesReturn.add(property);
+    public List<Property> searchListProperty(String searchStr) {
+        List<Property> items = listViewPane.getItems();
+        List<BoundExtractedResult<Property>> result = FuzzySearch.extractSorted(searchStr, items,
+                Property::toString, 50);
+        return result.stream().map(BoundExtractedResult::getReferent).collect(Collectors.toList());
+    }
+
+    private void searchProperty() {
+        List<Property> items = listViewPane.getItems();
+        tfSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            List<BoundExtractedResult<Property>> result = FuzzySearch.extractSorted(newValue, items,
+                    Property::toString, 50);
+
+            searchResult = FXCollections.observableList(result.stream()
+                    .map(BoundExtractedResult::getReferent).collect(Collectors.toList()));
+            listViewPane.setItems(searchResult);
+            System.out.println(result);
+            if (tfSearch.getText().length() == 0) {
+                listViewPane.setItems(propertyObservableList);
             }
-        }
-        return propertiesReturn;
+        });
     }
 
     public void setListViewPane() {
