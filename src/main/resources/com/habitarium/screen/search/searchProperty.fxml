@@ -35,7 +35,7 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../icons/searchingtool_120779.png" />
+                        <Image url="@../../../../icons/lupa.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
