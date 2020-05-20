@@ -9,6 +9,7 @@ module com.habitarium {
     requires java.xml.bind;
     requires Habitarium.Gitflow.Maven;
     requires java.desktop;
+    requires fuzzywuzzy;
 
     uses Initializable;
 

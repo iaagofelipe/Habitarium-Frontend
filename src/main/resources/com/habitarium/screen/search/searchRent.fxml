@@ -25,18 +25,20 @@
                     <cursor>
                         <Cursor fx:constant="TEXT" />
                     </cursor></TextField>
-                <Button layoutX="401.0" layoutY="31.0" minWidth="38.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="38.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;">
+                <Button layoutX="401.0" layoutY="31.0" minWidth="38.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="47.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;">
                     <padding>
                         <Insets left="10.0" />
                     </padding>
                     <cursor>
                         <Cursor fx:constant="HAND" />
-                    </cursor></Button>
-                <ImageView fx:id="btnSearch" fitHeight="22.0" fitWidth="47.0" layoutX="417.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../../icons/searchingtool_120779.png" />
-                    </image>
-                </ImageView>
+                    </cursor>
+               <graphic>
+                      <ImageView fx:id="btnSearch" fitHeight="22.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../../../../icons/lupa.png" />
+                          </image>
+                      </ImageView>
+               </graphic></Button>
             </children>
         </Pane>
         <Pane layoutX="10.0" layoutY="125.0" prefHeight="265.0" prefWidth="580.0" style="-fx-background-color: #8c1b0d; -fx-background-radius: 15px;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
