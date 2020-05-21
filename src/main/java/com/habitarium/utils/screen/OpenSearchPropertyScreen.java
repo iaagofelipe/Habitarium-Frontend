@@ -31,9 +31,8 @@ public class OpenSearchPropertyScreen implements OpenScreens {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
             stage.focusedProperty().addListener((observable, oldNode, newNode) -> {
-                if (searchPropertyScreenController.isEditScreenWasCalled()) {
+                if(searchPropertyScreenController.isEditopen){
                     searchPropertyScreenController.setListViewPane();
-                    searchPropertyScreenController.setEditScreenWasCalled(false);
                 }
             });
         }
