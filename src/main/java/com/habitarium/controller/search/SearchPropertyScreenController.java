@@ -75,11 +75,13 @@ public class SearchPropertyScreenController implements Initializable {
     @FXML
     private void eventOpenEditProperties() {
         isEditScreenWasCalled = true;
-        Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
-        try {
-            openScreens.loadScreen("screen/edit/editProperty", "Editor de propriedade", selectedItemProperty);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(listViewPane.getSelectionModel().getSelectedIndex() != -1){
+            Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
+            try {
+                openScreens.loadScreen("screen/edit/editProperty", "Editor de propriedade", selectedItemProperty);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
