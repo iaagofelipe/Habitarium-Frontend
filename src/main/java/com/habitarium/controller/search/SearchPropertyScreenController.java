@@ -51,7 +51,7 @@ public class SearchPropertyScreenController implements Initializable {
         List<Property> items = listViewPane.getItems();
         tfSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             List<BoundExtractedResult<Property>> result = FuzzySearch.extractSorted(newValue, items,
-                    Property::toString, 50);
+                    Property::toString, 57);
 
             searchResult = FXCollections.observableList(result.stream()
                     .map(BoundExtractedResult::getReferent).collect(Collectors.toList()));
