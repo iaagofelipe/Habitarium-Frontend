@@ -2,6 +2,7 @@ package com.habitarium.controller.search;
 
 import com.habitarium.utils.screen.OpenEditPropertyScreen;
 import com.habitarium.utils.screen.OpenScreens;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,7 +32,8 @@ public class SearchPropertyScreenController implements Initializable {
     private ObservableList<Property> propertyObservableList;
     private ObservableList<Property> searchResult;
     private OpenScreens openScreens;
-    private boolean isEditScreenWasCalled = false;
+
+    public boolean isEditopen;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,6 +66,7 @@ public class SearchPropertyScreenController implements Initializable {
     }
 
     public void setListViewPane() {
+        isEditopen = false;
         PropertyDAO propertyDAO = new PropertyDAO();
         List<Property> propertyList = propertyDAO.getList();
         if (!propertyList.isEmpty()) {
@@ -74,8 +77,8 @@ public class SearchPropertyScreenController implements Initializable {
 
     @FXML
     private void eventOpenEditProperties() {
-        isEditScreenWasCalled = true;
         if(listViewPane.getSelectionModel().getSelectedIndex() != -1){
+            Platform.runLater(() -> isEditopen = true);
             Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
             try {
                 openScreens.loadScreen("screen/edit/editProperty", "Editor de propriedade", selectedItemProperty);
@@ -89,13 +92,5 @@ public class SearchPropertyScreenController implements Initializable {
     private void onActionBtnSearch() {
         propertyObservableList = FXCollections.observableList(searchListProperty(tfSearch.getText()));
         listViewPane.setItems(propertyObservableList);
-    }
-
-    public boolean isEditScreenWasCalled() {
-        return isEditScreenWasCalled;
-    }
-
-    public void setEditScreenWasCalled(boolean editScreenWasCalled) {
-        isEditScreenWasCalled = editScreenWasCalled;
     }
 }
