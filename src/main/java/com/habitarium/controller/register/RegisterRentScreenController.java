@@ -1,6 +1,7 @@
 package com.habitarium.controller.register;
 
 import com.habitarium.utils.date.DateUtil;
+import com.habitarium.utils.screen.AlertScreens;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -119,13 +120,13 @@ public class RegisterRentScreenController implements Initializable {
                 stage.close();
 
             } catch (ParseException e) {
-                alertDateInvalid();
+                AlertScreens.alertDateInvalid();
                 e.printStackTrace();
             }
         } else if (isPropertyEmpty) {
             alertPropertyNotSelected();
         } else {
-            alertPadding();
+            AlertScreens.alertPadding();
         }
     }
 
@@ -210,7 +211,7 @@ public class RegisterRentScreenController implements Initializable {
                 cbProperty.setItems(freeProperties);
             }
         } catch (ExceptionInInitializerError e) {
-            System.out.println(e.getException());
+            e.printStackTrace();
         }
     }
 
@@ -221,22 +222,6 @@ public class RegisterRentScreenController implements Initializable {
                 e.consume();
             }
         };
-    }
-
-    private void alertPadding() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Há campos em branco", ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro ao preencher");
-        alert.show();
-    }
-
-    private void alertDateInvalid() {
-        Alert alert = new Alert(Alert.AlertType.ERROR,
-                "Data inválida",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro de data");
-        alert.show();
     }
 
     private void alertPropertyNotSelected() {
