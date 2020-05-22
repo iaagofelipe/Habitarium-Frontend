@@ -1,5 +1,6 @@
 package com.habitarium.controller.register;
 
+import com.habitarium.utils.screen.AlertScreens;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -52,14 +53,14 @@ public class RegisterPropertyScreenController implements Initializable {
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
         } else {
-            alertPadding();
+            AlertScreens.alertPadding();
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setChooseTypeProperty();
-        disableextField();
+        disableTextField();
     }
 
     public void setChooseTypeProperty() {
@@ -118,7 +119,7 @@ public class RegisterPropertyScreenController implements Initializable {
         return isApartment || isHouse || isCondo;
     }
 
-    public void disableextField() {
+    public void disableTextField() {
         txtApartment.setDisable(true);
         txtCondo.setDisable(true);
         txtBlockCondo.setDisable(true);
@@ -126,14 +127,6 @@ public class RegisterPropertyScreenController implements Initializable {
         txtNeighbour.setDisable(true);
         txtNumber.setDisable(true);
         txtStreet.setDisable(true);
-    }
-
-    public void alertPadding() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Há campos em branco",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro ao preencher");
-        alert.show();
     }
 
     public void saveSucess() {
