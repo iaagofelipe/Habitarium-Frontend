@@ -1,5 +1,6 @@
 package com.habitarium.controller.edit;
 
+import com.habitarium.utils.screen.AlertScreens;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -59,11 +60,11 @@ public class EditPropertyController {
             property.setApartment(tfApartment.getText().trim());
 
             propertyDAO.update(property);
-            Platform.runLater(() -> saveSucess());
+            Platform.runLater(this::saveSucess);
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
         } else {
-            alertPadding();
+            AlertScreens.alertPadding();
         }
     }
 
@@ -98,19 +99,7 @@ public class EditPropertyController {
                 && !tfNeighbour.getText().trim().equals("") && !tfNumber.getText().trim().equals("")
                 && !tfStreet.getText().trim().equals("");
 
-        if (isApartment || isHouse || isCondo) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void alertPadding() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Há campos em branco",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro ao preencher");
-        alert.show();
+        return isApartment || isHouse || isCondo;
     }
 
     private void alertCantBeDeleted() {
