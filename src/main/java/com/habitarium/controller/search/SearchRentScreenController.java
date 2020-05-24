@@ -51,7 +51,7 @@ public class SearchRentScreenController implements Initializable {
         return rentsReturn;
     }
 
-    private void setListViewPane() {
+    public void setListViewPane() {
         isEditopen = false;
         List<Rent> rentList = rentDAO.getList();
         if (!rentList.isEmpty()) {
