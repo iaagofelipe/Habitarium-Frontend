@@ -2,6 +2,7 @@ package com.habitarium.controller.screen;
 
 import com.habitarium.utils.screen.OpenScreens;
 import com.habitarium.utils.screen.OpenSearchPropertyScreen;
+import com.habitarium.utils.screen.OpenSearchRentScreen;
 import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -61,11 +62,11 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        openPropertyScreens = new OpenSearchPropertyScreen();
     }
 
     @FXML
     public void searchProperty() {
+        openPropertyScreens = new OpenSearchPropertyScreen();
         try {
             openPropertyScreens.loadScreen("screen/search/searchProperty", "Procura de Propriedades", null);
         } catch (IOException e) {
@@ -75,8 +76,9 @@ public class MainScreenController implements Initializable {
 
     @FXML
     public void searchRent() {
+        openPropertyScreens = new OpenSearchRentScreen();
         try {
-            ScreenUtils.switchScreen("screen/search/searchRent", "Procura de Aluguéis");
+            openPropertyScreens.loadScreen("screen/search/searchRent", "Procura de Aluguéis", null);
         } catch (IOException e) {
             e.printStackTrace();
         }
