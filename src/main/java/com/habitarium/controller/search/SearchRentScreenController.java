@@ -2,6 +2,7 @@ package com.habitarium.controller.search;
 
 import com.habitarium.utils.screen.OpenEditRentScreen;
 import com.habitarium.utils.screen.OpenScreens;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,24 +20,23 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class SearchRentScreenController implements Initializable {
+
     @FXML
     private TextField tfSearch;
-
     @FXML
     private Button btnSearch;
-
     @FXML
     private ListView<Rent> listViewPane;
+
     private ObservableList<Rent> rentObservableList;
-    private OpenScreens openScreens;
-
+    private OpenScreens openEditRentScreens;
+    public boolean isEditopen;
     RentDAO rentDAO = new RentDAO();
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setListViewPane();
-        openScreens = new OpenEditRentScreen();
+        openEditRentScreens = new OpenEditRentScreen();
     }
 
     public List<Rent> searchListRent(String searchStr){
@@ -51,7 +51,8 @@ public class SearchRentScreenController implements Initializable {
         return rentsReturn;
     }
 
-    private void setListViewPane() {
+    public void setListViewPane() {
+        isEditopen = false;
         List<Rent> rentList = rentDAO.getList();
         if (!rentList.isEmpty()) {
             rentObservableList = FXCollections.observableList(rentList);
@@ -61,11 +62,14 @@ public class SearchRentScreenController implements Initializable {
 
     @FXML
     private void eventOpenEditRents() {
-        Rent selectedItemRent = listViewPane.getSelectionModel().getSelectedItem();
-        try {
-            openScreens.loadScreen("screen/edit/editRent", "Editor de Aluguéis", selectedItemRent);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(listViewPane.getSelectionModel().getSelectedIndex() != -1){
+            Platform.runLater(() -> isEditopen = true);
+            Rent selectedItemRent = listViewPane.getSelectionModel().getSelectedItem();
+            try {
+                openEditRentScreens.loadScreen("screen/edit/editRent", "Editor de Aluguéis", selectedItemRent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

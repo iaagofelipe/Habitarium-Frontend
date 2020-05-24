@@ -32,7 +32,6 @@ public class SearchPropertyScreenController implements Initializable {
     private ObservableList<Property> propertyObservableList;
     private ObservableList<Property> searchResult;
     private OpenScreens openScreens;
-
     public boolean isEditopen;
 
     @Override
