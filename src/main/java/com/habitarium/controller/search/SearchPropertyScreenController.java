@@ -44,7 +44,7 @@ public class SearchPropertyScreenController implements Initializable {
     public List<Property> searchListProperty(String searchStr) {
         List<Property> items = listViewPane.getItems();
         List<BoundExtractedResult<Property>> result = FuzzySearch.extractSorted(searchStr, items,
-                Property::toString, 50);
+                Property::toString, 57);
         return result.stream().map(BoundExtractedResult::getReferent).collect(Collectors.toList());
     }
 

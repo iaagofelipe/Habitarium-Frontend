@@ -12,12 +12,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import main.java.dao.RentDAO;
 import main.java.entity.Rent;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class SearchRentScreenController implements Initializable {
 
@@ -29,26 +31,40 @@ public class SearchRentScreenController implements Initializable {
     private ListView<Rent> listViewPane;
 
     private ObservableList<Rent> rentObservableList;
+    private ObservableList<Rent> searchResult;
     private OpenScreens openEditRentScreens;
     public boolean isEditopen;
-    RentDAO rentDAO = new RentDAO();
+
+    private final RentDAO rentDAO = new RentDAO();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setListViewPane();
         openEditRentScreens = new OpenEditRentScreen();
+        searchRent();
     }
 
     public List<Rent> searchListRent(String searchStr){
-        List<Rent> rents = rentDAO.getList();
-        List<Rent> rentsReturn = new ArrayList<>();
-        for (Rent rent : rents){
-            String propertyToLower = rent.toString().toLowerCase();
-            if(propertyToLower.contains(searchStr.toLowerCase())){
-                rentsReturn.add(rent);
+        List<Rent> items = listViewPane.getItems();
+        List<BoundExtractedResult<Rent>> result = FuzzySearch.extractSorted(searchStr, items,
+                Rent::toString, 57);
+        return result.stream().map(BoundExtractedResult::getReferent).collect(Collectors.toList());
+    }
+
+    private void searchRent() {
+        List<Rent> items = listViewPane.getItems();
+        tfSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            List<BoundExtractedResult<Rent>> result = FuzzySearch.extractSorted(newValue, items,
+                    Rent::toString, 57);
+
+            searchResult = FXCollections.observableList(result.stream()
+                    .map(BoundExtractedResult::getReferent).collect(Collectors.toList()));
+            listViewPane.setItems(searchResult);
+            System.out.println(result);
+            if (tfSearch.getText().length() == 0) {
+                listViewPane.setItems(rentObservableList);
             }
-        }
-        return rentsReturn;
+        });
     }
 
     public void setListViewPane() {
