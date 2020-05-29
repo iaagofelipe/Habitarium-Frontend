@@ -1,8 +1,11 @@
 package com.habitarium.controller.edit;
 
 import com.habitarium.utils.screen.AlertScreens;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.dao.LessorDAO;
 import main.java.dao.PropertyDAO;
@@ -11,12 +14,14 @@ import main.java.entity.Lessor;
 import main.java.entity.Property;
 import main.java.entity.Rent;
 
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.ResourceBundle;
 
-public class EditRentController {
+public class EditRentController implements Initializable {
     @FXML
     private TextField tfName;
     @FXML
@@ -51,6 +56,14 @@ public class EditRentController {
     private Rent rent;
     private Lessor lessor;
     private final RentDAO rentDAO = new RentDAO();
+    private final String PATTERN_MATCHES_RENT_VALUE = "[0-9,]";
+    private final int RENT_VALUE_LENGTH = 10;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setTxtRentValue();
+    }
 
     public void initializeScreen(Rent rent) {
         this.rent = rent;
@@ -85,7 +98,7 @@ public class EditRentController {
             lessor.setTelTwo(tfTel2.getText().trim());
 
             rent.setLessor(lessor);
-            rent.setValue(Float.parseFloat(tfValue.getText().trim()));
+            rent.setValue(Float.parseFloat(tfValue.getText().trim().replaceAll(",",".")));
             rent.setPayDay(Integer.parseInt(tfPayDay.getText().trim()));
 
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -128,6 +141,24 @@ public class EditRentController {
                 && !tfTel2.getText().trim().equals("");
         boolean registerRent = !tfPayDay.getText().trim().equals("");
         return registerLessor && registerRent;
+    }
+
+    private void setTxtRentValue() {
+        tfValue.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_RENT_VALUE));
+        tfValue.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > RENT_VALUE_LENGTH) {
+                tfValue.setText(oldValue);
+            }
+        });
+    }
+
+    private static EventHandler<KeyEvent> getPatternValidation(String pattern) {
+        return e -> {
+            String typed = e.getCharacter();
+            if (!typed.matches(pattern)) {
+                e.consume();
+            }
+        };
     }
 
     private void saveSucess() {
