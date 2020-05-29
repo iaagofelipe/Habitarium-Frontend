@@ -141,8 +141,7 @@ public class EditRentController {
         payments.add(mp);
         rent.setMonthPaidList(payments);
 
-//        rentDAO.update(rent);
-        System.out.println("PAGAMENTO REALIZADO!!");
+        registerPaymentSuccess();
     }
 
     private boolean checkTxtPadding() {
@@ -166,6 +165,14 @@ public class EditRentController {
                 ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("Aluguel Deletado!");
+        alert.show();
+    }
+
+    private void registerPaymentSuccess() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Pagamento do aluguel registrado com sucesso!");
         alert.show();
     }
 }
