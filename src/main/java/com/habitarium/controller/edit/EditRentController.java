@@ -1,13 +1,16 @@
 package com.habitarium.controller.edit;
 
 import com.habitarium.utils.screen.AlertScreens;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.java.dao.LessorDAO;
+import main.java.dao.MonthPaidDAO;
 import main.java.dao.PropertyDAO;
 import main.java.dao.RentDAO;
 import main.java.entity.Lessor;
+import main.java.entity.MonthPaid;
 import main.java.entity.Property;
 import main.java.entity.Rent;
 
@@ -15,6 +18,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 
 public class EditRentController {
     @FXML
@@ -26,7 +31,7 @@ public class EditRentController {
     @FXML
     private TextField tfTel2;
     @FXML
-    private ListView lvMonthPaid;
+    private ListView<MonthPaid> lvMonthPaid;
     @FXML
     private TextField tfRg;
     @FXML
@@ -73,6 +78,8 @@ public class EditRentController {
                 .atZone(ZoneId.systemDefault()).toLocalDate());
         dpReadjustment.valueProperty().setValue(Instant.ofEpochMilli(rent.getReadjustmentDate().getTime())
                 .atZone(ZoneId.systemDefault()).toLocalDate());
+
+        lvMonthPaid.setItems(FXCollections.observableList(rent.getMonthPaidList()));
     }
 
     @FXML
@@ -120,6 +127,22 @@ public class EditRentController {
         deleteSucess();
         Stage stage = (Stage) btnDelete.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void registerPayment() {
+        MonthPaid mp = new MonthPaid();
+
+        mp.setRent(rent);
+        mp.setValue(rent.getValue());
+        mp.setDate(new Date());
+
+        List<MonthPaid> payments = rent.getMonthPaidList();
+        payments.add(mp);
+        rent.setMonthPaidList(payments);
+
+//        rentDAO.update(rent);
+        System.out.println("PAGAMENTO REALIZADO!!");
     }
 
     private boolean checkTxtPadding() {
