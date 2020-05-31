@@ -30,7 +30,7 @@
             <Insets top="5.0" />
          </padding>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="34.0" nodeOrientation="LEFT_TO_RIGHT" text="Rua:" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="34.0" nodeOrientation="LEFT_TO_RIGHT" text="Rua/Av." textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
