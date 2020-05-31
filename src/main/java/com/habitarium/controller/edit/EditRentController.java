@@ -76,9 +76,8 @@ public class EditRentController implements Initializable {
         tfTel2.setText(lessor.getTelTwo());
 
         tfProperty.setText(rent.getProperty().toString());
-        tfValue.setText(String.valueOf(rent.getValue()));
+        tfValue.setText(String.valueOf(rent.getValue()).replace(".", ","));
         tfPayDay.setText(String.valueOf(rent.getPayDay()));
-
 
         dpEntranceDate.valueProperty().setValue(Instant.ofEpochMilli(rent.getEntranceDate().getTime())
                 .atZone(ZoneId.systemDefault()).toLocalDate());
