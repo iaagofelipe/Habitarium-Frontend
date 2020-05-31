@@ -13,6 +13,7 @@ import main.java.entity.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
@@ -32,21 +33,28 @@ public class LoginScreenController implements Initializable {
     @FXML
     public void switchToMain() {
         UserDAO UserDAO = new UserDAO();
-        User user = UserDAO.findById(25L);
+        User user = null;
+        user = UserDAO.findByLogin("admin");
+
         if (user != null) {
             if (user.getLogin().equals("admin") && user.getPassword().equals("admin")) {
                 // TODO chamar aqui a tela de redefinicao de login
-            } else if (txtFieldUsuario.getText().equals(user.getLogin()) && passwordField.getText().equals(user.getPassword())) {
-                Parent root;
-                try {
-                    Stage stageLogin = (Stage) login.getScene().getWindow();
-                    stageLogin.close();
-                    ScreenUtils.switchScreen("screen/mainScreen", "Registro de Propriedade");
-                } catch (IOException e) {
-                    e.printStackTrace();
+            }
+        } else {
+            user = UserDAO.findByLogin(txtFieldUsuario.getText());
+            if(user != null){
+                if (passwordField.getText().equals(user.getPassword())) {
+                    Parent root;
+                    try {
+                        Stage stageLogin = (Stage) login.getScene().getWindow();
+                        stageLogin.close();
+                        ScreenUtils.switchScreen("screen/mainScreen", "Registro de Propriedade");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    alertLogin();
                 }
-            } else {
-                alertLogin();
             }
         }
     }
