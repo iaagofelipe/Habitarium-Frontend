@@ -71,7 +71,9 @@ public class SearchRentScreenController implements Initializable {
         isEditopen = false;
         List<Rent> rentList = rentDAO.getList();
         if (!rentList.isEmpty()) {
-            rentObservableList = FXCollections.observableList(rentList);
+            rentObservableList = FXCollections.observableList(rentList.stream()
+                    .filter(r -> r.getLessor() != null && r.getProperty() != null)
+                    .collect(Collectors.toList()));
             listViewPane.setItems(rentObservableList);
         }
     }
