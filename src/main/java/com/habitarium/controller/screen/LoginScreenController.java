@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import main.java.dao.UserDAO;
+import main.java.entity.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,19 +31,23 @@ public class LoginScreenController implements Initializable {
 
     @FXML
     public void switchToMain() {
-        String user = "iago";
-        String pass = "12345";
-        if (txtFieldUsuario.getText().equals(user) && passwordField.getText().equals(pass)) {
-            Parent root;
-            try {
-                Stage stageLogin = (Stage) login.getScene().getWindow();
-                stageLogin.close();
-                ScreenUtils.switchScreen("screen/mainScreen", "Registro de Propriedade");
-            } catch (IOException e) {
-                e.printStackTrace();
+        UserDAO UserDAO = new UserDAO();
+        User user = UserDAO.findById(25L);
+        if (user != null) {
+            if (user.getLogin().equals("admin") && user.getPassword().equals("admin")) {
+                // TODO chamar aqui a tela de redefinicao de login
+            } else if (txtFieldUsuario.getText().equals(user.getLogin()) && passwordField.getText().equals(user.getPassword())) {
+                Parent root;
+                try {
+                    Stage stageLogin = (Stage) login.getScene().getWindow();
+                    stageLogin.close();
+                    ScreenUtils.switchScreen("screen/mainScreen", "Registro de Propriedade");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                alertLogin();
             }
-        } else {
-            alertLogin();
         }
     }
 
@@ -73,7 +79,7 @@ public class LoginScreenController implements Initializable {
         });
     }
 
-    public void alertLogin(){
+    public void alertLogin() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Usuário ou senha inválido",
                 ButtonType.OK);
         alert.setTitle("");
