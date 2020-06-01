@@ -4,15 +4,21 @@ import com.habitarium.utils.screen.OpenScreens;
 import com.habitarium.utils.screen.OpenSearchPropertyScreen;
 import com.habitarium.utils.screen.OpenSearchRentScreen;
 import com.habitarium.utils.screen.ScreenUtils;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import main.java.controller.MonthPaidController;
+import main.java.dao.RentDAO;
+import main.java.entity.Lessor;
+import main.java.entity.MonthPaid;
 import main.java.entity.Rent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class MainScreenController implements Initializable {
 
@@ -23,15 +29,41 @@ public class MainScreenController implements Initializable {
     @FXML
     private Button searchRentBtn;
     @FXML
-    private Button searchLessorBtn;
+    private Button searchPropertyBtn;
     @FXML
-    private Button searcPropertyBtn;
-    @FXML
-    private ListView<Rent> lvDebtors;
+    private ListView<String> lvDebtors;
     @FXML
     private Button btnInfo;
 
     private OpenScreens openPropertyScreens;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        RentDAO rentDAO = new RentDAO();
+        List<Rent> rents = rentDAO.getList();
+        List<String> rentsNotPaid = new ArrayList<>();
+
+        Calendar entranceDate = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        for (Rent rent : rents) {
+            List<MonthPaid> monthsPaid = rent.getMonthPaidList();
+
+            entranceDate.setTime(rent.getEntranceDate());
+            today.setTime(new Date());
+            while (entranceDate.before(today)) {
+                MonthPaid mp = new MonthPaid();
+                mp.setValue(rent.getValue());
+                mp.setDate(entranceDate.getTime());
+                if (!monthsPaid.contains(mp)) {
+                    SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+                    rentsNotPaid.add(rent.getLessor().getName() + "\tData: " + dt.format(entranceDate.getTime()));
+                }
+                entranceDate.add(Calendar.MONTH,1);
+            }
+        }
+        lvDebtors.setItems(FXCollections.observableList(rentsNotPaid));
+    }
 
     @FXML
     public void registerProperty() {
@@ -58,10 +90,6 @@ public class MainScreenController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
     }
 
     @FXML
