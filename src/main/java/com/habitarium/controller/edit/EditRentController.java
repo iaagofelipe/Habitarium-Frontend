@@ -1,5 +1,6 @@
 package com.habitarium.controller.edit;
 
+import com.habitarium.utils.date.DateUtil;
 import com.habitarium.utils.screen.AlertScreens;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -43,7 +44,7 @@ public class EditRentController {
     @FXML
     private DatePicker dpExitDate;
     @FXML
-    private TextField tfPayDay;
+    private Spinner<Integer> spPayDay;
     @FXML
     private Button btnSave;
     @FXML
@@ -69,7 +70,12 @@ public class EditRentController {
 
         tfProperty.setText(rent.getProperty().toString());
         tfValue.setText(String.valueOf(rent.getValue()));
-        tfPayDay.setText(String.valueOf(rent.getPayDay()));
+
+        System.out.println("linha 74");
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.
+                IntegerSpinnerValueFactory(1, DateUtil.lastDayCurrentMonth(), rent.getPayDay());
+        spPayDay.setValueFactory(valueFactory);
+        System.out.println("linha 78");
 
 
         dpEntranceDate.valueProperty().setValue(Instant.ofEpochMilli(rent.getEntranceDate().getTime())
@@ -93,7 +99,9 @@ public class EditRentController {
 
             rent.setLessor(lessor);
             rent.setValue(Float.parseFloat(tfValue.getText().trim()));
-            rent.setPayDay(Integer.parseInt(tfPayDay.getText().trim()));
+            System.out.println("linha 102");
+            rent.setPayDay(spPayDay.getValue());
+            System.out.println("linha 104");
 
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             try {
@@ -148,8 +156,8 @@ public class EditRentController {
         boolean registerLessor = !tfName.getText().trim().equals("") && !tfCpf.getText().trim().equals("")
                 && !tfRg.getText().trim().equals("") && !tfTel1.getText().trim().equals("")
                 && !tfTel2.getText().trim().equals("");
-        boolean registerRent = !tfPayDay.getText().trim().equals("");
-        return registerLessor && registerRent;
+        boolean hasSpinnerValue = spPayDay.getValue() != null;
+        return registerLessor && hasSpinnerValue;
     }
 
     private void saveSucess() {
