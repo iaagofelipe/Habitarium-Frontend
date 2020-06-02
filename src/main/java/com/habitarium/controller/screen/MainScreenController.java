@@ -11,14 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import main.java.controller.MonthPaidController;
 import main.java.dao.RentDAO;
-import main.java.entity.Lessor;
 import main.java.entity.MonthPaid;
 import main.java.entity.Rent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
 
@@ -31,7 +31,7 @@ public class MainScreenController implements Initializable {
     @FXML
     private Button searchPropertyBtn;
     @FXML
-    private ListView<String> lvDebtors;
+    private ListView<MonthPaid> lvDebtors;
     @FXML
     private Button btnInfo;
 
@@ -40,29 +40,14 @@ public class MainScreenController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         RentDAO rentDAO = new RentDAO();
+        MonthPaidController monthPaidController = new MonthPaidController();
         List<Rent> rents = rentDAO.getList();
-        List<String> rentsNotPaid = new ArrayList<>();
-
-        Calendar entranceDate = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-
         for (Rent rent : rents) {
-            List<MonthPaid> monthsPaid = rent.getMonthPaidList();
-
-            entranceDate.setTime(rent.getEntranceDate());
-            today.setTime(new Date());
-            while (entranceDate.before(today)) {
-                MonthPaid mp = new MonthPaid();
-                mp.setValue(rent.getValue());
-                mp.setDate(entranceDate.getTime());
-                if (!monthsPaid.contains(mp)) {
-                    SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
-                    rentsNotPaid.add(rent.getLessor().getName() + "\tData: " + dt.format(entranceDate.getTime()));
-                }
-                entranceDate.add(Calendar.MONTH,1);
-            }
+            lvDebtors.setItems(
+                    FXCollections.observableList(
+                            monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), rent.getEntranceDate(),
+                                    new Date())));
         }
-        lvDebtors.setItems(FXCollections.observableList(rentsNotPaid));
     }
 
     @FXML
