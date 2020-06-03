@@ -56,11 +56,13 @@ public class EditRentController {
 
     private Rent rent;
     private Lessor lessor;
+    private List<MonthPaid> monthsPaid;
     private final RentDAO rentDAO = new RentDAO();
 
     public void initializeScreen(Rent rent) {
         this.rent = rent;
         this.lessor = rent.getLessor();
+        monthsPaid = rent.getMonthPaidList();
 
         tfName.setText(lessor.getName());
         tfCpf.setText(lessor.getCpf());
@@ -87,7 +89,7 @@ public class EditRentController {
         dpReadjustment.valueProperty().setValue(Instant.ofEpochMilli(rent.getReadjustmentDate().getTime())
                 .atZone(ZoneId.systemDefault()).toLocalDate());
 
-        lvMonthPaid.setItems(FXCollections.observableList(rent.getMonthPaidList().stream()
+        lvMonthPaid.setItems(FXCollections.observableList(monthsPaid.stream()
                 .filter(MonthPaid::isPaid)
                 .collect(Collectors.toList())));
     }
