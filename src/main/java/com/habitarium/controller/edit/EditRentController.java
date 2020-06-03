@@ -186,4 +186,12 @@ public class EditRentController {
         alert.setHeaderText("Pagamento do aluguel registrado com sucesso!");
         alert.show();
     }
+
+    private void rentAlreadyPaid() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Aluguel desse mês ja foi pago!");
+        alert.show();
+    }
 }
