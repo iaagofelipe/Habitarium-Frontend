@@ -21,6 +21,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EditRentController {
     @FXML
@@ -71,12 +72,14 @@ public class EditRentController {
         tfProperty.setText(rent.getProperty().toString());
         tfValue.setText(String.valueOf(rent.getValue()));
 
-        System.out.println("linha 74");
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.
                 IntegerSpinnerValueFactory(1, DateUtil.lastDayCurrentMonth(), rent.getPayDay());
         spPayDay.setValueFactory(valueFactory);
-        System.out.println("linha 78");
-
+        spPayDay.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+               spPayDay.getValueFactory().setValue(oldValue);
+            }
+        });
 
         dpEntranceDate.valueProperty().setValue(Instant.ofEpochMilli(rent.getEntranceDate().getTime())
                 .atZone(ZoneId.systemDefault()).toLocalDate());
