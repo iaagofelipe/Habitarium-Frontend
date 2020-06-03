@@ -6,6 +6,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -201,11 +202,14 @@
                         <DatePicker fx:id="dpEntranceDate" layoutX="10.0" layoutY="213.0" prefHeight="26.0" prefWidth="120.0" />
                         <DatePicker fx:id="dpReadjustment" layoutX="10.0" layoutY="277.0" prefHeight="26.0" prefWidth="120.0" />
                         <DatePicker fx:id="dpExitDate" layoutX="188.0" layoutY="213.0" prefHeight="26.0" prefWidth="120.0" />
-                        <TextField fx:id="tfPayDay" layoutX="188.0" layoutY="149.0" prefHeight="26.0" prefWidth="100.0" />
-                        <Button fx:id="btnMakePayment" layoutX="91.0" layoutY="348.0" mnemonicParsing="false" text="Realizar Pagamento" />
+                        <Button fx:id="btnMakePayment" layoutX="91.0" layoutY="348.0" mnemonicParsing="false" onAction="#registerPayment" text="Realizar Pagamento">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Spinner fx:id="spPayDay" editable="true" layoutX="188.0" layoutY="149.0" prefHeight="26.0" prefWidth="100.0" />
                     </children>
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="DEFAULT" />
                     </cursor>
                 </Pane>
             </children>

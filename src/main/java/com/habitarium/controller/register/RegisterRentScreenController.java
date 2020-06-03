@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import main.java.controller.RentController;
 import main.java.dao.PropertyDAO;
 import main.java.dao.RentDAO;
 import main.java.entity.Lessor;
@@ -105,6 +106,8 @@ public class RegisterRentScreenController implements Initializable {
                 rent.setPayDay(spPayDay.getValue());
                 lessor.setRent(rent);
                 rent.setLessor(lessor);
+                RentController rentController = new RentController(rent);
+                rent.setMonthPaidList(rentController.setMonthsToPay());
 
                 RentDAO rentDAO = new RentDAO();
 

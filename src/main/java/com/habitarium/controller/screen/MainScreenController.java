@@ -4,14 +4,20 @@ import com.habitarium.utils.screen.OpenScreens;
 import com.habitarium.utils.screen.OpenSearchPropertyScreen;
 import com.habitarium.utils.screen.OpenSearchRentScreen;
 import com.habitarium.utils.screen.ScreenUtils;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import main.java.controller.MonthPaidController;
+import main.java.dao.RentDAO;
+import main.java.entity.MonthPaid;
 import main.java.entity.Rent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
@@ -23,15 +29,26 @@ public class MainScreenController implements Initializable {
     @FXML
     private Button searchRentBtn;
     @FXML
-    private Button searchLessorBtn;
+    private Button searchPropertyBtn;
     @FXML
-    private Button searcPropertyBtn;
-    @FXML
-    private ListView<Rent> lvDebtors;
+    private ListView<MonthPaid> lvDebtors;
     @FXML
     private Button btnInfo;
 
     private OpenScreens openPropertyScreens;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        RentDAO rentDAO = new RentDAO();
+        MonthPaidController monthPaidController = new MonthPaidController();
+        List<Rent> rents = rentDAO.getList();
+        for (Rent rent : rents) {
+            lvDebtors.setItems(
+                    FXCollections.observableList(
+                            monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), rent.getEntranceDate(),
+                                    new Date())));
+        }
+    }
 
     @FXML
     public void registerProperty() {
@@ -58,10 +75,6 @@ public class MainScreenController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
     }
 
     @FXML

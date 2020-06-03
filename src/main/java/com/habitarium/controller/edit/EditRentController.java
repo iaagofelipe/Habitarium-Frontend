@@ -1,27 +1,28 @@
 package com.habitarium.controller.edit;
 
+import com.habitarium.utils.date.DateUtil;
 import com.habitarium.utils.screen.AlertScreens;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.dao.LessorDAO;
 import main.java.dao.PropertyDAO;
 import main.java.dao.RentDAO;
 import main.java.entity.Lessor;
+import main.java.entity.MonthPaid;
 import main.java.entity.Property;
 import main.java.entity.Rent;
 
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ResourceBundle;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class EditRentController implements Initializable {
+public class EditRentController {
     @FXML
     private TextField tfName;
     @FXML
@@ -31,7 +32,7 @@ public class EditRentController implements Initializable {
     @FXML
     private TextField tfTel2;
     @FXML
-    private ListView lvMonthPaid;
+    private ListView<MonthPaid> lvMonthPaid;
     @FXML
     private TextField tfRg;
     @FXML
@@ -43,7 +44,7 @@ public class EditRentController implements Initializable {
     @FXML
     private DatePicker dpExitDate;
     @FXML
-    private TextField tfPayDay;
+    private Spinner<Integer> spPayDay;
     @FXML
     private Button btnSave;
     @FXML
@@ -55,19 +56,13 @@ public class EditRentController implements Initializable {
 
     private Rent rent;
     private Lessor lessor;
+    private List<MonthPaid> monthsPaid;
     private final RentDAO rentDAO = new RentDAO();
-    private final String PATTERN_MATCHES_RENT_VALUE = "[0-9,]";
-    private final int RENT_VALUE_LENGTH = 10;
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        setTxtRentValue();
-    }
 
     public void initializeScreen(Rent rent) {
         this.rent = rent;
         this.lessor = rent.getLessor();
+        monthsPaid = rent.getMonthPaidList();
 
         tfName.setText(lessor.getName());
         tfCpf.setText(lessor.getCpf());
@@ -76,8 +71,16 @@ public class EditRentController implements Initializable {
         tfTel2.setText(lessor.getTelTwo());
 
         tfProperty.setText(rent.getProperty().toString());
-        tfValue.setText(String.valueOf(rent.getValue()).replace(".", ","));
-        tfPayDay.setText(String.valueOf(rent.getPayDay()));
+        tfValue.setText(String.valueOf(rent.getValue()));
+
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.
+                IntegerSpinnerValueFactory(1, DateUtil.lastDayCurrentMonth(), rent.getPayDay());
+        spPayDay.setValueFactory(valueFactory);
+        spPayDay.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+               spPayDay.getValueFactory().setValue(oldValue);
+            }
+        });
 
         dpEntranceDate.valueProperty().setValue(Instant.ofEpochMilli(rent.getEntranceDate().getTime())
                 .atZone(ZoneId.systemDefault()).toLocalDate());
@@ -85,6 +88,10 @@ public class EditRentController implements Initializable {
                 .atZone(ZoneId.systemDefault()).toLocalDate());
         dpReadjustment.valueProperty().setValue(Instant.ofEpochMilli(rent.getReadjustmentDate().getTime())
                 .atZone(ZoneId.systemDefault()).toLocalDate());
+
+        lvMonthPaid.setItems(FXCollections.observableList(monthsPaid.stream()
+                .filter(MonthPaid::isPaid)
+                .collect(Collectors.toList())));
     }
 
     @FXML
@@ -97,8 +104,8 @@ public class EditRentController implements Initializable {
             lessor.setTelTwo(tfTel2.getText().trim());
 
             rent.setLessor(lessor);
-            rent.setValue(Float.parseFloat(tfValue.getText().trim().replaceAll(",",".")));
-            rent.setPayDay(Integer.parseInt(tfPayDay.getText().trim()));
+            rent.setValue(Float.parseFloat(tfValue.getText().trim()));
+            rent.setPayDay(spPayDay.getValue());
 
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             try {
@@ -134,30 +141,26 @@ public class EditRentController implements Initializable {
         stage.close();
     }
 
+    @FXML
+    private void registerPayment() {
+        LocalDate today = LocalDate.now();
+        for (MonthPaid mp : monthsPaid) {
+            LocalDate month = mp.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (mp.isPaid()) {
+                rentAlreadyPaid();
+            } else if (month.getMonth() == today.getMonth() && month.getYear() == today.getYear()) {
+                mp.setPaid(true);
+                registerPaymentSuccess();
+            }
+        }
+    }
+
     private boolean checkTxtPadding() {
         boolean registerLessor = !tfName.getText().trim().equals("") && !tfCpf.getText().trim().equals("")
                 && !tfRg.getText().trim().equals("") && !tfTel1.getText().trim().equals("")
                 && !tfTel2.getText().trim().equals("");
-        boolean registerRent = !tfPayDay.getText().trim().equals("");
-        return registerLessor && registerRent;
-    }
-
-    private void setTxtRentValue() {
-        tfValue.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_RENT_VALUE));
-        tfValue.textProperty().addListener((ov, oldValue, newValue) -> {
-            if (newValue.length() > RENT_VALUE_LENGTH) {
-                tfValue.setText(oldValue);
-            }
-        });
-    }
-
-    private static EventHandler<KeyEvent> getPatternValidation(String pattern) {
-        return e -> {
-            String typed = e.getCharacter();
-            if (!typed.matches(pattern)) {
-                e.consume();
-            }
-        };
+        boolean hasSpinnerValue = spPayDay.getValue() != null;
+        return registerLessor && hasSpinnerValue;
     }
 
     private void saveSucess() {
@@ -173,6 +176,22 @@ public class EditRentController implements Initializable {
                 ButtonType.OK);
         alert.setTitle("");
         alert.setHeaderText("Aluguel Deletado!");
+        alert.show();
+    }
+
+    private void registerPaymentSuccess() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Pagamento do aluguel registrado com sucesso!");
+        alert.show();
+    }
+
+    private void rentAlreadyPaid() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
+                ButtonType.OK);
+        alert.setTitle("");
+        alert.setHeaderText("Aluguel desse mês ja foi pago!");
         alert.show();
     }
 }
