@@ -17,8 +17,8 @@ import main.java.entity.Rent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -143,17 +143,16 @@ public class EditRentController {
 
     @FXML
     private void registerPayment() {
-        MonthPaid mp = new MonthPaid();
-
-        mp.setRent(rent);
-        mp.setValue(rent.getValue());
-        mp.setDate(new Date());
-
-        List<MonthPaid> payments = rent.getMonthPaidList();
-        payments.add(mp);
-        rent.setMonthPaidList(payments);
-
-        registerPaymentSuccess();
+        LocalDate today = LocalDate.now();
+        for (MonthPaid mp : monthsPaid) {
+            LocalDate month = mp.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (mp.isPaid()) {
+                rentAlreadyPaid();
+            } else if (month.getMonth() == today.getMonth() && month.getYear() == today.getYear()) {
+                mp.setPaid(true);
+                registerPaymentSuccess();
+            }
+        }
     }
 
     private boolean checkTxtPadding() {
