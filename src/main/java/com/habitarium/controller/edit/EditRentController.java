@@ -88,7 +88,9 @@ public class EditRentController {
         dpReadjustment.valueProperty().setValue(Instant.ofEpochMilli(rent.getReadjustmentDate().getTime())
                 .atZone(ZoneId.systemDefault()).toLocalDate());
 
-        lvMonthPaid.setItems(FXCollections.observableList(rent.getMonthPaidList()));
+        lvMonthPaid.setItems(FXCollections.observableList(rent.getMonthPaidList().stream()
+                .filter(MonthPaid::isPaid)
+                .collect(Collectors.toList())));
     }
 
     @FXML
@@ -102,9 +104,7 @@ public class EditRentController {
 
             rent.setLessor(lessor);
             rent.setValue(Float.parseFloat(tfValue.getText().trim()));
-            System.out.println("linha 102");
             rent.setPayDay(spPayDay.getValue());
-            System.out.println("linha 104");
 
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             try {
