@@ -47,13 +47,16 @@ public class RegisterPropertyScreenController implements Initializable {
             property.setPropertyNumber(txtNumber.getText().trim());
             property.setStreet(txtStreet.getText().trim());
             property.setApartment(txtApartment.getText().trim());
+
             PropertyDAO propertyDAO = new PropertyDAO();
             property = propertyDAO.save(property);
-            saveSucess();
+
+            AlertScreens.alertConfirmation("", "Propriedade salva com sucesso!");
+
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
         } else {
-            AlertScreens.alertPadding();
+            AlertScreens.alertError("Há campos em branco","Erro ao preencher");
         }
     }
 
@@ -107,14 +110,19 @@ public class RegisterPropertyScreenController implements Initializable {
         boolean isApartment = !txtApartment.getText().trim().equals("") && !txtCondo.getText().trim().equals("")
                 && !txtBlockCondo.getText().trim().equals("") && !txtCity.getText().trim().equals("")
                 && !txtNeighbour.getText().trim().equals("") && !txtNumber.getText().trim().equals("")
-                && !txtStreet.getText().trim().equals("") && chooseTypeProperty.getSelectionModel().getSelectedIndex() == 0;
+                && !txtStreet.getText().trim().equals("")
+                && chooseTypeProperty.getSelectionModel().getSelectedIndex() == 0;
+
         boolean isHouse = !txtCity.getText().trim().equals("")
                 && !txtNeighbour.getText().trim().equals("") && !txtNumber.getText().trim().equals("")
-                && !txtStreet.getText().trim().equals("") && chooseTypeProperty.getSelectionModel().getSelectedIndex() == 1;
+                && !txtStreet.getText().trim().equals("")
+                && chooseTypeProperty.getSelectionModel().getSelectedIndex() == 1;
+
         boolean isCondo = !txtCondo.getText().trim().equals("")
                 && !txtBlockCondo.getText().trim().equals("") && !txtCity.getText().trim().equals("")
                 && !txtNeighbour.getText().trim().equals("") && !txtNumber.getText().trim().equals("")
-                && !txtStreet.getText().trim().equals("") && chooseTypeProperty.getSelectionModel().getSelectedIndex() == 2;
+                && !txtStreet.getText().trim().equals("")
+                && chooseTypeProperty.getSelectionModel().getSelectedIndex() == 2;
 
         return isApartment || isHouse || isCondo;
     }
@@ -127,13 +135,5 @@ public class RegisterPropertyScreenController implements Initializable {
         txtNeighbour.setDisable(true);
         txtNumber.setDisable(true);
         txtStreet.setDisable(true);
-    }
-
-    public void saveSucess() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Propriedade salva com sucesso!");
-        alert.show();
     }
 }

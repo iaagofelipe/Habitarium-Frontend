@@ -1,6 +1,7 @@
 package com.habitarium.controller.screen;
 
 
+import com.habitarium.utils.screen.AlertScreens;
 import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -41,7 +42,7 @@ public class LoginScreenController implements Initializable {
                 e.printStackTrace();
             }
         } else {
-            alertLogin();
+            AlertScreens.alertError("Usuário ou senha inválido", "Erro na tentativa de login");
         }
     }
 
@@ -71,15 +72,6 @@ public class LoginScreenController implements Initializable {
                 }
             }
         });
-    }
-
-    public void alertLogin(){
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Usuário ou senha inválido",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro na tentativa de login");
-        alert.show();
-
     }
 }
 

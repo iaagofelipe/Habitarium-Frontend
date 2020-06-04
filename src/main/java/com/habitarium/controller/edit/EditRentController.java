@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EditRentController {
+    private final RentDAO rentDAO = new RentDAO();
     @FXML
     private TextField tfName;
     @FXML
@@ -53,11 +54,9 @@ public class EditRentController {
     private Button btnDelete;
     @FXML
     private Button btnMakePayment;
-
     private Rent rent;
     private Lessor lessor;
     private List<MonthPaid> monthsPaid;
-    private final RentDAO rentDAO = new RentDAO();
 
     public void initializeScreen(Rent rent) {
         this.rent = rent;
@@ -78,7 +77,7 @@ public class EditRentController {
         spPayDay.setValueFactory(valueFactory);
         spPayDay.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-               spPayDay.getValueFactory().setValue(oldValue);
+                spPayDay.getValueFactory().setValue(oldValue);
             }
         });
 
@@ -110,19 +109,19 @@ public class EditRentController {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 rent.setEntranceDate(format.parse(dpEntranceDate.getEditor().getText().trim()));
-                rent.setExitDate(format.parse(dpEntranceDate.getEditor().getText().trim()));
+                rent.setExitDate(format.parse(dpExitDate.getEditor().getText().trim()));
                 rent.setReadjustmentDate(format.parse(dpReadjustment.getEditor().getText().trim()));
             } catch (ParseException e) {
-                AlertScreens.alertDateInvalid();
+                AlertScreens.alertError("Data inválida", "Erro de data");
                 e.printStackTrace();
             }
             rentDAO.update(rent);
-            saveSucess();
+            AlertScreens.alertConfirmation("", "Aluguel Atualizado!");
 
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
         } else {
-            AlertScreens.alertPadding();
+            AlertScreens.alertError("Há campos em branco", "Erro ao preencher");
         }
     }
 
@@ -136,7 +135,7 @@ public class EditRentController {
         lessorDAO.delete(rent.getLessor().getId());
 
         rentDAO.delete(rent.getId());
-        deleteSucess();
+        AlertScreens.alertConfirmation("", "Aluguel Deletado!");
         Stage stage = (Stage) btnDelete.getScene().getWindow();
         stage.close();
     }
@@ -147,10 +146,10 @@ public class EditRentController {
         for (MonthPaid mp : monthsPaid) {
             LocalDate month = mp.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             if (mp.isPaid()) {
-                rentAlreadyPaid();
+                AlertScreens.alertConfirmation("", "Aluguel desse mês ja foi pago!");
             } else if (month.getMonth() == today.getMonth() && month.getYear() == today.getYear()) {
                 mp.setPaid(true);
-                registerPaymentSuccess();
+                AlertScreens.alertConfirmation("", "Pagamento do aluguel registrado com sucesso!");
             }
         }
     }
@@ -160,38 +159,7 @@ public class EditRentController {
                 && !tfRg.getText().trim().equals("") && !tfTel1.getText().trim().equals("")
                 && !tfTel2.getText().trim().equals("");
         boolean hasSpinnerValue = spPayDay.getValue() != null;
+
         return registerLessor && hasSpinnerValue;
-    }
-
-    private void saveSucess() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Aluguel Atualizado!");
-        alert.show();
-    }
-
-    private void deleteSucess() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Aluguel Deletado!");
-        alert.show();
-    }
-
-    private void registerPaymentSuccess() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Pagamento do aluguel registrado com sucesso!");
-        alert.show();
-    }
-
-    private void rentAlreadyPaid() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Aluguel desse mês ja foi pago!");
-        alert.show();
     }
 }
