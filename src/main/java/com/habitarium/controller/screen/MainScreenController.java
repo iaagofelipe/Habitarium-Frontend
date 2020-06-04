@@ -5,6 +5,7 @@ import com.habitarium.utils.screen.OpenSearchPropertyScreen;
 import com.habitarium.utils.screen.OpenSearchRentScreen;
 import com.habitarium.utils.screen.ScreenUtils;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -41,13 +42,13 @@ public class MainScreenController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         RentDAO rentDAO = new RentDAO();
         MonthPaidController monthPaidController = new MonthPaidController();
+        ObservableList<MonthPaid> result = FXCollections.observableArrayList();
         List<Rent> rents = rentDAO.getList();
         for (Rent rent : rents) {
-            lvDebtors.setItems(
-                    FXCollections.observableList(
-                            monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), rent.getEntranceDate(),
-                                    new Date())));
+            result.addAll(monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), rent.getEntranceDate(),
+                    new Date()));
         }
+        lvDebtors.setItems(result);
     }
 
     @FXML
