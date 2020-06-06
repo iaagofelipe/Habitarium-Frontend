@@ -6,6 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import main.java.controller.MonthPaidController;
+import main.java.controller.RentController;
 import main.java.dao.LessorDAO;
 import main.java.dao.PropertyDAO;
 import main.java.dao.RentDAO;
@@ -19,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,6 +98,10 @@ public class EditRentController {
 
     @FXML
     private void save() {
+        MonthPaidController monthPaidController = new MonthPaidController();
+        RentController rentController = new RentController();
+        Rent oldRent = rentController.copyRent(rent);
+
         if (checkTxtPadding()) {
             lessor.setName(tfName.getText().trim());
             lessor.setCpf(tfCpf.getText().trim());
@@ -114,6 +121,11 @@ public class EditRentController {
             } catch (ParseException e) {
                 AlertScreens.alertError("Data inválida", "Erro de data");
                 e.printStackTrace();
+            }
+
+            if (rentController.hasChanged(oldRent, rent)) {
+                monthPaidController.deleteAll(rent.getMonthPaidList());
+                rent.setMonthPaidList(rentController.setMonthsToPay(rent));
             }
             rentDAO.update(rent);
             AlertScreens.alertConfirmation("", "Aluguel Atualizado!");
