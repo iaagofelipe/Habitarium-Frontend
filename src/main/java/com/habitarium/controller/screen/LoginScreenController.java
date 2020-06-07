@@ -1,6 +1,8 @@
 package com.habitarium.controller.screen;
 
 
+import com.habitarium.utils.screen.OpenFirstLoginScreen;
+import com.habitarium.utils.screen.OpenScreens;
 import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,17 +39,21 @@ public class LoginScreenController implements Initializable {
         user = UserDAO.findByLogin("admin");
 
         if (user != null) {
-            if (user.getLogin().equals("admin") && user.getPassword().equals("admin")) {
-                // TODO chamar aqui a tela de redefinicao de login
+            if (user.getLogin().equals("admin")) {
+                OpenScreens openFirstLogin = new OpenFirstLoginScreen();
+                try {
+                    CloseScreen();
+                    openFirstLogin.loadScreen("screen/firstLoginScreen", "Login", user);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             user = UserDAO.findByLogin(txtFieldUsuario.getText());
             if(user != null){
                 if (passwordField.getText().equals(user.getPassword())) {
-                    Parent root;
                     try {
-                        Stage stageLogin = (Stage) login.getScene().getWindow();
-                        stageLogin.close();
+                        CloseScreen();
                         ScreenUtils.switchScreen("screen/mainScreen", "Registro de Propriedade");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -57,6 +63,11 @@ public class LoginScreenController implements Initializable {
                 }
             }
         }
+    }
+
+    private void CloseScreen() {
+        Stage stageLogin = (Stage) login.getScene().getWindow();
+        stageLogin.close();
     }
 
     @Override

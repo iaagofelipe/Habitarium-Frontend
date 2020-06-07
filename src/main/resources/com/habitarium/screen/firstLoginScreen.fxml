@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="290.0" prefWidth="250.0" style="-fx-background-color: a52210;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.habitarium.screen.utils.FirstLoginScreen">
+<AnchorPane prefHeight="290.0" prefWidth="250.0" style="-fx-background-color: a52210;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.habitarium.controller.screen.FirstLoginScreenController">
    <children>
       <Pane prefHeight="133.0" prefWidth="250.0" style="-fx-background-color: #8c1b0d; -fx-background-radius: 15px;" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="2.0">
          <children>
-            <Label fx:id="lblEmail" layoutX="15.0" layoutY="2.0" text="Email:" textFill="WHITE">
+            <Label layoutX="15.0" layoutY="2.0" text="Email:" textFill="WHITE">
                <padding>
                   <Insets bottom="5.0" top="5.0" />
                </padding>
@@ -25,7 +25,7 @@
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <Label fx:id="lblUser" layoutX="15.0" layoutY="55.0" text="Usuario:" textFill="WHITE">
+            <Label layoutX="15.0" layoutY="55.0" text="Usuario:" textFill="WHITE">
                <padding>
                   <Insets bottom="10.0" top="5.0" />
                </padding>
@@ -41,7 +41,7 @@
       </Pane>
       <Pane layoutX="5.0" layoutY="138.0" prefHeight="133.0" prefWidth="250.0" style="-fx-background-color: #8c1b0d; -fx-background-radius: 15px;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="138.0">
          <children>
-            <Label fx:id="lblPasswordConf" layoutX="14.0" layoutY="55.0" text="Confirmar senha:" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="55.0" text="Confirmar senha:" textFill="WHITE">
                <padding>
                   <Insets bottom="5.0" top="5.0" />
                </padding>
@@ -49,7 +49,7 @@
                   <Font name="Arial" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="lblPassword" layoutX="14.0" layoutY="2.0" text="Senha:" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="2.0" text="Senha:" textFill="WHITE">
                <padding>
                   <Insets bottom="5.0" top="5.0" />
                </padding>
@@ -65,7 +65,7 @@
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <Button fx:id="btnSubmit" layoutX="95.0" layoutY="113.0" minHeight="17.0" minWidth="53.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="56.0" style="-fx-background-color: ce2812; -fx-background-radius: 10px; -fx-border-color: a4200e; -fx-border-radius: 10px;" text="Enviar">
+            <Button fx:id="btnSubmit" layoutX="95.0" layoutY="113.0" minHeight="17.0" minWidth="53.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="56.0" style="-fx-background-color: ce2812; -fx-background-radius: 10px; -fx-border-color: a4200e; -fx-border-radius: 10px;" text="Enviar">
                <font>
                   <Font name="Arial" size="37.0" />
                </font>
