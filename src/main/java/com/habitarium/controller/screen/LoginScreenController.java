@@ -14,6 +14,7 @@ import main.java.dao.UserDAO;
 import main.java.entity.User;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -36,10 +37,13 @@ public class LoginScreenController implements Initializable {
     public void switchToMain() {
         UserDAO UserDAO = new UserDAO();
         User user = null;
-        user = UserDAO.findByLogin("admin");
-
+        try{
+            user = UserDAO.findByLogin("admin");
+        } catch (RuntimeException e){
+            System.out.println(e);
+        }
         if (user != null) {
-            if (user.getLogin().equals("admin")) {
+            if (user.getLogin().equals("admin") && user.getPassword().equals("admin")) {
                 OpenScreens openFirstLogin = new OpenFirstLoginScreen();
                 try {
                     CloseScreen();
