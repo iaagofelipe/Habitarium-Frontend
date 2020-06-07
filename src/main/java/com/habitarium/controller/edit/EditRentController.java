@@ -100,7 +100,7 @@ public class EditRentController {
     private void save() {
         MonthPaidController monthPaidController = new MonthPaidController();
         RentController rentController = new RentController();
-        Rent oldRent = rentController.copyRent(rent);
+        Rent oldRent = rent;
 
         if (checkTxtPadding()) {
             lessor.setName(tfName.getText().trim());
