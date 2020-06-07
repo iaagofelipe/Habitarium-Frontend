@@ -106,8 +106,8 @@ public class RegisterRentScreenController implements Initializable {
                 rent.setPayDay(spPayDay.getValue());
                 lessor.setRent(rent);
                 rent.setLessor(lessor);
-                RentController rentController = new RentController(rent);
-                rent.setMonthPaidList(rentController.setMonthsToPay());
+                RentController rentController = new RentController();
+                rent.setMonthPaidList(rentController.setMonthsToPay(rent));
 
                 RentDAO rentDAO = new RentDAO();
 
