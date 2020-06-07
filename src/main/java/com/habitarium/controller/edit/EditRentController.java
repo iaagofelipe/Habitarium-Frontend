@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import main.java.controller.MonthPaidController;
 import main.java.controller.RentController;
 import main.java.dao.LessorDAO;
+import main.java.dao.MonthPaidDAO;
 import main.java.dao.PropertyDAO;
 import main.java.dao.RentDAO;
 import main.java.entity.Lessor;
@@ -100,7 +101,7 @@ public class EditRentController {
     private void save() {
         MonthPaidController monthPaidController = new MonthPaidController();
         RentController rentController = new RentController();
-        Rent oldRent = rent;
+        Rent oldRent = rentController.copyRent(rent);
 
         if (checkTxtPadding()) {
             lessor.setName(tfName.getText().trim());
@@ -122,8 +123,7 @@ public class EditRentController {
                 AlertScreens.alertError("Data inválida", "Erro de data");
                 e.printStackTrace();
             }
-
-            if (rentController.hasChanged(oldRent, rent)) {
+            if (rentController.hasChangedDatesOrValue(oldRent, rent)) {
                 monthPaidController.deleteAll(rent.getMonthPaidList());
                 rent.setMonthPaidList(rentController.setMonthsToPay(rent));
             }
