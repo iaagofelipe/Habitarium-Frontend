@@ -1,14 +1,17 @@
 package com.habitarium.controller.screen;
 
+import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import main.java.dao.UserDAO;
 import main.java.entity.User;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -47,13 +50,23 @@ public class FirstLoginScreenController implements Initializable {
             if (update == null){
                 alertLogin();
             } else {
-                // TODO SALVO COM SUCESSO
+                closeScreen();
+                try {
+                    ScreenUtils.switchScreen("screen/mainScreen", "Registro de Propriedade");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             tfPasswordConf.setText("");
             final String cssDefault = "-fx-border-color: #f8d007;-fx-border-width: 4;";
             tfPasswordConf.setStyle(cssDefault);
         }
+    }
+
+    private void closeScreen() {
+        Stage stageLogin = (Stage) btnSubmit.getScene().getWindow();
+        stageLogin.close();
     }
 
     public void alertLogin() {
