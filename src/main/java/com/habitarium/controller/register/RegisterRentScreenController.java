@@ -106,8 +106,8 @@ public class RegisterRentScreenController implements Initializable {
                 rent.setPayDay(spPayDay.getValue());
                 lessor.setRent(rent);
                 rent.setLessor(lessor);
-                RentController rentController = new RentController(rent);
-                rent.setMonthPaidList(rentController.setMonthsToPay());
+                RentController rentController = new RentController();
+                rent.setMonthPaidList(rentController.setMonthsToPay(rent));
 
                 RentDAO rentDAO = new RentDAO();
 
@@ -118,18 +118,18 @@ public class RegisterRentScreenController implements Initializable {
                 rentDAO.save(rent);
                 propertyDAO.update(property);
 
-                saveSucess();
+                AlertScreens.alertConfirmation("", "Salvo com sucesso!");
                 Stage stage = (Stage) btnSave.getScene().getWindow();
                 stage.close();
 
             } catch (ParseException e) {
-                AlertScreens.alertDateInvalid();
+                AlertScreens.alertError("Data inválida","Erro de data");
                 e.printStackTrace();
             }
         } else if (isPropertyEmpty) {
-            alertPropertyNotSelected();
+            AlertScreens.alertError("Nenhuma propriedade selecionada", "Erro: Propriedade vazia");
         } else {
-            AlertScreens.alertPadding();
+            AlertScreens.alertError("Há campos em branco","Erro ao preencher");
         }
     }
 
@@ -225,23 +225,6 @@ public class RegisterRentScreenController implements Initializable {
                 e.consume();
             }
         };
-    }
-
-    private void alertPropertyNotSelected() {
-        Alert alert = new Alert(Alert.AlertType.ERROR,
-                "Nenhuma propriedade selecionada",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro: Propriedade vazia");
-        alert.show();
-    }
-
-    public void saveSucess() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("salvo com sucesso!");
-        alert.show();
     }
 }
 

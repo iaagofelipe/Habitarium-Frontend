@@ -1,11 +1,15 @@
 package com.habitarium.controller.screen;
 
 
+import com.habitarium.utils.screen.AlertScreens;
 import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import main.java.dao.UserDAO;
@@ -13,22 +17,17 @@ import main.java.entity.User;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
     @FXML
-    private Label tfForgotMyPass;
-
-    @FXML
     public PasswordField passwordField;
-
     @FXML
     public TextField txtFieldUsuario;
-
     @FXML
     public Button login;
-
+    @FXML
+    private Label tfForgotMyPass;
 
     @FXML
     public void switchToMain() {
@@ -42,9 +41,8 @@ public class LoginScreenController implements Initializable {
             }
         } else {
             user = UserDAO.findByLogin(txtFieldUsuario.getText());
-            if(user != null){
+            if (user != null) {
                 if (passwordField.getText().equals(user.getPassword())) {
-                    Parent root;
                     try {
                         Stage stageLogin = (Stage) login.getScene().getWindow();
                         stageLogin.close();
@@ -53,7 +51,7 @@ public class LoginScreenController implements Initializable {
                         e.printStackTrace();
                     }
                 } else {
-                    alertLogin();
+                    AlertScreens.alertError("Usuário ou senha inválido", "Erro na tentativa de login");
                 }
             }
         }
@@ -85,15 +83,6 @@ public class LoginScreenController implements Initializable {
                 }
             }
         });
-    }
-
-    public void alertLogin() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Usuário ou senha inválido",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro na tentativa de login");
-        alert.show();
-
     }
 }
 

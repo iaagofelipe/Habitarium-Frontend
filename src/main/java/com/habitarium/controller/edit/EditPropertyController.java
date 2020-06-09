@@ -38,6 +38,7 @@ public class EditPropertyController {
 
     public void initializeScreen(Property property) {
         this.property = property;
+
         tfStreet.setText(property.getStreet());
         tfNumber.setText((property.getPropertyNumber()));
         tfNeighbour.setText(property.getNeighbour());
@@ -45,6 +46,7 @@ public class EditPropertyController {
         tfCondo.setText(property.getCondo());
         tfApartment.setText(property.getApartment());
         tfBlockCondo.setText(property.getBlockCondo());
+
         initDisabled();
     }
 
@@ -60,11 +62,12 @@ public class EditPropertyController {
             property.setApartment(tfApartment.getText().trim());
 
             propertyDAO.update(property);
-            Platform.runLater(this::saveSucess);
+            Platform.runLater(() -> AlertScreens.alertConfirmation("", "Propriedade Atualizada!"));
+
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
         } else {
-            AlertScreens.alertPadding();
+            AlertScreens.alertError("Há campos em branco","Erro ao preencher");
         }
     }
 
@@ -72,11 +75,13 @@ public class EditPropertyController {
     private void delete() {
         if (property.getRent() == null) {
             propertyDAO.delete(property.getId());
-            deleteSucess();
+
+            AlertScreens.alertConfirmation("", "Propriedade Deletada!");
+
             Stage stage = (Stage) btnDelete.getScene().getWindow();
             stage.close();
         } else {
-            alertCantBeDeleted();
+            AlertScreens.alertError("Propriedade alugada", "Propriedade não pode ser deletada!");
         }
     }
 
@@ -91,38 +96,16 @@ public class EditPropertyController {
                 && !tfBlockCondo.getText().trim().equals("") && !tfCity.getText().trim().equals("")
                 && !tfNeighbour.getText().trim().equals("") && !tfNumber.getText().trim().equals("")
                 && !tfStreet.getText().trim().equals("");
+
         boolean isHouse = !tfCity.getText().trim().equals("")
                 && !tfNeighbour.getText().trim().equals("") && !tfNumber.getText().trim().equals("")
                 && !tfStreet.getText().trim().equals("");
+
         boolean isCondo = !tfCondo.getText().trim().equals("")
                 && !tfBlockCondo.getText().trim().equals("") && !tfCity.getText().trim().equals("")
                 && !tfNeighbour.getText().trim().equals("") && !tfNumber.getText().trim().equals("")
                 && !tfStreet.getText().trim().equals("");
 
         return isApartment || isHouse || isCondo;
-    }
-
-    private void alertCantBeDeleted() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Propriedade alugada",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Propriedade não pode ser deletada!");
-        alert.show();
-    }
-
-    private void saveSucess() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Propriedade Atualizada!");
-        alert.show();
-    }
-
-    private void deleteSucess() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Propriedade Deletada!");
-        alert.show();
     }
 }

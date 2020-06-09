@@ -5,20 +5,18 @@ import javafx.scene.control.ButtonType;
 
 public class AlertScreens {
 
-    public static void alertPadding() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Há campos em branco",
-                ButtonType.OK);
+    public static void alert(Alert.AlertType alertType, String contentText, String headerText) {
+        Alert alert = new Alert(alertType, contentText, ButtonType.OK);
         alert.setTitle("");
-        alert.setHeaderText("Erro ao preencher");
+        alert.setHeaderText(headerText);
         alert.show();
     }
 
-    public static void alertDateInvalid() {
-        Alert alert = new Alert(Alert.AlertType.ERROR,
-                "Data inválida",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro de data");
-        alert.show();
+    public static void alertError(String contentText, String headerText) {
+        alert(Alert.AlertType.ERROR, contentText, headerText);
+    }
+
+    public static void alertConfirmation(String contentText, String headerText) {
+        alert(Alert.AlertType.CONFIRMATION, contentText, headerText);
     }
 }
