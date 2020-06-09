@@ -1,5 +1,6 @@
 package com.habitarium.controller.screen;
 
+import com.habitarium.utils.screen.AlertScreens;
 import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,7 +49,8 @@ public class FirstLoginScreenController implements Initializable {
             user.setPassword(tfPassword.getText());
             User update = userDAO.update(user);
             if (update == null){
-                alertLogin();
+                AlertScreens.alertError("Login digitado já existe",
+                        "Erro ao alterar o login");
             } else {
                 closeScreen();
                 try {
@@ -68,14 +70,4 @@ public class FirstLoginScreenController implements Initializable {
         Stage stageLogin = (Stage) btnSubmit.getScene().getWindow();
         stageLogin.close();
     }
-
-    public void alertLogin() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Login digitado já existe",
-                ButtonType.OK);
-        alert.setTitle("");
-        alert.setHeaderText("Erro ao alterar o login");
-        alert.show();
-
-    }
-
 }
