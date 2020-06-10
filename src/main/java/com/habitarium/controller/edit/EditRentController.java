@@ -111,6 +111,10 @@ public class EditRentController implements Initializable {
 
     @FXML
     private void save() {
+        MonthPaidController monthPaidController = new MonthPaidController();
+        RentController rentController = new RentController();
+        Rent oldRent = rentController.copyRent(rent);
+
         if (checkTxtPadding()) {
             lessor.setName(tfName.getText().trim());
             lessor.setCpf(tfCpf.getText().trim());
@@ -130,6 +134,10 @@ public class EditRentController implements Initializable {
             } catch (ParseException e) {
                 AlertScreens.alertError("Data inválida", "Erro de data");
                 e.printStackTrace();
+            }
+            if (rentController.hasChangedDatesOrValue(oldRent, rent)) {
+                monthPaidController.deleteAll(rent.getMonthPaidList());
+                rent.setMonthPaidList(rentController.setMonthsToPay(rent));
             }
             rentDAO.update(rent);
             AlertScreens.alertConfirmation("", "Aluguel Atualizado!");
