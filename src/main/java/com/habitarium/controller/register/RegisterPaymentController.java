@@ -12,6 +12,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import main.java.controller.MonthPaidController;
+import main.java.dao.MonthPaidDAO;
 import main.java.entity.MonthPaid;
 import main.java.entity.Rent;
 
@@ -61,7 +62,13 @@ public class RegisterPaymentController implements Initializable {
 
     @FXML
     private void pay() {
+        MonthPaidDAO monthPaidDAO = new MonthPaidDAO();
+        MonthPaid selectedMonthPaid = cbbOwedMonths.getSelectionModel().getSelectedItem();
 
+        selectedMonthPaid.setValue(Float.parseFloat(tfNewValue.getText()));
+        selectedMonthPaid.setPaid(true);
+
+        monthPaidDAO.update(selectedMonthPaid);
     }
 
     @FXML
