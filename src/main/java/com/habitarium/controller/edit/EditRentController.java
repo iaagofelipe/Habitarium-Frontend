@@ -142,15 +142,11 @@ public class EditRentController {
 
     @FXML
     private void registerPayment() {
-        LocalDate today = LocalDate.now();
-        for (MonthPaid mp : monthsPaid) {
-            LocalDate month = mp.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if (mp.isPaid()) {
-                AlertScreens.alertConfirmation("", "Aluguel desse mês ja foi pago!");
-            } else if (month.getMonth() == today.getMonth() && month.getYear() == today.getYear()) {
-                mp.setPaid(true);
-                AlertScreens.alertConfirmation("", "Pagamento do aluguel registrado com sucesso!");
-            }
+        OpenScreens openScreens = new OpenRegisterPaymentScreen();
+        try {
+            openScreens.loadScreen("screen/register/registerPayment", "Registrar Pagamento", rent);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
