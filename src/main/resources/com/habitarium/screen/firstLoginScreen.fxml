@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -21,7 +22,7 @@
                   <Font name="Arial" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="tfEmail" layoutX="14.0" layoutY="29.0" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-border-color: #8c1b0d; -fx-border-radius: 5px;">
+            <TextField fx:id="tfEmail" layoutX="14.0" layoutY="29.0" prefHeight="26.0" prefWidth="211.0" promptText="exemplo@teste.com" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-border-color: #8c1b0d; -fx-border-radius: 5px;">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
@@ -33,7 +34,7 @@
                   <Font name="Arial" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="tfUser" layoutX="14.0" layoutY="87.0" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-border-color: #8c1b0d; -fx-border-radius: 5px;">
+            <TextField fx:id="tfUser" layoutX="14.0" layoutY="87.0" prefHeight="26.0" prefWidth="211.0" promptText="admin" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-border-color: #8c1b0d; -fx-border-radius: 5px;">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
@@ -57,21 +58,23 @@
                   <Font name="Arial" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="tfPassword" layoutX="14.0" layoutY="28.0" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor></TextField>
-            <TextField fx:id="tfPasswordConf" layoutX="14.0" layoutY="81.0" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor></TextField>
-            <Button fx:id="btnSubmit" layoutX="95.0" layoutY="113.0" minHeight="17.0" minWidth="53.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="56.0" style="-fx-background-color: ce2812; -fx-background-radius: 10px; -fx-border-color: a4200e; -fx-border-radius: 10px;" text="Enviar">
+            <Button fx:id="btnSubmit" layoutX="85.0" layoutY="114.0" minHeight="17.0" minWidth="53.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="69.0" style="-fx-background-color: ce2812; -fx-background-radius: 10px; -fx-border-color: a4200e; -fx-border-radius: 10px;" text="Enviar" textFill="WHITE">
                <font>
-                  <Font name="Arial" size="37.0" />
+                  <Font name="Arial" size="15.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
+            <PasswordField fx:id="pfPassword" layoutX="14.0" layoutY="29.0" prefHeight="10.0" prefWidth="211.0" promptText="*****" style="-fx-background-color: white; -fx-background-radius: 5px;">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </PasswordField>
+            <PasswordField fx:id="pfPasswordConfirm" layoutX="14.0" layoutY="82.0" prefHeight="26.0" prefWidth="211.0" promptText="*****" style="-fx-background-color: white; -fx-background-radius: 5px;">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </PasswordField>
          </children>
       </Pane>
    </children>

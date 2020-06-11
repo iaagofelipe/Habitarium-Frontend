@@ -4,10 +4,7 @@ import com.habitarium.utils.screen.AlertScreens;
 import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.java.dao.UserDAO;
 import main.java.entity.User;
@@ -24,9 +21,9 @@ public class FirstLoginScreenController implements Initializable {
     @FXML
     private TextField tfUser;
     @FXML
-    private TextField tfPassword;
+    private PasswordField pfPassword;
     @FXML
-    private TextField tfPasswordConf;
+    private PasswordField pfPasswordConfirm;
     @FXML
     private Button btnSubmit;
 
@@ -43,10 +40,10 @@ public class FirstLoginScreenController implements Initializable {
 
     @FXML
     void login() {
-        if (tfPassword.getText().equals(tfPasswordConf.getText())){
+        if (pfPassword.getText().equals(pfPasswordConfirm.getText())){
             user.setEmail(tfEmail.getText());
             user.setLogin(tfUser.getText());
-            user.setPassword(tfPassword.getText());
+            user.setPassword(pfPassword.getText());
             User update = userDAO.update(user);
             if (update == null){
                 AlertScreens.alertError("Login digitado já existe",
@@ -60,9 +57,9 @@ public class FirstLoginScreenController implements Initializable {
                 }
             }
         } else {
-            tfPasswordConf.setText("");
+            pfPasswordConfirm.setText("");
             final String cssDefault = "-fx-border-color: #f8d007;-fx-border-width: 4;";
-            tfPasswordConf.setStyle(cssDefault);
+            pfPassword.setStyle(cssDefault);
         }
     }
 
