@@ -1,16 +1,13 @@
 package com.habitarium.controller.register;
 
+import com.habitarium.utils.screen.AlertScreens;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import main.java.controller.MonthPaidController;
 import main.java.dao.MonthPaidDAO;
 import main.java.entity.MonthPaid;
@@ -18,7 +15,6 @@ import main.java.entity.Rent;
 
 import java.net.URL;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegisterPaymentController implements Initializable {
@@ -27,7 +23,7 @@ public class RegisterPaymentController implements Initializable {
     private ChoiceBox<MonthPaid> cbSelectMonth;
 
     @FXML
-    private ComboBox<MonthPaid> cbbOwedMonths;
+    private ComboBox<MonthPaid> cbOwedMonths;
 
     @FXML
     private TextField tfNewValue;
@@ -56,19 +52,34 @@ public class RegisterPaymentController implements Initializable {
 
     public void initializeScreen(Rent rent) {
         this.rent = rent;
-        cbbOwedMonths.setItems(FXCollections.observableList(
+        cbOwedMonths.setItems(FXCollections.observableList(
                 monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), rent.getEntranceDate(), new Date())));
     }
 
     @FXML
     private void pay() {
         MonthPaidDAO monthPaidDAO = new MonthPaidDAO();
-        MonthPaid selectedMonthPaid = cbbOwedMonths.getSelectionModel().getSelectedItem();
+        MonthPaid selectedMonthPaid;
 
-        selectedMonthPaid.setValue(Float.parseFloat(tfNewValue.getText()));
+        if (!isSelected()) {
+            AlertScreens.alertError("Nenhuma data selecionada!",  "Erro");
+            return;
+        }
+
+        if (!rbAnticipatePayment.isSelected()) {
+            selectedMonthPaid = cbOwedMonths.getSelectionModel().getSelectedItem();
+        } else {
+            selectedMonthPaid = cbSelectMonth.getSelectionModel().getSelectedItem();
+        }
+        selectedMonthPaid.setValue(Float.parseFloat(tfNewValue.getText().trim()
+                .replaceAll(",", ".")));
         selectedMonthPaid.setPaid(true);
 
         monthPaidDAO.update(selectedMonthPaid);
+        AlertScreens.alertConfirmation("", "Pagamento realizado com sucesso!");
+
+        Stage stage = (Stage) btnConfirmPayment.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -76,8 +87,16 @@ public class RegisterPaymentController implements Initializable {
         cbSelectMonth.setDisable(!rbAnticipatePayment.isSelected());
         cbSelectMonth.setItems(FXCollections.observableList(
                 monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), new Date(), rent.getExitDate())));
+        cbSelectMonth.getSelectionModel().selectFirst();
+
+        cbOwedMonths.setDisable(rbAnticipatePayment.isSelected());
+        tfNewValue.setText(String.valueOf(rent.getValue()));
     }
 
+    private boolean isSelected() {
+        return cbOwedMonths.getSelectionModel().getSelectedIndex() != -1 ||
+                cbSelectMonth.getSelectionModel().getSelectedIndex() != -1;
+    }
 
     private void setTfNewValueFilter() {
         tfNewValue.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_RENT_VALUE));
