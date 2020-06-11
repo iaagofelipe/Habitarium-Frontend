@@ -15,15 +15,17 @@ import main.java.entity.Rent;
 
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class RegisterPaymentController implements Initializable {
 
     @FXML
-    private ChoiceBox<MonthPaid> cbSelectMonth;
+    private ChoiceBox<String> cbSelectMonth;
 
     @FXML
-    private ComboBox<MonthPaid> cbOwedMonths;
+    private ComboBox<String> cbOwedMonths;
 
     @FXML
     private TextField tfNewValue;
@@ -44,6 +46,8 @@ public class RegisterPaymentController implements Initializable {
     private final int RENT_VALUE_LENGTH = 10;
     private final String PATTERN_MATCHES_RENT_VALUE = "[0-9,]";
     private final MonthPaidController monthPaidController = new MonthPaidController();
+    private List<MonthPaid> lateMonths;
+    private List<MonthPaid> anticipateMonths;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -52,8 +56,10 @@ public class RegisterPaymentController implements Initializable {
 
     public void initializeScreen(Rent rent) {
         this.rent = rent;
-        cbOwedMonths.setItems(FXCollections.observableList(
-                monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), rent.getEntranceDate(), new Date())));
+         lateMonths = monthPaidController.lateMonthsInRange(rent.getMonthPaidList(),
+                rent.getEntranceDate(), new Date());
+        List<String> monthsStr = lateMonths.stream().map(MonthPaid::dateString).collect(Collectors.toList());
+        cbOwedMonths.setItems(FXCollections.observableList(monthsStr));
     }
 
     @FXML
@@ -67,9 +73,11 @@ public class RegisterPaymentController implements Initializable {
         }
 
         if (!rbAnticipatePayment.isSelected()) {
-            selectedMonthPaid = cbOwedMonths.getSelectionModel().getSelectedItem();
+            int index = cbOwedMonths.getSelectionModel().getSelectedIndex();
+            selectedMonthPaid = lateMonths.get(index);
         } else {
-            selectedMonthPaid = cbSelectMonth.getSelectionModel().getSelectedItem();
+            int index = cbSelectMonth.getSelectionModel().getSelectedIndex();
+            selectedMonthPaid = anticipateMonths.get(index);
         }
         selectedMonthPaid.setValue(Float.parseFloat(tfNewValue.getText().trim()
                 .replaceAll(",", ".")));
@@ -84,9 +92,12 @@ public class RegisterPaymentController implements Initializable {
 
     @FXML
     private void enableAnticipatePayment() {
+        anticipateMonths = monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), new Date(),
+                rent.getExitDate());
+        List<String> anticipateStr = anticipateMonths.stream().map(MonthPaid::dateString).collect(Collectors.toList());
+
         cbSelectMonth.setDisable(!rbAnticipatePayment.isSelected());
-        cbSelectMonth.setItems(FXCollections.observableList(
-                monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), new Date(), rent.getExitDate())));
+        cbSelectMonth.setItems(FXCollections.observableList(anticipateStr));
         cbSelectMonth.getSelectionModel().selectFirst();
 
         cbOwedMonths.setDisable(rbAnticipatePayment.isSelected());
