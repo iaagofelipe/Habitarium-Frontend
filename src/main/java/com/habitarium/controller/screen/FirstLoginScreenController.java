@@ -5,6 +5,7 @@ import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.dao.UserDAO;
 import main.java.entity.User;
@@ -40,27 +41,46 @@ public class FirstLoginScreenController implements Initializable {
 
     @FXML
     void login() {
-        if (pfPassword.getText().equals(pfPasswordConfirm.getText())){
-            user.setEmail(tfEmail.getText());
-            user.setLogin(tfUser.getText());
-            user.setPassword(pfPassword.getText());
-            User update = userDAO.update(user);
-            if (update == null){
-                AlertScreens.alertError("Login digitado já existe",
-                        "Erro ao alterar o login");
-            } else {
-                closeScreen();
-                try {
-                    ScreenUtils.switchScreen("screen/mainScreen", "Registro de Propriedade");
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if (check_txtPadding() && lenghtVerification()) {
+            if (pfPassword.getText().equals(pfPasswordConfirm.getText())) {
+                user.setEmail(tfEmail.getText());
+                user.setLogin(tfUser.getText());
+                user.setPassword(pfPassword.getText());
+                User update = userDAO.update(user);
+                if (update == null) {
+                    AlertScreens.alertError("Login digitado já existe",
+                            "Erro ao alterar o login");
+                } else {
+                    closeScreen();
+                    try {
+                        ScreenUtils.switchScreen("screen/mainScreen", "Registro de Propriedade");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+            } else {
+                pfPasswordConfirm.setText("");
+                final String cssDefault = "-fx-border-color: #fc2424;-fx-border-width: 4;";
+                final Tooltip tooltip = new Tooltip();
+                tooltip.setText("As senhas precisam ser iguais");
+                pfPasswordConfirm.setStyle(cssDefault);
+                pfPasswordConfirm.setTooltip(tooltip);
             }
         } else {
-            pfPasswordConfirm.setText("");
-            final String cssDefault = "-fx-border-color: #f8d007;-fx-border-width: 4;";
-            pfPassword.setStyle(cssDefault);
+            AlertScreens.alertError("Há campos em branco",
+                    "Erro ao preencher");
         }
+    }
+
+    private boolean check_txtPadding() {
+        boolean checkFields = !tfEmail.getText().trim().equals("") && !tfUser.getText().trim().equals("")
+                && !pfPassword.getText().trim().equals("") && !pfPasswordConfirm.getText().trim().equals("");
+
+        return checkFields;
+    }
+
+    private boolean lenghtVerification() {
+        return pfPassword.getLength() >= 5 && tfUser.getLength() >= 5;
     }
 
     private void closeScreen() {
