@@ -88,7 +88,7 @@
                                 <Cursor fx:constant="TEXT" />
                             </cursor>
                         </TextField>
-                        <ListView fx:id="lvMonthPaid" layoutX="10.0" layoutY="260.0" prefHeight="230.0" prefWidth="315.0" style="-fx-background-radius: 0.5em;" />
+                        <ListView fx:id="lvMonthPaid" layoutX="10.0" layoutY="284.0" prefHeight="206.0" prefWidth="315.0" style="-fx-background-radius: 0.5em;" />
                         <TextField fx:id="tfRg" layoutX="170.0" layoutY="147.0" prefHeight="28.0" prefWidth="155.0" promptText="___.___.___-__" style="-fx-background-color: white; -fx-background-radius: 5px;">
                             <cursor>
                                 <Cursor fx:constant="TEXT" />
@@ -102,6 +102,14 @@
                                 <Font name="Arial" size="14.0" />
                             </font>
                         </Label>
+                  <Label alignment="CENTER" layoutX="85.0" layoutY="260.0" text="Pagamentos realizados:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </Label>
                     </children>
                 </Pane>
                 <Pane prefHeight="490.0" prefWidth="320.0" style="-fx-background-color: #8c1b0d; -fx-background-radius: 15px;" GridPane.columnIndex="1">
@@ -154,7 +162,7 @@
                                 <Cursor fx:constant="TEXT" />
                             </cursor>
                         </TextField>
-                        <Button fx:id="btnSave" layoutX="167.0" layoutY="421.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="140.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;" text="Salvar" textFill="WHITE">
+                        <Button fx:id="btnSave" layoutX="178.0" layoutY="421.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="140.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;" text="Salvar" textFill="WHITE">
                             <padding>
                                 <Insets bottom="10.0" />
                             </padding>
@@ -167,7 +175,7 @@
                             <graphic>
                                 <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../../icons/save_icon_white_test.png" />
+                                        <Image url="@../../../../icon/save_icon_white_test.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -194,7 +202,7 @@
                             <graphic>
                                 <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../../icons/trash-can.png" />
+                                        <Image url="@../../../../icon/trash-can.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -202,10 +210,20 @@
                         <DatePicker fx:id="dpEntranceDate" layoutX="10.0" layoutY="213.0" prefHeight="26.0" prefWidth="120.0" />
                         <DatePicker fx:id="dpReadjustment" layoutX="10.0" layoutY="277.0" prefHeight="26.0" prefWidth="120.0" />
                         <DatePicker fx:id="dpExitDate" layoutX="188.0" layoutY="213.0" prefHeight="26.0" prefWidth="120.0" />
-                        <Button fx:id="btnMakePayment" layoutX="91.0" layoutY="348.0" mnemonicParsing="false" onAction="#registerPayment" text="Realizar Pagamento">
+                        <Button fx:id="btnMakePayment" layoutX="65.0" layoutY="353.0" mnemonicParsing="false" onAction="#registerPayment" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;" text="Realizar Pagamento" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="13.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../icon/coin-white-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                   <Spinner fx:id="spPayDay" editable="true" layoutX="188.0" layoutY="149.0" prefHeight="26.0" prefWidth="100.0" />
                     </children>
                     <cursor>
