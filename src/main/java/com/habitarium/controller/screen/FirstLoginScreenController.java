@@ -41,35 +41,38 @@ public class FirstLoginScreenController implements Initializable {
 
     @FXML
     void login() {
-        if (check_txtPadding() && lenghtVerification()) {
-            if (pfPassword.getText().equals(pfPasswordConfirm.getText())) {
-                user.setEmail(tfEmail.getText());
-                user.setLogin(tfUser.getText());
-                user.setPassword(pfPassword.getText());
-                User update = userDAO.update(user);
-                if (update == null) {
-                    AlertScreens.alertError("Login digitado já existe",
-                            "Erro ao alterar o login");
-                } else {
-                    closeScreen();
-                    try {
-                        ScreenUtils.switchScreen("screen/mainScreen", "Registro de Propriedade");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-                pfPasswordConfirm.setText("");
-                final String cssDefault = "-fx-border-color: #fc2424;-fx-border-width: 4;";
-                final Tooltip tooltip = new Tooltip();
-                tooltip.setText("As senhas precisam ser iguais");
-                pfPasswordConfirm.setStyle(cssDefault);
-                pfPasswordConfirm.setTooltip(tooltip);
-            }
-        } else {
+        if (!check_txtPadding()) {
             AlertScreens.alertError("Há campos em branco",
                     "Erro ao preencher");
+        } else if (lenghtVerification()) {
+            AlertScreens.alertError("Mínimo de 5 caractere para a senha",
+                    "Erro ao preencher");
         }
+        else if (pfPassword.getText().equals(pfPasswordConfirm.getText())) {
+            user.setEmail(tfEmail.getText());
+            user.setLogin(tfUser.getText());
+            user.setPassword(pfPassword.getText());
+            User update = userDAO.update(user);
+            if (update == null) {
+                AlertScreens.alertError("Login digitado já existe",
+                        "Erro ao alterar o login");
+            } else {
+                closeScreen();
+                try {
+                    ScreenUtils.switchScreen("screen/mainScreen", "Registro de Propriedade");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            pfPasswordConfirm.setText("");
+            final String cssDefault = "-fx-border-color: #fc2424;-fx-border-width: 4;";
+            final Tooltip tooltip = new Tooltip();
+            tooltip.setText("As senhas precisam ser iguais");
+            pfPasswordConfirm.setStyle(cssDefault);
+            pfPasswordConfirm.setTooltip(tooltip);
+        }
+
     }
 
     private boolean check_txtPadding() {
