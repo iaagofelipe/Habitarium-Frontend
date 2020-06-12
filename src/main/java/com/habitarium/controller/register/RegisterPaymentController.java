@@ -1,7 +1,10 @@
 package com.habitarium.controller.register;
 
 import com.habitarium.utils.screen.AlertScreens;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,7 +25,7 @@ import java.util.stream.Collectors;
 public class RegisterPaymentController implements Initializable {
 
     @FXML
-    private ChoiceBox<String> cbSelectMonth;
+    private ChoiceBox<String> choBAdvancePay;
 
     @FXML
     private ComboBox<String> cbOwedMonths;
@@ -56,10 +59,9 @@ public class RegisterPaymentController implements Initializable {
 
     public void initializeScreen(Rent rent) {
         this.rent = rent;
-         lateMonths = monthPaidController.lateMonthsInRange(rent.getMonthPaidList(),
-                rent.getEntranceDate(), new Date());
-        List<String> monthsStr = lateMonths.stream().map(MonthPaid::dateString).collect(Collectors.toList());
-        cbOwedMonths.setItems(FXCollections.observableList(monthsStr));
+        setRbAnticipatePayment();
+        setChoBAdvancePay();
+        setCbOwedMonths();
     }
 
     @FXML
@@ -67,8 +69,8 @@ public class RegisterPaymentController implements Initializable {
         MonthPaidDAO monthPaidDAO = new MonthPaidDAO();
         MonthPaid selectedMonthPaid;
 
-        if (!isSelected()) {
-            AlertScreens.alertError("Nenhuma data selecionada!",  "Erro");
+        if (!checkCbOwedMonthsIsSelected()) {
+            AlertScreens.alertError("Nenhuma data selecionada!", "Erro");
             return;
         }
 
@@ -76,7 +78,7 @@ public class RegisterPaymentController implements Initializable {
             int index = cbOwedMonths.getSelectionModel().getSelectedIndex();
             selectedMonthPaid = lateMonths.get(index);
         } else {
-            int index = cbSelectMonth.getSelectionModel().getSelectedIndex();
+            int index = choBAdvancePay.getSelectionModel().getSelectedIndex();
             selectedMonthPaid = anticipateMonths.get(index);
         }
         selectedMonthPaid.setValue(Float.parseFloat(tfNewValue.getText().trim()
@@ -90,23 +92,50 @@ public class RegisterPaymentController implements Initializable {
         stage.close();
     }
 
-    @FXML
-    private void enableAnticipatePayment() {
+    public void setChoBAdvancePay() {
         anticipateMonths = monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), new Date(),
                 rent.getExitDate());
         List<String> anticipateStr = anticipateMonths.stream().map(MonthPaid::dateString).collect(Collectors.toList());
-
-        cbSelectMonth.setDisable(!rbAnticipatePayment.isSelected());
-        cbSelectMonth.setItems(FXCollections.observableList(anticipateStr));
-        cbSelectMonth.getSelectionModel().selectFirst();
-
-        cbOwedMonths.setDisable(rbAnticipatePayment.isSelected());
-        tfNewValue.setText(String.valueOf(rent.getValue()));
+        choBAdvancePay.setItems(FXCollections.observableList(anticipateStr));
     }
 
-    private boolean isSelected() {
+    public void setCbOwedMonths() {
+        lateMonths = monthPaidController.lateMonthsInRange(rent.getMonthPaidList(),
+                rent.getEntranceDate(), new Date());
+        List<String> monthsStr = lateMonths.stream().map(MonthPaid::dateString).collect(Collectors.toList());
+        cbOwedMonths.setItems(FXCollections.observableList(monthsStr));
+        cbOwedMonths.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.equals("")) {
+                    tfNewValue.setText(String.valueOf(rent.getValue()));
+                }
+            }
+        });
+    }
+
+    public void setRbAnticipatePayment() {
+        rbAnticipatePayment.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (rbAnticipatePayment.isSelected()) {
+                    choBAdvancePay.setDisable(false);
+                    choBAdvancePay.getSelectionModel().selectFirst();
+                    cbOwedMonths.setDisable(true);
+                    tfNewValue.setText(String.valueOf(rent.getValue()));
+                } else {
+                    choBAdvancePay.setDisable(true);
+                    choBAdvancePay.getSelectionModel().select(null);
+                    cbOwedMonths.setDisable(false);
+                    cbOwedMonths.getSelectionModel().selectFirst();
+                }
+            }
+        });
+    }
+
+    private boolean checkCbOwedMonthsIsSelected() {
         return cbOwedMonths.getSelectionModel().getSelectedIndex() != -1 ||
-                cbSelectMonth.getSelectionModel().getSelectedIndex() != -1;
+                choBAdvancePay.getSelectionModel().getSelectedIndex() != -1;
     }
 
     private void setTfNewValueFilter() {
