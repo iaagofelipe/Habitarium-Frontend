@@ -44,7 +44,7 @@ public class FirstLoginScreenController implements Initializable {
         if (!check_txtPadding()) {
             AlertScreens.alertError("Há campos em branco",
                     "Erro ao preencher");
-        } else if (lenghtVerification()) {
+        } else if (!lenghtVerification()) {
             AlertScreens.alertError("Mínimo de 5 caractere para a senha",
                     "Erro ao preencher");
         }
