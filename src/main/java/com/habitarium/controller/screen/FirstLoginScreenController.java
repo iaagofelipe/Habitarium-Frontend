@@ -41,10 +41,10 @@ public class FirstLoginScreenController implements Initializable {
 
     @FXML
     void login() {
-        if (!check_txtPadding()) {
-            AlertScreens.alertError("Há campos em branco",
+        if (!userAndEmailAreFilled()) {
+            AlertScreens.alertError("Login ou e-mail em branco",
                     "Erro ao preencher");
-        } else if (!lenghtVerification()) {
+        } else if (!checkMinPasswordLength()) {
             AlertScreens.alertError("Mínimo de 5 caractere para a senha",
                     "Erro ao preencher");
         }
@@ -75,15 +75,12 @@ public class FirstLoginScreenController implements Initializable {
 
     }
 
-    private boolean check_txtPadding() {
-        boolean checkFields = !tfEmail.getText().trim().equals("") && !tfUser.getText().trim().equals("")
-                && !pfPassword.getText().trim().equals("") && !pfPasswordConfirm.getText().trim().equals("");
-
-        return checkFields;
+    private boolean userAndEmailAreFilled() {
+        return !tfEmail.getText().trim().equals("") && !tfUser.getText().trim().equals("");
     }
 
-    private boolean lenghtVerification() {
-        return pfPassword.getLength() >= 5 && tfUser.getLength() >= 5;
+    private boolean checkMinPasswordLength() {
+        return pfPassword.getLength() >= 5;
     }
 
     private void closeScreen() {
