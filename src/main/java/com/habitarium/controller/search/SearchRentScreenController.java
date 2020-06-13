@@ -2,6 +2,7 @@ package com.habitarium.controller.search;
 
 import com.habitarium.utils.screen.OpenEditRentScreen;
 import com.habitarium.utils.screen.OpenScreens;
+import com.habitarium.utils.screen.Reloadable;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class SearchRentScreenController implements Initializable {
+public class SearchRentScreenController implements Initializable, Reloadable {
 
     @FXML
     private TextField tfSearch;
@@ -33,14 +34,15 @@ public class SearchRentScreenController implements Initializable {
     private ObservableList<Rent> rentObservableList;
     private ObservableList<Rent> searchResult;
     private OpenScreens openEditRentScreens;
-    public boolean isEditopen;
+//    public boolean isEditopen;
 
     private final RentDAO rentDAO = new RentDAO();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setListViewPane();
         openEditRentScreens = new OpenEditRentScreen();
+        openEditRentScreens.setReload(this);
+        setListViewPane();
         searchRent();
     }
 
@@ -68,7 +70,7 @@ public class SearchRentScreenController implements Initializable {
     }
 
     public void setListViewPane() {
-        isEditopen = false;
+//        isEditopen = false;
         List<Rent> rentList = rentDAO.getList();
         if (!rentList.isEmpty()) {
             rentObservableList = FXCollections.observableList(rentList.stream()
@@ -81,7 +83,7 @@ public class SearchRentScreenController implements Initializable {
     @FXML
     private void eventOpenEditRents() {
         if(listViewPane.getSelectionModel().getSelectedIndex() != -1){
-            Platform.runLater(() -> isEditopen = true);
+//            Platform.runLater(() -> isEditopen = true);
             Rent selectedItemRent = listViewPane.getSelectionModel().getSelectedItem();
             try {
                 openEditRentScreens.loadScreen("screen/edit/editRent", "Editor de Aluguéis", selectedItemRent);
@@ -95,5 +97,12 @@ public class SearchRentScreenController implements Initializable {
     private void onActionBtnSearch() {
         rentObservableList = FXCollections.observableList(searchListRent(tfSearch.getText()));
         listViewPane.setItems(rentObservableList);
+    }
+
+    @Override
+    public void reload() {
+        System.out.println("reloading...");
+        ObservableList<Rent> temp = FXCollections.observableList(rentObservableList);
+        listViewPane.setItems(temp);
     }
 }
