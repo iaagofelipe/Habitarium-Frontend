@@ -18,7 +18,7 @@
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../icons/property_icon.png" />
+                  <Image url="@../../../icon/property_icon.png" />
                </image>
             </ImageView>
          </graphic></Button>
@@ -32,14 +32,24 @@
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../icons/rent_icon.png" />
+                  <Image url="@../../../icon/rent_icon.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="btnInfo" layoutX="725.0" layoutY="15.0" mnemonicParsing="false" onAction="#setBtnInfo" style="-fx-background-color: ce2812; -fx-background-radius: 50%; -fx-border-color: a4200e; -fx-border-radius: 50%;" text="?" textFill="WHITE">
+      <Button fx:id="btnInfo" layoutX="718.0" layoutY="15.0" mnemonicParsing="false" onAction="#setBtnInfo" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: ce2812; -fx-background-radius: 50%; -fx-border-color: a4200e; -fx-border-radius: 50%;" textFill="WHITE">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="14.0" fitWidth="16.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../../icon/information-white-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button fx:id="searchPropertyBtn" layoutX="521.0" layoutY="443.0" mnemonicParsing="false" onAction="#searchProperty" prefHeight="35.0" prefWidth="220.0" style="-fx-background-color: ce2812; -fx-background-radius: 1em; -fx-border-color: a4200e; -fx-border-radius: 1em;" text="Pesquisar Propriedade" textFill="WHITE" AnchorPane.rightAnchor="30.0">
          <cursor>
@@ -51,7 +61,7 @@
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../icons/search_icon.png" />
+                  <Image url="@../../../icon/search-white-icon.png" />
                </image>
             </ImageView>
          </graphic>
@@ -66,7 +76,7 @@
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../icons/search_icon.png" />
+                  <Image url="@../../../icon/search-white-icon.png" />
                </image>
             </ImageView>
          </graphic>

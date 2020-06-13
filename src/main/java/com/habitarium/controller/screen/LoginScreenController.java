@@ -1,13 +1,12 @@
 package com.habitarium.controller.screen;
 
 
+import com.habitarium.utils.screen.AlertScreens;
 import com.habitarium.utils.screen.OpenFirstLoginScreen;
 import com.habitarium.utils.screen.OpenScreens;
-import com.habitarium.utils.screen.AlertScreens;
 import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -18,19 +17,21 @@ import main.java.dao.UserDAO;
 import main.java.entity.User;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
     @FXML
+    private Label tfForgotMyPass;
+
+    @FXML
     public PasswordField passwordField;
+
     @FXML
     public TextField txtFieldUsuario;
+
     @FXML
     public Button login;
-    @FXML
-    private Label tfForgotMyPass;
 
     @FXML
     public void switchToMain() {

@@ -25,7 +25,7 @@
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <Button fx:id="btnSearch" layoutX="401.0" layoutY="25.0" minWidth="38.0" mnemonicParsing="false" onAction="#onActionBtnSearch" prefHeight="44.0" prefWidth="52.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;">
+            <Button fx:id="btnSearch" layoutX="401.0" layoutY="25.0" minWidth="38.0" mnemonicParsing="false" onAction="#onActionBtnSearch" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;">
                <padding>
                   <Insets left="10.0" />
                </padding>
@@ -33,9 +33,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="19.0" fitWidth="18.0" pickOnBounds="true" smooth="false" style="-fx-scale-x: 1px; -fx-scale-y: 1px; -fx-translate-x: -5;">
                      <image>
-                        <Image url="@../../../../icons/lupa.png" />
+                        <Image url="@../../../../icon/search-white-icon.png" />
                      </image>
                   </ImageView>
                </graphic></Button>

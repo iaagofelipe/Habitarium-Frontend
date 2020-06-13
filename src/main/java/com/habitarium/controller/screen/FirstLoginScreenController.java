@@ -4,10 +4,8 @@ import com.habitarium.utils.screen.AlertScreens;
 import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.dao.UserDAO;
 import main.java.entity.User;
@@ -24,9 +22,9 @@ public class FirstLoginScreenController implements Initializable {
     @FXML
     private TextField tfUser;
     @FXML
-    private TextField tfPassword;
+    private PasswordField pfPassword;
     @FXML
-    private TextField tfPasswordConf;
+    private PasswordField pfPasswordConfirm;
     @FXML
     private Button btnSubmit;
 
@@ -43,12 +41,19 @@ public class FirstLoginScreenController implements Initializable {
 
     @FXML
     void login() {
-        if (tfPassword.getText().equals(tfPasswordConf.getText())){
+        if (!userAndEmailAreFilled()) {
+            AlertScreens.alertError("Login ou e-mail em branco",
+                    "Erro ao preencher");
+        } else if (!checkMinPasswordLength()) {
+            AlertScreens.alertError("Mínimo de 5 caractere para a senha",
+                    "Erro ao preencher");
+        }
+        else if (pfPassword.getText().equals(pfPasswordConfirm.getText())) {
             user.setEmail(tfEmail.getText());
             user.setLogin(tfUser.getText());
-            user.setPassword(tfPassword.getText());
+            user.setPassword(pfPassword.getText());
             User update = userDAO.update(user);
-            if (update == null){
+            if (update == null) {
                 AlertScreens.alertError("Login digitado já existe",
                         "Erro ao alterar o login");
             } else {
@@ -60,10 +65,22 @@ public class FirstLoginScreenController implements Initializable {
                 }
             }
         } else {
-            tfPasswordConf.setText("");
-            final String cssDefault = "-fx-border-color: #f8d007;-fx-border-width: 4;";
-            tfPasswordConf.setStyle(cssDefault);
+            pfPasswordConfirm.setText("");
+            final String cssDefault = "-fx-border-color: #fc2424;-fx-border-width: 4;";
+            final Tooltip tooltip = new Tooltip();
+            tooltip.setText("As senhas precisam ser iguais");
+            pfPasswordConfirm.setStyle(cssDefault);
+            pfPasswordConfirm.setTooltip(tooltip);
         }
+
+    }
+
+    private boolean userAndEmailAreFilled() {
+        return !tfEmail.getText().trim().equals("") && !tfUser.getText().trim().equals("");
+    }
+
+    private boolean checkMinPasswordLength() {
+        return pfPassword.getLength() >= 5;
     }
 
     private void closeScreen() {

@@ -16,13 +16,13 @@
    <children>
       <Pane layoutX="100.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #8c1b0d; -fx-background-radius: 1.5em; -fx-border-color: a52210;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <children>
-            <ChoiceBox fx:id="cbSelectMonth" disable="true" layoutX="102.0" layoutY="72.0" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 5px;" />
-            <ComboBox fx:id="cbbOwedMonths" layoutX="25.0" layoutY="118.0" nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" promptText="Meses devendo" style="-fx-background-color: white; -fx-background-radius: 5px;">
+            <ChoiceBox fx:id="choBAdvancePay" disable="true" layoutX="102.0" layoutY="72.0" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 5px;" />
+            <ComboBox fx:id="cbOwedMonths" layoutX="25.0" layoutY="118.0" nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" promptText="Meses devendo" style="-fx-background-color: white; -fx-background-radius: 5px;">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ComboBox>
-            <TextField fx:id="tfDiferentValue" layoutX="192.0" layoutY="118.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="150.0" promptText="Digite o valor" style="-fx-background-color: white; -fx-background-radius: 5px;">
+            <TextField fx:id="tfNewValue" layoutX="192.0" layoutY="118.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="150.0" promptText="Digite o valor" style="-fx-background-color: white; -fx-background-radius: 5px;">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
@@ -30,7 +30,7 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <Button fx:id="btnConfirmPayment" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="102.0" layoutY="189.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: ce2812; -fx-background-radius: 15px; -fx-border-color: a4200e; -fx-border-radius: 15px;" text="Realizar Pagamento" textFill="WHITE">
+            <Button fx:id="btnConfirmPayment" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="102.0" layoutY="189.0" mnemonicParsing="false" onAction="#pay" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: ce2812; -fx-background-radius: 15px; -fx-border-color: a4200e; -fx-border-radius: 15px;" text="Realizar Pagamento" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

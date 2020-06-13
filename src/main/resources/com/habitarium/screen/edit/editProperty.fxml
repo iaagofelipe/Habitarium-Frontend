@@ -129,7 +129,7 @@
       <graphic>
          <ImageView fitHeight="15.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@../../../../icons/save_icon_white_test.png" />
+               <Image url="@../../../../icon/save_icon_white_test.png" />
             </image>
          </ImageView>
       </graphic>
@@ -144,7 +144,7 @@
       <graphic>
          <ImageView fitHeight="15.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@../../../../icons/trash-can.png" />
+               <Image url="@../../../../icon/trash-can.png" />
             </image>
          </ImageView>
       </graphic></Button>

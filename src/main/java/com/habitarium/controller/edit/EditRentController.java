@@ -2,14 +2,18 @@ package com.habitarium.controller.edit;
 
 import com.habitarium.utils.date.DateUtil;
 import com.habitarium.utils.screen.AlertScreens;
+import com.habitarium.utils.screen.OpenRegisterPaymentScreen;
+import com.habitarium.utils.screen.OpenScreens;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import main.java.controller.MonthPaidController;
 import main.java.controller.RentController;
 import main.java.dao.LessorDAO;
-import main.java.dao.MonthPaidDAO;
 import main.java.dao.PropertyDAO;
 import main.java.dao.RentDAO;
 import main.java.entity.Lessor;
@@ -17,16 +21,17 @@ import main.java.entity.MonthPaid;
 import main.java.entity.Property;
 import main.java.entity.Rent;
 
+import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class EditRentController {
+public class EditRentController implements Initializable {
     private final RentDAO rentDAO = new RentDAO();
     @FXML
     private TextField tfName;
@@ -58,9 +63,17 @@ public class EditRentController {
     private Button btnDelete;
     @FXML
     private Button btnMakePayment;
+
     private Rent rent;
     private Lessor lessor;
     private List<MonthPaid> monthsPaid;
+    private final String PATTERN_MATCHES_RENT_VALUE = "[0-9,]";
+    private final int RENT_VALUE_LENGTH = 10;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setTfValueFilter();
+    }
 
     public void initializeScreen(Rent rent) {
         this.rent = rent;
@@ -154,15 +167,11 @@ public class EditRentController {
 
     @FXML
     private void registerPayment() {
-        LocalDate today = LocalDate.now();
-        for (MonthPaid mp : monthsPaid) {
-            LocalDate month = mp.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if (mp.isPaid()) {
-                AlertScreens.alertConfirmation("", "Aluguel desse mês ja foi pago!");
-            } else if (month.getMonth() == today.getMonth() && month.getYear() == today.getYear()) {
-                mp.setPaid(true);
-                AlertScreens.alertConfirmation("", "Pagamento do aluguel registrado com sucesso!");
-            }
+        OpenScreens openScreens = new OpenRegisterPaymentScreen();
+        try {
+            openScreens.loadScreen("screen/register/registerPayment", "Registrar Pagamento", rent);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -173,5 +182,23 @@ public class EditRentController {
         boolean hasSpinnerValue = spPayDay.getValue() != null;
 
         return registerLessor && hasSpinnerValue;
+    }
+
+    private void setTfValueFilter() {
+        tfValue.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_RENT_VALUE));
+        tfValue.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue.length() > RENT_VALUE_LENGTH) {
+                tfValue.setText(oldValue);
+            }
+        });
+    }
+
+    public static EventHandler<KeyEvent> getPatternValidation(String pattern) {
+        return e -> {
+            String typed = e.getCharacter();
+            if (!typed.matches(pattern)) {
+                e.consume();
+            }
+        };
     }
 }
