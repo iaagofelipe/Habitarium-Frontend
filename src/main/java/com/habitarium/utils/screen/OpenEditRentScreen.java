@@ -37,6 +37,7 @@ public class OpenEditRentScreen implements OpenScreens {
         }
     }
 
+    @Override
     public void setReload(Reloadable reloadable) {
         this.reloadable = reloadable;
     }

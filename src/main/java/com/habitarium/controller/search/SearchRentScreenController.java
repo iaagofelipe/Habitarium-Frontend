@@ -34,7 +34,6 @@ public class SearchRentScreenController implements Initializable, Reloadable {
     private ObservableList<Rent> rentObservableList;
     private ObservableList<Rent> searchResult;
     private OpenScreens openEditRentScreens;
-//    public boolean isEditopen;
 
     private final RentDAO rentDAO = new RentDAO();
 
@@ -70,7 +69,6 @@ public class SearchRentScreenController implements Initializable, Reloadable {
     }
 
     public void setListViewPane() {
-//        isEditopen = false;
         List<Rent> rentList = rentDAO.getList();
         if (!rentList.isEmpty()) {
             rentObservableList = FXCollections.observableList(rentList.stream()
@@ -83,7 +81,6 @@ public class SearchRentScreenController implements Initializable, Reloadable {
     @FXML
     private void eventOpenEditRents() {
         if(listViewPane.getSelectionModel().getSelectedIndex() != -1){
-//            Platform.runLater(() -> isEditopen = true);
             Rent selectedItemRent = listViewPane.getSelectionModel().getSelectedItem();
             try {
                 openEditRentScreens.loadScreen("screen/edit/editRent", "Editor de Aluguéis", selectedItemRent);

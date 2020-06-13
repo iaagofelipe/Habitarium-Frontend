@@ -2,6 +2,7 @@ package com.habitarium.controller.search;
 
 import com.habitarium.utils.screen.OpenEditPropertyScreen;
 import com.habitarium.utils.screen.OpenScreens;
+import com.habitarium.utils.screen.Reloadable;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import main.java.dao.PropertyDAO;
 import main.java.entity.Property;
+import main.java.entity.Rent;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 
@@ -21,7 +23,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class SearchPropertyScreenController implements Initializable {
+public class SearchPropertyScreenController implements Initializable, Reloadable {
 
     @FXML
     private TextField tfSearch;
@@ -38,6 +40,7 @@ public class SearchPropertyScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setListViewPane();
         openScreens = new OpenEditPropertyScreen();
+        openScreens.setReload(this);
         searchProperty();
     }
 
@@ -91,5 +94,12 @@ public class SearchPropertyScreenController implements Initializable {
     private void onActionBtnSearch() {
         propertyObservableList = FXCollections.observableList(searchListProperty(tfSearch.getText()));
         listViewPane.setItems(propertyObservableList);
+    }
+
+    @Override
+    public void reload() {
+        System.out.println("reloading...");
+        ObservableList<Property> temp = FXCollections.observableList(propertyObservableList);
+        listViewPane.setItems(temp);
     }
 }
