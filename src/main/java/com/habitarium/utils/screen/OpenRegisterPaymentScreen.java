@@ -33,4 +33,9 @@ public class OpenRegisterPaymentScreen implements OpenScreens {
             stage.show();
         }
     }
+
+    @Override
+    public void setReload(Reloadable reloadable) {
+        return;
+    }
 }

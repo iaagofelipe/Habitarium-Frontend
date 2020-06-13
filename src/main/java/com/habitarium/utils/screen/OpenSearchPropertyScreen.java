@@ -37,4 +37,9 @@ public class OpenSearchPropertyScreen implements OpenScreens {
             });
         }
     }
+
+    @Override
+    public void setReload(Reloadable reloadable) {
+        return;
+    }
 }

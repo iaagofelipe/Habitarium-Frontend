@@ -29,11 +29,16 @@ public class OpenSearchRentScreen implements OpenScreens{
             stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
-            stage.focusedProperty().addListener((observable, oldNode, newNode) -> {
-                if(searchRentScreenController.isEditopen){
-                    searchRentScreenController.setListViewPane();
-                }
-            });
+//            stage.focusedProperty().addListener((observable, oldNode, newNode) -> {
+//                if(searchRentScreenController.isEditopen){
+//                    searchRentScreenController.setListViewPane();
+//                }
+//            });
         }
+    }
+
+    @Override
+    public void setReload(Reloadable reloadable) {
+        return;
     }
 }

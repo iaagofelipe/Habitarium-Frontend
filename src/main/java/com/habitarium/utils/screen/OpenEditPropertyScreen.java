@@ -36,4 +36,9 @@ public class OpenEditPropertyScreen implements OpenScreens {
             stage.show();
         }
     }
+
+    @Override
+    public void setReload(Reloadable reloadable) {
+        return;
+    }
 }
