@@ -31,7 +31,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextField fx:id="txtFieldUsuario" layoutX="10.0" layoutY="107.0" prefHeight="25.0" prefWidth="220.0" style="-fx-border-color: black; -fx-border-radius: .09cm; -fx-background-color: f6eedf;">
+            <TextField fx:id="tfLogin" layoutX="10.0" layoutY="107.0" prefHeight="25.0" prefWidth="220.0" style="-fx-border-color: black; -fx-border-radius: .09cm; -fx-background-color: f6eedf;">
                <font>
                   <Font size="20.0" />
                </font>

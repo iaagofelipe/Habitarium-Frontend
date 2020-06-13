@@ -28,7 +28,7 @@ public class LoginScreenController implements Initializable {
     public PasswordField passwordField;
 
     @FXML
-    public TextField txtFieldUsuario;
+    public TextField tfLogin;
 
     @FXML
     public Button login;
@@ -43,7 +43,8 @@ public class LoginScreenController implements Initializable {
             System.out.println(e);
         }
         if (user != null) {
-            if (user.getLogin().equals("admin") && user.getPassword().equals("admin")) {
+            System.out.println(user.getLogin());
+            if (user.getLogin().equals(tfLogin.getText()) && user.getPassword().equals(passwordField.getText())) {
                 OpenScreens openFirstLogin = new OpenFirstLoginScreen();
                 try {
                     CloseScreen();
@@ -51,9 +52,11 @@ public class LoginScreenController implements Initializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            } else {
+                AlertScreens.alertError("Entre em contato com a Habitarium", "Entrar com login inicial");
             }
         } else {
-            user = UserDAO.findByLogin(txtFieldUsuario.getText());
+            user = UserDAO.findByLogin(tfLogin.getText());
             if (user != null) {
                 if (passwordField.getText().equals(user.getPassword())) {
                     try {
@@ -81,9 +84,9 @@ public class LoginScreenController implements Initializable {
 
     public void setTextFields() {
         passwordField.setFocusTraversable(false);
-        txtFieldUsuario.requestFocus();
+        tfLogin.requestFocus();
 
-        txtFieldUsuario.setOnKeyReleased(keyEvent -> {
+        tfLogin.setOnKeyReleased(keyEvent -> {
             KeyCode code = keyEvent.getCode();
             if (code == KeyCode.ENTER || code == KeyCode.TAB) {
                 passwordField.requestFocus();
@@ -93,8 +96,8 @@ public class LoginScreenController implements Initializable {
         passwordField.setOnKeyReleased(keyEvent -> {
             KeyCode code = keyEvent.getCode();
             if (code == KeyCode.ENTER || code == KeyCode.TAB) {
-                if (txtFieldUsuario.getText().equals("")) {
-                    txtFieldUsuario.requestFocus();
+                if (tfLogin.getText().equals("")) {
+                    tfLogin.requestFocus();
                 } else {
                     switchToMain();
                 }
