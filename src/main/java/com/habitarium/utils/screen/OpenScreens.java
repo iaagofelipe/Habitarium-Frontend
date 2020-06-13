@@ -4,5 +4,6 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 
 public interface OpenScreens {
-    public void loadScreen(String screen, String title, Object object) throws IOException;
+    void loadScreen(String screen, String title, Object object) throws IOException;
+    void setReload(Reloadable reloadable);
 }
