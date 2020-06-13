@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class OpenRegisterPaymentScreen implements OpenScreens {
+    Reloadable reloadable;
     @Override
     public void loadScreen(String screen, String title, Object object) throws IOException {
         Rent rent = (Rent) object;
@@ -30,12 +31,13 @@ public class OpenRegisterPaymentScreen implements OpenScreens {
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOnHiding(e -> reloadable.reload());
             stage.show();
         }
     }
 
     @Override
     public void setReload(Reloadable reloadable) {
-        return;
+        this.reloadable = reloadable;
     }
 }

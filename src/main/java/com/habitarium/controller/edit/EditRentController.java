@@ -4,6 +4,7 @@ import com.habitarium.utils.date.DateUtil;
 import com.habitarium.utils.screen.AlertScreens;
 import com.habitarium.utils.screen.OpenRegisterPaymentScreen;
 import com.habitarium.utils.screen.OpenScreens;
+import com.habitarium.utils.screen.Reloadable;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ import main.java.entity.Rent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.CharBuffer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -31,7 +33,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class EditRentController implements Initializable {
+public class EditRentController implements Initializable, Reloadable {
     private final RentDAO rentDAO = new RentDAO();
     @FXML
     private TextField tfName;
@@ -69,10 +71,13 @@ public class EditRentController implements Initializable {
     private List<MonthPaid> monthsPaid;
     private final String PATTERN_MATCHES_RENT_VALUE = "[0-9,]";
     private final int RENT_VALUE_LENGTH = 10;
+    OpenScreens openScreens;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setTfValueFilter();
+        openScreens = new OpenRegisterPaymentScreen();
+        openScreens.setReload(this);
     }
 
     public void initializeScreen(Rent rent) {
@@ -167,7 +172,6 @@ public class EditRentController implements Initializable {
 
     @FXML
     private void registerPayment() {
-        OpenScreens openScreens = new OpenRegisterPaymentScreen();
         try {
             openScreens.loadScreen("screen/register/registerPayment", "Registrar Pagamento", rent);
         } catch (IOException e) {
@@ -200,5 +204,12 @@ public class EditRentController implements Initializable {
                 e.consume();
             }
         };
+    }
+
+    @Override
+    public void reload() {
+        lvMonthPaid.setItems(FXCollections.observableList(monthsPaid.stream()
+                .filter(MonthPaid::isPaid)
+                .collect(Collectors.toList())));
     }
 }

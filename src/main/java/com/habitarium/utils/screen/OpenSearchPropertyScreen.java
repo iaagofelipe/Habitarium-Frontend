@@ -23,7 +23,6 @@ public class OpenSearchPropertyScreen implements OpenScreens {
         } else {
             fxmlLoader = new FXMLLoader(url);
             Parent root = fxmlLoader.load();
-            SearchPropertyScreenController searchPropertyScreenController = fxmlLoader.getController();
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(new Scene(root));
