@@ -24,11 +24,11 @@ import java.util.stream.Collectors;
 public class SearchRentScreenController implements Initializable {
 
     @FXML
-    private TextField tfSearch;
+    public TextField tfSearch;
     @FXML
-    private Button btnSearch;
+    public Button btnSearch;
     @FXML
-    private ListView<Rent> listViewPane;
+    public ListView<Rent> lvDebtors;
 
     private ObservableList<Rent> rentObservableList;
     private ObservableList<Rent> searchResult;
@@ -45,24 +45,24 @@ public class SearchRentScreenController implements Initializable {
     }
 
     public List<Rent> searchListRent(String searchStr){
-        List<Rent> items = listViewPane.getItems();
+        List<Rent> items = lvDebtors.getItems();
         List<BoundExtractedResult<Rent>> result = FuzzySearch.extractSorted(searchStr, items,
                 Rent::toString, 57);
         return result.stream().map(BoundExtractedResult::getReferent).collect(Collectors.toList());
     }
 
     private void searchRent() {
-        List<Rent> items = listViewPane.getItems();
+        List<Rent> items = lvDebtors.getItems();
         tfSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             List<BoundExtractedResult<Rent>> result = FuzzySearch.extractSorted(newValue, items,
                     Rent::toString, 57);
 
             searchResult = FXCollections.observableList(result.stream()
                     .map(BoundExtractedResult::getReferent).collect(Collectors.toList()));
-            listViewPane.setItems(searchResult);
+            lvDebtors.setItems(searchResult);
             System.out.println(result);
             if (tfSearch.getText().length() == 0) {
-                listViewPane.setItems(rentObservableList);
+                lvDebtors.setItems(rentObservableList);
             }
         });
     }
@@ -74,15 +74,15 @@ public class SearchRentScreenController implements Initializable {
             rentObservableList = FXCollections.observableList(rentList.stream()
                     .filter(r -> r.getLessor() != null && r.getProperty() != null)
                     .collect(Collectors.toList()));
-            listViewPane.setItems(rentObservableList);
+            lvDebtors.setItems(rentObservableList);
         }
     }
 
     @FXML
     private void eventOpenEditRents() {
-        if(listViewPane.getSelectionModel().getSelectedIndex() != -1){
+        if(lvDebtors.getSelectionModel().getSelectedIndex() != -1){
             Platform.runLater(() -> isEditopen = true);
-            Rent selectedItemRent = listViewPane.getSelectionModel().getSelectedItem();
+            Rent selectedItemRent = lvDebtors.getSelectionModel().getSelectedItem();
             try {
                 openEditRentScreens.loadScreen("screen/edit/editRent", "Editor de Aluguéis", selectedItemRent);
             } catch (IOException e) {
@@ -94,6 +94,6 @@ public class SearchRentScreenController implements Initializable {
     @FXML
     private void onActionBtnSearch() {
         rentObservableList = FXCollections.observableList(searchListRent(tfSearch.getText()));
-        listViewPane.setItems(rentObservableList);
+        lvDebtors.setItems(rentObservableList);
     }
 }
