@@ -1,9 +1,8 @@
 package com.habitarium.controller.screen;
 
-import com.habitarium.utils.screen.OpenScreens;
-import com.habitarium.utils.screen.OpenSearchPropertyScreen;
-import com.habitarium.utils.screen.OpenSearchRentScreen;
-import com.habitarium.utils.screen.ScreenUtils;
+import com.habitarium.utils.screen.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -36,10 +35,14 @@ public class MainScreenController implements Initializable {
     @FXML
     private Button btnInfo;
 
-    private OpenScreens openPropertyScreens;
+    private OpenScreens openScreen;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setLvDebtors();
+    }
+
+    public void setLvDebtors() {
         RentDAO rentDAO = new RentDAO();
         MonthPaidController monthPaidController = new MonthPaidController();
         ObservableList<MonthPaid> result = FXCollections.observableArrayList();
@@ -49,6 +52,21 @@ public class MainScreenController implements Initializable {
                     new Date()));
         }
         lvDebtors.setItems(result);
+
+        lvDebtors.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MonthPaid>() {
+            @Override
+            public void changed(ObservableValue<? extends MonthPaid> observable, MonthPaid oldValue, MonthPaid newValue) {
+                if (lvDebtors.getSelectionModel().getSelectedIndex() != -1) {
+                    Rent selectedItemRent = lvDebtors.getSelectionModel().getSelectedItem().getRent();
+                    try {
+                        openScreen = new OpenEditRentScreen();
+                        openScreen.loadScreen("screen/edit/editRent", "Editor de Aluguéis", selectedItemRent);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     @FXML
@@ -80,9 +98,9 @@ public class MainScreenController implements Initializable {
 
     @FXML
     public void searchProperty() {
-        openPropertyScreens = new OpenSearchPropertyScreen();
+        openScreen = new OpenSearchPropertyScreen();
         try {
-            openPropertyScreens.loadScreen("screen/search/searchProperty", "Procura de Propriedades", null);
+            openScreen.loadScreen("screen/search/searchProperty", "Procura de Propriedades", null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,9 +108,9 @@ public class MainScreenController implements Initializable {
 
     @FXML
     public void searchRent() {
-        openPropertyScreens = new OpenSearchRentScreen();
+        openScreen = new OpenSearchRentScreen();
         try {
-            openPropertyScreens.loadScreen("screen/search/searchRent", "Procura de Aluguéis", null);
+            openScreen.loadScreen("screen/search/searchRent", "Procura de Aluguéis", null);
         } catch (IOException e) {
             e.printStackTrace();
         }
