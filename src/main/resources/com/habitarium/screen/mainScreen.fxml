@@ -81,7 +81,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <ListView fx:id="lvDebtors" layoutX="100.0" layoutY="54.0" prefHeight="320.0" prefWidth="600.0" style="-fx-background-color: white; -fx-background-radius: 1em; -fx-border-color: a4200e; -fx-border-radius: 1em;" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+      <ListView fx:id="lvDebtors" layoutX="100.0" layoutY="54.0" onMouseClicked="#openEditRent" prefHeight="320.0" prefWidth="600.0" style="-fx-background-color: white; -fx-background-radius: 1em; -fx-border-color: a4200e; -fx-border-radius: 1em;" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="15.0" text="Devedores:" textFill="WHITE" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
          <font>
             <Font name="Arial Bold Italic" size="25.0" />

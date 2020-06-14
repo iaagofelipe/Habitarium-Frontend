@@ -122,6 +122,22 @@ public class MainScreenController implements Initializable, Reloadable {
         }
     }
 
+
+    @FXML
+    private void openEditRent() {
+        if (lvDebtors.getSelectionModel().getSelectedIndex() != -1) {
+            Rent selectedItemRent = lvDebtors.getSelectionModel().getSelectedItem().getRent();
+            openScreen = new OpenEditRentScreen();
+
+            openScreen.setReload(this);
+            try {
+                openScreen.loadScreen("screen/edit/editRent", "Editor de Aluguéis", selectedItemRent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public void reload() {
         ObservableList<MonthPaid> result = getMonthPaids();
