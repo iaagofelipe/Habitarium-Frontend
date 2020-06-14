@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MainScreenController implements Initializable {
+public class MainScreenController implements Initializable, Reloadable {
 
     @FXML
     private Button registerPropertyBtn;
@@ -43,14 +43,7 @@ public class MainScreenController implements Initializable {
     }
 
     public void setLvDebtors() {
-        RentDAO rentDAO = new RentDAO();
-        MonthPaidController monthPaidController = new MonthPaidController();
-        ObservableList<MonthPaid> result = FXCollections.observableArrayList();
-        List<Rent> rents = rentDAO.getList();
-        for (Rent rent : rents) {
-            result.addAll(monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), rent.getEntranceDate(),
-                    new Date()));
-        }
+        ObservableList<MonthPaid> result = getMonthPaids();
         lvDebtors.setItems(result);
 
         lvDebtors.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MonthPaid>() {
@@ -67,6 +60,18 @@ public class MainScreenController implements Initializable {
                 }
             }
         });
+    }
+
+    private ObservableList<MonthPaid> getMonthPaids() {
+        RentDAO rentDAO = new RentDAO();
+        MonthPaidController monthPaidController = new MonthPaidController();
+        ObservableList<MonthPaid> result = FXCollections.observableArrayList();
+        List<Rent> rents = rentDAO.getList();
+        for (Rent rent : rents) {
+            result.addAll(monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), rent.getEntranceDate(),
+                    new Date()));
+        }
+        return result;
     }
 
     @FXML
@@ -114,5 +119,10 @@ public class MainScreenController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void reload() {
+
     }
 }
