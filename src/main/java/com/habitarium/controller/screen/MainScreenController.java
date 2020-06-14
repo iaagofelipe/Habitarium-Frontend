@@ -39,30 +39,14 @@ public class MainScreenController implements Initializable, Reloadable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setLvDebtors();
+        initDebtorsListView();
     }
 
-    public void setLvDebtors() {
-        ObservableList<MonthPaid> result = getMonthPaids();
-        lvDebtors.setItems(result);
-
-        lvDebtors.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MonthPaid>() {
-            @Override
-            public void changed(ObservableValue<? extends MonthPaid> observable, MonthPaid oldValue, MonthPaid newValue) {
-                if (lvDebtors.getSelectionModel().getSelectedIndex() != -1) {
-                    Rent selectedItemRent = lvDebtors.getSelectionModel().getSelectedItem().getRent();
-                    try {
-                        openScreen = new OpenEditRentScreen();
-                        openScreen.loadScreen("screen/edit/editRent", "Editor de Aluguéis", selectedItemRent);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+    private void initDebtorsListView() {
+        lvDebtors.setItems(getMonthsPaid());
     }
 
-    private ObservableList<MonthPaid> getMonthPaids() {
+    private ObservableList<MonthPaid> getMonthsPaid() {
         RentDAO rentDAO = new RentDAO();
         MonthPaidController monthPaidController = new MonthPaidController();
         ObservableList<MonthPaid> result = FXCollections.observableArrayList();
@@ -140,7 +124,6 @@ public class MainScreenController implements Initializable, Reloadable {
 
     @Override
     public void reload() {
-        ObservableList<MonthPaid> result = getMonthPaids();
-        lvDebtors.setItems(result);
+        lvDebtors.setItems(getMonthsPaid());
     }
 }
