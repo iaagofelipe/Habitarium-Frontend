@@ -114,6 +114,7 @@ public class MainScreenController implements Initializable, Reloadable {
     @FXML
     public void searchRent() {
         openScreen = new OpenSearchRentScreen();
+        openScreen.setReload(this);
         try {
             openScreen.loadScreen("screen/search/searchRent", "Procura de Aluguéis", null);
         } catch (IOException e) {
@@ -123,6 +124,7 @@ public class MainScreenController implements Initializable, Reloadable {
 
     @Override
     public void reload() {
-
+        ObservableList<MonthPaid> result = getMonthPaids();
+        lvDebtors.setItems(result);
     }
 }
