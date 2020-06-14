@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class OpenSearchRentScreen implements OpenScreens{
-    Reloadable reloadable;
+    private Reloadable reloadable;
     @Override
     public void loadScreen(String screen, String title, Object object) throws IOException {
         FXMLLoader fxmlLoader;
@@ -23,7 +23,6 @@ public class OpenSearchRentScreen implements OpenScreens{
         } else {
             fxmlLoader = new FXMLLoader(url);
             Parent root = fxmlLoader.load();
-            SearchRentScreenController searchRentScreenController = fxmlLoader.getController();
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(new Scene(root));

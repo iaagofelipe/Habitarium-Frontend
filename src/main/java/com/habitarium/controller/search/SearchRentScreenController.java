@@ -25,11 +25,11 @@ import java.util.stream.Collectors;
 public class SearchRentScreenController implements Initializable, Reloadable {
 
     @FXML
-    public TextField tfSearch;
+    private TextField tfSearch;
     @FXML
-    public Button btnSearch;
+    private Button btnSearch;
     @FXML
-    public ListView<Rent> lvDebtors;
+    private ListView<Rent> lvDebtors;
 
     private ObservableList<Rent> rentObservableList;
     private ObservableList<Rent> searchResult;
@@ -98,8 +98,6 @@ public class SearchRentScreenController implements Initializable, Reloadable {
 
     @Override
     public void reload() {
-        System.out.println("reloading...");
-        ObservableList<Rent> temp = FXCollections.observableList(rentObservableList);
-        lvDebtors.setItems(temp);
+        lvDebtors.setItems(FXCollections.observableList(rentObservableList));
     }
 }
