@@ -80,8 +80,8 @@ public class SearchRentScreenController implements Initializable, Reloadable {
 
     @FXML
     private void eventOpenEditRents() {
-        if(listViewPane.getSelectionModel().getSelectedIndex() != -1){
-            Rent selectedItemRent = listViewPane.getSelectionModel().getSelectedItem();
+        if(lvDebtors.getSelectionModel().getSelectedIndex() != -1){
+            Rent selectedItemRent = lvDebtors.getSelectionModel().getSelectedItem();
             try {
                 openEditRentScreens.loadScreen("screen/edit/editRent", "Editor de Aluguéis", selectedItemRent);
             } catch (IOException e) {
@@ -100,6 +100,6 @@ public class SearchRentScreenController implements Initializable, Reloadable {
     public void reload() {
         System.out.println("reloading...");
         ObservableList<Rent> temp = FXCollections.observableList(rentObservableList);
-        listViewPane.setItems(temp);
+        lvDebtors.setItems(temp);
     }
 }
