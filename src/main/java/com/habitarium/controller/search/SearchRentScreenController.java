@@ -25,11 +25,11 @@ import java.util.stream.Collectors;
 public class SearchRentScreenController implements Initializable, Reloadable {
 
     @FXML
-    private TextField tfSearch;
+    public TextField tfSearch;
     @FXML
-    private Button btnSearch;
+    public Button btnSearch;
     @FXML
-    private ListView<Rent> lvDebtors;
+    public ListView<Rent> lvDebtors;
 
     private ObservableList<Rent> rentObservableList;
     private ObservableList<Rent> searchResult;
