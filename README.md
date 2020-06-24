@@ -24,7 +24,7 @@ have one or more properties and need to set an entry and exit date, readjustment
 7. Lançamos a _versão 1.0_
 
 ### Construído com :link:
-- [Maven](https://maven.apache.org/) - Organizador de dependências
+- [Maven](https://maven.apache.org/) - Gerenciador de dependências
 - [Java](https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html) - Versão 8 ou superior
 - [JavaFX](https://www.oracle.com/java/technologies/javase/javafx-overview.html) - Biblioteca de criação de telas
 - [SceneBuilder](https://gluonhq.com/) - Criador de telas
