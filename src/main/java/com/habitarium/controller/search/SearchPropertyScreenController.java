@@ -34,7 +34,6 @@ public class SearchPropertyScreenController implements Initializable, Reloadable
     private ObservableList<Property> propertyObservableList;
     private ObservableList<Property> searchResult;
     private OpenScreens openScreens;
-    public boolean isEditopen;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,7 +67,6 @@ public class SearchPropertyScreenController implements Initializable, Reloadable
     }
 
     public void setListViewPane() {
-        isEditopen = false;
         PropertyDAO propertyDAO = new PropertyDAO();
         List<Property> propertyList = propertyDAO.getList();
         if (!propertyList.isEmpty()) {
@@ -80,7 +78,6 @@ public class SearchPropertyScreenController implements Initializable, Reloadable
     @FXML
     private void eventOpenEditProperties() {
         if(listViewPane.getSelectionModel().getSelectedIndex() != -1){
-            Platform.runLater(() -> isEditopen = true);
             Property selectedItemProperty = listViewPane.getSelectionModel().getSelectedItem();
             try {
                 openScreens.loadScreen("screen/edit/editProperty", "Editor de propriedade", selectedItemProperty);

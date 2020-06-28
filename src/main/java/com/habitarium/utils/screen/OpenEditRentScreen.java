@@ -14,6 +14,7 @@ import java.net.URL;
 
 public class OpenEditRentScreen implements OpenScreens {
     private Reloadable reloadable;
+
     @Override
     public void loadScreen(String screen, String title, Object object) throws IOException {
         Rent rent = (Rent) object;
@@ -23,9 +24,8 @@ public class OpenEditRentScreen implements OpenScreens {
             throw new IOException("File \"" + screen + ".fxml\" doesn't exists.");
         } else {
             fxmlLoader = new FXMLLoader(url);
-            FXMLLoader loader = fxmlLoader;
-            Parent root = loader.load();
-            EditRentController editRentController = loader.getController();
+            Parent root = fxmlLoader.load();
+            EditRentController editRentController = fxmlLoader.getController();
             editRentController.initializeScreen(rent);
             Stage stage = new Stage();
             stage.setTitle(title);

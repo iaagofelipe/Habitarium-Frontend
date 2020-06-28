@@ -34,8 +34,6 @@ public class SearchRentScreenController implements Initializable, Reloadable {
     private ObservableList<Rent> searchResult;
     private OpenScreens openEditRentScreens;
 
-    private final RentDAO rentDAO = new RentDAO();
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         openEditRentScreens = new OpenEditRentScreen();
@@ -68,6 +66,7 @@ public class SearchRentScreenController implements Initializable, Reloadable {
     }
 
     public void setListViewPane() {
+        RentDAO rentDAO = new RentDAO();
         List<Rent> rentList = rentDAO.getList();
         if (!rentList.isEmpty()) {
             rentObservableList = FXCollections.observableList(rentList.stream()

@@ -13,7 +13,8 @@ import java.io.IOException;
 import java.net.URL;
 
 public class OpenEditPropertyScreen implements OpenScreens {
-    Reloadable reloadable;
+    private Reloadable reloadable;
+
     @Override
     public void loadScreen(String screen, String title, Object object) throws IOException {
         Property property = (Property) object;
