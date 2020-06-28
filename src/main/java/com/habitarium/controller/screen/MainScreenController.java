@@ -69,8 +69,10 @@ public class MainScreenController implements Initializable, Reloadable {
 
     @FXML
     public void registerRent() {
+        openScreen = new OpenRegisterRentScreen();
+        openScreen.setReload(this);
         try {
-            ScreenUtils.switchScreen("screen/register/registerRentScreen", "Registro de Aluguel");
+            openScreen.loadScreen("screen/register/registerRentScreen", "Registro de Aluguel", null);
         } catch (IOException e) {
             e.printStackTrace();
         }
