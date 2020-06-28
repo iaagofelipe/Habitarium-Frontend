@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class OpenSearchRentScreen implements OpenScreens{
+    private Reloadable reloadable;
     @Override
     public void loadScreen(String screen, String title, Object object) throws IOException {
         FXMLLoader fxmlLoader;
@@ -22,18 +23,18 @@ public class OpenSearchRentScreen implements OpenScreens{
         } else {
             fxmlLoader = new FXMLLoader(url);
             Parent root = fxmlLoader.load();
-            SearchRentScreenController searchRentScreenController = fxmlLoader.getController();
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(new Scene(root));
             stage.setResizable(false);
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOnHiding(e -> reloadable.reload());
             stage.show();
         }
     }
 
     @Override
     public void setReload(Reloadable reloadable) {
-        return;
+        this.reloadable = reloadable;
     }
 }

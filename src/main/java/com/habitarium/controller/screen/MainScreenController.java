@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MainScreenController implements Initializable {
+public class MainScreenController implements Initializable, Reloadable {
 
     @FXML
     private Button registerPropertyBtn;
@@ -39,10 +39,14 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setLvDebtors();
+        initDebtorsListView();
     }
 
-    public void setLvDebtors() {
+    private void initDebtorsListView() {
+        lvDebtors.setItems(getMonthsPaid());
+    }
+
+    private ObservableList<MonthPaid> getMonthsPaid() {
         RentDAO rentDAO = new RentDAO();
         MonthPaidController monthPaidController = new MonthPaidController();
         ObservableList<MonthPaid> result = FXCollections.observableArrayList();
@@ -51,22 +55,7 @@ public class MainScreenController implements Initializable {
             result.addAll(monthPaidController.lateMonthsInRange(rent.getMonthPaidList(), rent.getEntranceDate(),
                     new Date()));
         }
-        lvDebtors.setItems(result);
-
-        lvDebtors.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<MonthPaid>() {
-            @Override
-            public void changed(ObservableValue<? extends MonthPaid> observable, MonthPaid oldValue, MonthPaid newValue) {
-                if (lvDebtors.getSelectionModel().getSelectedIndex() != -1) {
-                    Rent selectedItemRent = lvDebtors.getSelectionModel().getSelectedItem().getRent();
-                    try {
-                        openScreen = new OpenEditRentScreen();
-                        openScreen.loadScreen("screen/edit/editRent", "Editor de Aluguéis", selectedItemRent);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+        return result;
     }
 
     @FXML
@@ -109,10 +98,32 @@ public class MainScreenController implements Initializable {
     @FXML
     public void searchRent() {
         openScreen = new OpenSearchRentScreen();
+        openScreen.setReload(this);
         try {
             openScreen.loadScreen("screen/search/searchRent", "Procura de Aluguéis", null);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @FXML
+    private void openEditRent() {
+        if (lvDebtors.getSelectionModel().getSelectedIndex() != -1) {
+            Rent selectedItemRent = lvDebtors.getSelectionModel().getSelectedItem().getRent();
+            openScreen = new OpenEditRentScreen();
+
+            openScreen.setReload(this);
+            try {
+                openScreen.loadScreen("screen/edit/editRent", "Editor de Aluguéis", selectedItemRent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void reload() {
+        lvDebtors.setItems(getMonthsPaid());
     }
 }

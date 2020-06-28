@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class OpenEditRentScreen implements OpenScreens {
-    Reloadable reloadable;
+    private Reloadable reloadable;
     @Override
     public void loadScreen(String screen, String title, Object object) throws IOException {
         Rent rent = (Rent) object;

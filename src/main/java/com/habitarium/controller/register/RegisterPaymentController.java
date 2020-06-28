@@ -37,12 +37,6 @@ public class RegisterPaymentController implements Initializable {
     private Button btnConfirmPayment;
 
     @FXML
-    private Label lblTotal;
-
-    @FXML
-    private Label lblShowTotal;
-
-    @FXML
     private RadioButton rbAnticipatePayment;
 
     private Rent rent;
