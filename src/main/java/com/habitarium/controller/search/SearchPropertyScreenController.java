@@ -98,8 +98,7 @@ public class SearchPropertyScreenController implements Initializable, Reloadable
 
     @Override
     public void reload() {
-        System.out.println("reloading...");
-        ObservableList<Property> temp = FXCollections.observableList(propertyObservableList);
-        listViewPane.setItems(temp);
+        listViewPane.getItems().clear();
+        setListViewPane();
     }
 }
