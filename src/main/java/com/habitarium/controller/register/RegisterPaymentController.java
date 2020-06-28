@@ -25,19 +25,15 @@ import java.util.stream.Collectors;
 public class RegisterPaymentController implements Initializable {
 
     @FXML
-    private ChoiceBox<String> choBAdvancePay;
-
+    public ChoiceBox<String> choBAdvancePay;
     @FXML
-    private ComboBox<String> cbOwedMonths;
-
+    public ComboBox<String> cbOwedMonths;
     @FXML
-    private TextField tfNewValue;
-
+    public TextField tfNewValue;
     @FXML
-    private Button btnConfirmPayment;
-
+    public Button btnConfirmPayment;
     @FXML
-    private RadioButton rbAnticipatePayment;
+    public RadioButton rbAnticipatePayment;
 
     private Rent rent;
     private final int RENT_VALUE_LENGTH = 10;
@@ -127,12 +123,12 @@ public class RegisterPaymentController implements Initializable {
         });
     }
 
-    private boolean checkCbOwedMonthsIsSelected() {
+    public boolean checkCbOwedMonthsIsSelected() {
         return cbOwedMonths.getSelectionModel().getSelectedIndex() != -1 ||
                 choBAdvancePay.getSelectionModel().getSelectedIndex() != -1;
     }
 
-    private void setTfNewValueFilter() {
+    public void setTfNewValueFilter() {
         tfNewValue.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_RENT_VALUE));
         tfNewValue.textProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue.length() > RENT_VALUE_LENGTH) {

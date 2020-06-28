@@ -26,11 +26,11 @@ import java.util.stream.Collectors;
 public class SearchPropertyScreenController implements Initializable, Reloadable {
 
     @FXML
-    private TextField tfSearch;
+    public TextField tfSearch;
     @FXML
-    private Button btnSearch;
+    public Button btnSearch;
     @FXML
-    private ListView<Property> listViewPane;
+    public ListView<Property> listViewPane;
     private ObservableList<Property> propertyObservableList;
     private ObservableList<Property> searchResult;
     private OpenScreens openScreens;

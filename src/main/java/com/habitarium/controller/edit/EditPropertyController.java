@@ -15,30 +15,34 @@ import main.java.entity.Property;
 public class EditPropertyController {
 
     @FXML
-    private TextField tfStreet;
+    public TextField tfStreet;
     @FXML
-    private TextField tfNumber;
+    public TextField tfNumber;
     @FXML
-    private TextField tfNeighbour;
+    public TextField tfNeighbour;
     @FXML
-    private TextField tfCity;
+    public TextField tfCity;
     @FXML
-    private TextField tfCondo;
+    public TextField tfCondo;
     @FXML
-    private TextField tfApartment;
+    public TextField tfApartment;
     @FXML
-    private TextField tfBlockCondo;
+    public TextField tfBlockCondo;
     @FXML
-    private Button btnSave;
+    public Button btnSave;
     @FXML
-    private Button btnDelete;
+    public Button btnDelete;
 
     private Property property;
     private final PropertyDAO propertyDAO = new PropertyDAO();
 
     public void initializeScreen(Property property) {
         this.property = property;
+        initTextFields(property);
+        initDisabled();
+    }
 
+    public void initTextFields(Property property) {
         tfStreet.setText(property.getStreet());
         tfNumber.setText((property.getPropertyNumber()));
         tfNeighbour.setText(property.getNeighbour());
@@ -46,8 +50,6 @@ public class EditPropertyController {
         tfCondo.setText(property.getCondo());
         tfApartment.setText(property.getApartment());
         tfBlockCondo.setText(property.getBlockCondo());
-
-        initDisabled();
     }
 
     @FXML
