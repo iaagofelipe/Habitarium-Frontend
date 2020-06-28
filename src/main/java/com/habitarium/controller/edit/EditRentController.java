@@ -24,7 +24,6 @@ import main.java.entity.Rent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.CharBuffer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -34,7 +33,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class EditRentController implements Initializable, Reloadable {
-    private final RentDAO rentDAO = new RentDAO();
+
     @FXML
     private TextField tfName;
     @FXML
@@ -72,6 +71,7 @@ public class EditRentController implements Initializable, Reloadable {
     private final String PATTERN_MATCHES_RENT_VALUE = "[0-9,]";
     private final int RENT_VALUE_LENGTH = 10;
     OpenScreens openScreens;
+    private final RentDAO rentDAO = new RentDAO();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -83,17 +83,29 @@ public class EditRentController implements Initializable, Reloadable {
     public void initializeScreen(Rent rent) {
         this.rent = rent;
         this.lessor = rent.getLessor();
-        monthsPaid = rent.getMonthPaidList();
+        this.monthsPaid = rent.getMonthPaidList();
+        initTextFields();
+        setSpPayDay();
+        setDatePickers();
+        setLvMonthPaid();
+    }
 
-        tfName.setText(lessor.getName());
-        tfCpf.setText(lessor.getCpf());
-        tfRg.setText(lessor.getRg());
-        tfTel1.setText(lessor.getTelOne());
-        tfTel2.setText(lessor.getTelTwo());
+    public void setLvMonthPaid() {
+        lvMonthPaid.setItems(FXCollections.observableList(monthsPaid.stream()
+                .filter(MonthPaid::isPaid)
+                .collect(Collectors.toList())));
+    }
 
-        tfProperty.setText(rent.getProperty().toString());
-        tfValue.setText(String.valueOf(rent.getValue()));
+    public void setDatePickers() {
+        dpEntranceDate.valueProperty().setValue(Instant.ofEpochMilli(rent.getEntranceDate().getTime())
+                .atZone(ZoneId.systemDefault()).toLocalDate());
+        dpExitDate.valueProperty().setValue(Instant.ofEpochMilli(rent.getExitDate().getTime())
+                .atZone(ZoneId.systemDefault()).toLocalDate());
+        dpReadjustment.valueProperty().setValue(Instant.ofEpochMilli(rent.getReadjustmentDate().getTime())
+                .atZone(ZoneId.systemDefault()).toLocalDate());
+    }
 
+    public void setSpPayDay() {
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.
                 IntegerSpinnerValueFactory(1, DateUtil.lastDayCurrentMonth(), rent.getPayDay());
         spPayDay.setValueFactory(valueFactory);
@@ -102,17 +114,16 @@ public class EditRentController implements Initializable, Reloadable {
                 spPayDay.getValueFactory().setValue(oldValue);
             }
         });
+    }
 
-        dpEntranceDate.valueProperty().setValue(Instant.ofEpochMilli(rent.getEntranceDate().getTime())
-                .atZone(ZoneId.systemDefault()).toLocalDate());
-        dpExitDate.valueProperty().setValue(Instant.ofEpochMilli(rent.getExitDate().getTime())
-                .atZone(ZoneId.systemDefault()).toLocalDate());
-        dpReadjustment.valueProperty().setValue(Instant.ofEpochMilli(rent.getReadjustmentDate().getTime())
-                .atZone(ZoneId.systemDefault()).toLocalDate());
-
-        lvMonthPaid.setItems(FXCollections.observableList(monthsPaid.stream()
-                .filter(MonthPaid::isPaid)
-                .collect(Collectors.toList())));
+    public void initTextFields() {
+        tfName.setText(lessor.getName());
+        tfCpf.setText(lessor.getCpf());
+        tfRg.setText(lessor.getRg());
+        tfTel1.setText(lessor.getTelOne());
+        tfTel2.setText(lessor.getTelTwo());
+        tfProperty.setText(rent.getProperty().toString());
+        tfValue.setText(String.valueOf(rent.getValue()));
     }
 
     @FXML
@@ -137,19 +148,21 @@ public class EditRentController implements Initializable, Reloadable {
                 rent.setEntranceDate(format.parse(dpEntranceDate.getEditor().getText().trim()));
                 rent.setExitDate(format.parse(dpExitDate.getEditor().getText().trim()));
                 rent.setReadjustmentDate(format.parse(dpReadjustment.getEditor().getText().trim()));
+
+                if (rentController.hasChangedDatesOrValue(oldRent, rent)) {
+                    monthPaidController.deleteAll(rent.getMonthPaidList());
+                    rent.setMonthPaidList(rentController.setMonthsToPay(rent));
+                }
+                rentDAO.update(rent);
+                AlertScreens.alertConfirmation("", "Aluguel Atualizado!");
+
+                Stage stage = (Stage) btnSave.getScene().getWindow();
+                stage.close();
             } catch (ParseException e) {
                 AlertScreens.alertError("Data inválida", "Erro de data");
                 e.printStackTrace();
             }
-            if (rentController.hasChangedDatesOrValue(oldRent, rent)) {
-                monthPaidController.deleteAll(rent.getMonthPaidList());
-                rent.setMonthPaidList(rentController.setMonthsToPay(rent));
-            }
-            rentDAO.update(rent);
-            AlertScreens.alertConfirmation("", "Aluguel Atualizado!");
 
-            Stage stage = (Stage) btnSave.getScene().getWindow();
-            stage.close();
         } else {
             AlertScreens.alertError("Há campos em branco", "Erro ao preencher");
         }
@@ -208,8 +221,6 @@ public class EditRentController implements Initializable, Reloadable {
 
     @Override
     public void reload() {
-        lvMonthPaid.setItems(FXCollections.observableList(monthsPaid.stream()
-                .filter(MonthPaid::isPaid)
-                .collect(Collectors.toList())));
+        setLvMonthPaid();
     }
 }

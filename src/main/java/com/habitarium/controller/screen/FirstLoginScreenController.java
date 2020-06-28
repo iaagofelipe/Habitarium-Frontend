@@ -18,15 +18,15 @@ import java.util.ResourceBundle;
 public class FirstLoginScreenController implements Initializable {
 
     @FXML
-    private TextField tfEmail;
+    public TextField tfEmail;
     @FXML
-    private TextField tfUser;
+    public TextField tfUser;
     @FXML
-    private PasswordField pfPassword;
+    public PasswordField pfPassword;
     @FXML
-    private PasswordField pfPasswordConfirm;
+    public PasswordField pfPasswordConfirm;
     @FXML
-    private Button btnSubmit;
+    public Button btnSubmit;
 
     private User user = null;
     UserDAO userDAO = new UserDAO();

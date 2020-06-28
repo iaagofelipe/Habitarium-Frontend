@@ -199,17 +199,17 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Spinner>
-                  <DatePicker fx:id="datePEntrance" layoutX="10.0" layoutY="213.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                  <DatePicker fx:id="datePEntrance" editable="false" layoutX="10.0" layoutY="213.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" showWeekNumbers="true" style="-fx-background-color: white; -fx-background-radius: 5px;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </DatePicker>
-                  <DatePicker fx:id="datePExit" layoutX="188.0" layoutY="213.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                  <DatePicker fx:id="datePExit" editable="false" layoutX="188.0" layoutY="213.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" showWeekNumbers="true" style="-fx-background-color: white; -fx-background-radius: 5px;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </DatePicker>
-                  <DatePicker fx:id="datePReadjustment" layoutX="10.0" layoutY="277.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                  <DatePicker fx:id="datePReadjustment" editable="false" layoutX="10.0" layoutY="277.0" prefHeight="26.0" prefWidth="136.0" promptText="__/__/____" showWeekNumbers="true" style="-fx-background-color: white; -fx-background-radius: 5px;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

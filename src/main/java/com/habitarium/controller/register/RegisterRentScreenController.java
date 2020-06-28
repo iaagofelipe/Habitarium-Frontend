@@ -27,33 +27,33 @@ import java.util.ResourceBundle;
 public class RegisterRentScreenController implements Initializable {
 
     @FXML
-    private TextField txtName;
+    public TextField txtName;
     @FXML
-    private DatePicker datePBorn;
+    public DatePicker datePBorn;
     @FXML
-    private TextField txtCpf;
+    public TextField txtCpf;
     @FXML
-    private TextField txtRg;
+    public TextField txtRg;
     @FXML
-    private TextField txtTel1;
+    public TextField txtTel1;
     @FXML
-    private TextField txtTel2;
+    public TextField txtTel2;
     @FXML
-    private ComboBox<Gender> cbGender;
+    public ComboBox<Gender> cbGender;
     @FXML
-    private ComboBox<Property> cbProperty;
+    public ComboBox<Property> cbProperty;
     @FXML
-    private TextField txtRentValue;
+    public TextField txtRentValue;
     @FXML
-    private Spinner<Integer> spPayDay;
+    public Spinner<Integer> spPayDay;
     @FXML
-    private DatePicker datePEntrance;
+    public DatePicker datePEntrance;
     @FXML
-    private DatePicker datePExit;
+    public DatePicker datePExit;
     @FXML
-    private DatePicker datePReadjustment;
+    public DatePicker datePReadjustment;
     @FXML
-    private Button btnSave;
+    public Button btnSave;
 
     private final String PATTERN_MATCHES_NUMBERS = "[0-9]";
     private final String PATTERN_MATCHES_RG = "[0-9]";
@@ -133,14 +133,14 @@ public class RegisterRentScreenController implements Initializable {
         }
     }
 
-    private void setSpinner() {
+    public void setSpinner() {
         int initialValue = 5;
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.
                 IntegerSpinnerValueFactory(1, DateUtil.lastDayCurrentMonth(), initialValue);
         spPayDay.setValueFactory(valueFactory);
     }
 
-    private void setComboBox() {
+    public void setComboBox() {
         ObservableList<Gender> list = FXCollections.observableArrayList(Gender.MALE, Gender.FEMALE, Gender.OTHERS);
         cbGender.setItems(FXCollections.observableList(list));
     }
@@ -157,7 +157,7 @@ public class RegisterRentScreenController implements Initializable {
         return cbGender.getSelectionModel().getSelectedIndex() != -1;
     }
 
-    private void setPhoneTextInput() {
+    public void setPhoneTextInput() {
         txtTel1.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_NUMBERS));
         txtTel1.textProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue.length() > TEL_LENGTH) {
@@ -172,7 +172,7 @@ public class RegisterRentScreenController implements Initializable {
         });
     }
 
-    private void setRGTextInput() {
+    public void setRGTextInput() {
         txtRg.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_RG));
         txtRg.textProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue.length() > RG_LENGTH) {
@@ -181,7 +181,7 @@ public class RegisterRentScreenController implements Initializable {
         });
     }
 
-    private void setCPFTextInput() {
+    public void setCPFTextInput() {
         txtCpf.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_CPF));
         txtCpf.textProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue.length() > CPF_LENGTH) {
@@ -197,7 +197,7 @@ public class RegisterRentScreenController implements Initializable {
         });
     }
 
-    private void setTxtRentValue() {
+    public void setTxtRentValue() {
         txtRentValue.addEventFilter(KeyEvent.KEY_TYPED, getPatternValidation(PATTERN_MATCHES_RENT_VALUE));
         txtRentValue.textProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue.length() > RENT_VALUE_LENGTH) {
@@ -206,7 +206,7 @@ public class RegisterRentScreenController implements Initializable {
         });
     }
 
-    private void setCbPropertyNotRented() {
+    public void setCbPropertyNotRented() {
         try {
             PropertyDAO propertyDAO = new PropertyDAO();
             ObservableList<Property> freeProperties = FXCollections.observableArrayList(propertyDAO.getPropertyNotRented());

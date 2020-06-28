@@ -207,9 +207,9 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <DatePicker fx:id="dpEntranceDate" layoutX="10.0" layoutY="213.0" prefHeight="26.0" prefWidth="120.0" />
-                        <DatePicker fx:id="dpReadjustment" layoutX="10.0" layoutY="277.0" prefHeight="26.0" prefWidth="120.0" />
-                        <DatePicker fx:id="dpExitDate" layoutX="188.0" layoutY="213.0" prefHeight="26.0" prefWidth="120.0" />
+                        <DatePicker fx:id="dpEntranceDate" editable="false" layoutX="10.0" layoutY="213.0" prefHeight="26.0" prefWidth="120.0" showWeekNumbers="true" />
+                        <DatePicker fx:id="dpReadjustment" editable="false" layoutX="10.0" layoutY="277.0" prefHeight="26.0" prefWidth="120.0" showWeekNumbers="true" />
+                        <DatePicker fx:id="dpExitDate" editable="false" layoutX="188.0" layoutY="213.0" prefHeight="26.0" prefWidth="120.0" showWeekNumbers="true" />
                         <Button fx:id="btnMakePayment" layoutX="65.0" layoutY="353.0" mnemonicParsing="false" onAction="#registerPayment" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: ce2812; -fx-background-radius: 1.5em; -fx-border-color: a4200e; -fx-border-radius: 1.5em;" text="Realizar Pagamento" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
