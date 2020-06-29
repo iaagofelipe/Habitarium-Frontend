@@ -1,4 +1,6 @@
 # Habitarium:house_with_garden: :copyright:
+![Icon-Iago-habitarium-01_font_](https://user-images.githubusercontent.com/49647833/86048150-65f06b80-ba26-11ea-921b-af72c29aedbb.jpg)
+
 
 **_HABITARIUM_ é um projeto desenvolvido em JAVA que tem o intuito de desmistificar o gerenciamento de imóveis. Serve para qualquer pessoa que
 tenha um ou vários imóveis e precise marcar data de entrada e saída, reajustes no valor do aluguel, cadastrar o locatário, etc.**
@@ -21,7 +23,7 @@ have one or more properties and need to set an entry and exit date, readjustment
 4. Fizemos o design de interfaces do projeto
 5. Testes unitários
 6. Resolução de bugs e melhorias no projeto
-7. Lançamos a _versão 1.0_
+7. Lançamos a _versão 1.0.0_
 
 ### Construído com :link:
 - [Maven](https://maven.apache.org/) - Gerenciador de dependências
