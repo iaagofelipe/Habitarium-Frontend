@@ -2,9 +2,11 @@ package com.habitarium.utils.screen;
 
 import com.habitarium.App;
 import com.habitarium.controller.search.SearchPropertyScreenController;
+import com.habitarium.utils.Icon;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.entity.Property;
@@ -24,6 +26,7 @@ public class OpenSearchPropertyScreen implements OpenScreens {
             fxmlLoader = new FXMLLoader(url);
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
+            Icon.setIcon(stage, "icon.png");
             stage.setTitle(title);
             stage.setScene(new Scene(root));
             stage.setResizable(false);

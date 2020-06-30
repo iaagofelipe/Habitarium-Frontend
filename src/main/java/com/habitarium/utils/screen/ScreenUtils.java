@@ -1,9 +1,11 @@
 package com.habitarium.utils.screen;
 
 import com.habitarium.App;
+import com.habitarium.utils.Icon;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -12,7 +14,7 @@ import java.net.URL;
 
 public class ScreenUtils {
 
-    private static ScreenUtils screenUtilsIstance;
+    private static ScreenUtils screenUtilsInstance;
     private ScreenUtils() {
     }
 
@@ -24,6 +26,7 @@ public class ScreenUtils {
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
+            Icon.setIcon(stage, "icon.png");
             stage.setTitle(title);
             stage.setScene(new Scene(root));
             stage.setResizable(false);
@@ -33,9 +36,9 @@ public class ScreenUtils {
     }
 
     public static synchronized ScreenUtils getInstance() {
-        if (screenUtilsIstance == null) {
-            screenUtilsIstance = new ScreenUtils();
+        if (screenUtilsInstance == null) {
+            screenUtilsInstance = new ScreenUtils();
         }
-        return screenUtilsIstance;
+        return screenUtilsInstance;
     }
 }

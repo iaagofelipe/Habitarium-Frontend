@@ -2,6 +2,7 @@ package com.habitarium.utils.screen;
 
 import com.habitarium.App;
 import com.habitarium.controller.register.RegisterPaymentController;
+import com.habitarium.utils.Icon;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,6 +28,7 @@ public class OpenRegisterPaymentScreen implements OpenScreens {
             RegisterPaymentController registerPaymentController = fxmlLoader.getController();
             registerPaymentController.initializeScreen(rent);
             Stage stage = new Stage();
+            Icon.setIcon(stage, "icon.png");
             stage.setTitle(title);
             stage.setScene(new Scene(root));
             stage.setResizable(false);

@@ -1,20 +1,19 @@
 package com.habitarium.utils.screen;
 
 import com.habitarium.App;
-import com.habitarium.controller.edit.EditRentController;
 import com.habitarium.controller.screen.FirstLoginScreenController;
+import com.habitarium.utils.Icon;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.java.entity.Rent;
 import main.java.entity.User;
 
 import java.io.IOException;
 import java.net.URL;
 
-public class OpenFirstLoginScreen implements OpenScreens{
+public class OpenFirstLoginScreen implements OpenScreens {
     @Override
     public void loadScreen(String screen, String title, Object object) throws IOException {
         User user = (User) object;
@@ -29,6 +28,7 @@ public class OpenFirstLoginScreen implements OpenScreens{
             FirstLoginScreenController firstLoginScreenController = loader.getController();
             firstLoginScreenController.setUser(user);
             Stage stage = new Stage();
+            Icon.setIcon(stage, "icon.png");
             stage.setTitle(title);
             stage.setScene(new Scene(root));
             stage.setResizable(false);
@@ -39,6 +39,5 @@ public class OpenFirstLoginScreen implements OpenScreens{
 
     @Override
     public void setReload(Reloadable reloadable) {
-        return;
     }
 }
