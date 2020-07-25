@@ -1,15 +1,12 @@
 package com.habitarium.utils.screen;
 
 import com.habitarium.App;
-import com.habitarium.controller.search.SearchPropertyScreenController;
 import com.habitarium.utils.Icon;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.java.entity.Property;
 
 import java.io.IOException;
 import java.net.URL;

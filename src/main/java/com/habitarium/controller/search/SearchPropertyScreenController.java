@@ -1,9 +1,10 @@
 package com.habitarium.controller.search;
 
+import com.habitarium.dao.PropertyDAO;
+import com.habitarium.entity.Property;
 import com.habitarium.utils.screen.OpenEditPropertyScreen;
 import com.habitarium.utils.screen.OpenScreens;
 import com.habitarium.utils.screen.Reloadable;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,9 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import main.java.dao.PropertyDAO;
-import main.java.entity.Property;
-import main.java.entity.Rent;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 

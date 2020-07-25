@@ -1,6 +1,8 @@
 package com.habitarium.controller.screen;
 
 
+import com.habitarium.dao.UserDAO;
+import com.habitarium.entity.User;
 import com.habitarium.utils.screen.AlertScreens;
 import com.habitarium.utils.screen.OpenFirstLoginScreen;
 import com.habitarium.utils.screen.OpenScreens;
@@ -13,8 +15,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import main.java.dao.UserDAO;
-import main.java.entity.User;
 
 import java.io.IOException;
 import java.net.URL;

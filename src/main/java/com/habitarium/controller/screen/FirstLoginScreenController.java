@@ -1,5 +1,7 @@
 package com.habitarium.controller.screen;
 
+import com.habitarium.dao.UserDAO;
+import com.habitarium.entity.User;
 import com.habitarium.utils.screen.AlertScreens;
 import com.habitarium.utils.screen.ScreenUtils;
 import javafx.fxml.FXML;
@@ -7,8 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import main.java.dao.UserDAO;
-import main.java.entity.User;
 
 import java.io.IOException;
 import java.net.URL;

@@ -1,5 +1,7 @@
 package com.habitarium.controller.register;
 
+import com.habitarium.dao.PropertyDAO;
+import com.habitarium.entity.Property;
 import com.habitarium.utils.screen.AlertScreens;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -8,8 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import main.java.dao.PropertyDAO;
-import main.java.entity.Property;
 
 import java.net.URL;
 import java.util.ResourceBundle;

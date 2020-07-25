@@ -1,15 +1,13 @@
 package com.habitarium.controller.edit;
 
+import com.habitarium.dao.PropertyDAO;
+import com.habitarium.entity.Property;
 import com.habitarium.utils.screen.AlertScreens;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.java.dao.PropertyDAO;
-import main.java.entity.Property;
 
 
 public class EditPropertyController {

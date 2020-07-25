@@ -1,5 +1,14 @@
 package com.habitarium.controller.edit;
 
+import com.habitarium.controller.MonthPaidController;
+import com.habitarium.controller.RentController;
+import com.habitarium.dao.LessorDAO;
+import com.habitarium.dao.PropertyDAO;
+import com.habitarium.dao.RentDAO;
+import com.habitarium.entity.Lessor;
+import com.habitarium.entity.MonthPaid;
+import com.habitarium.entity.Property;
+import com.habitarium.entity.Rent;
 import com.habitarium.utils.date.DateUtil;
 import com.habitarium.utils.screen.AlertScreens;
 import com.habitarium.utils.screen.OpenRegisterPaymentScreen;
@@ -12,15 +21,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import main.java.controller.MonthPaidController;
-import main.java.controller.RentController;
-import main.java.dao.LessorDAO;
-import main.java.dao.PropertyDAO;
-import main.java.dao.RentDAO;
-import main.java.entity.Lessor;
-import main.java.entity.MonthPaid;
-import main.java.entity.Property;
-import main.java.entity.Rent;
 
 import java.io.IOException;
 import java.net.URL;
